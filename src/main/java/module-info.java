@@ -10,4 +10,6 @@ module com.example.thementaltheraphyhelthfinal {
                             
     opens com.example.thementaltheraphyhelthfinal to javafx.fxml;
     exports com.example.thementaltheraphyhelthfinal;
+    exports com.example.thementaltheraphyhelthfinal.controller;
+    opens com.example.thementaltheraphyhelthfinal.controller to javafx.fxml;
 }

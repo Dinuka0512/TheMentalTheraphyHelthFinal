@@ -1,4 +1,4 @@
-package com.example.thementaltheraphyhelthfinal;
+package com.example.thementaltheraphyhelthfinal.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
