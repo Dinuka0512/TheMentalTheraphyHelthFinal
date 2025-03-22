@@ -2,7 +2,18 @@ module com.example.thementaltheraphyhelthfinal {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires lombok;
+
+    /*
+    * requires static lombok;
+    * ---->>>>	Lombok is needed at compile-time but
+    *  not required at runtime.
+    *
+    * requires lombok;
+    * ---->>>>	Lombok is needed both at compile-time
+    * and runtime (which is unnecessary and can cause
+    * issues).
+    * */
+    requires static lombok;
 
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
