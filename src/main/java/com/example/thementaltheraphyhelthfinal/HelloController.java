@@ -2,6 +2,7 @@ package com.example.thementaltheraphyhelthfinal;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import lombok.Getter;
 
 public class HelloController {
     @FXML
