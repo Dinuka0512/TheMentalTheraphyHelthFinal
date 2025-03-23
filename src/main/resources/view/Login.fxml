@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.thementaltheraphyhelthfinal.controller.LoginContro"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.LoginContro">
+   <children>
+      <ImageView fitHeight="251.0" fitWidth="409.0" layoutX="55.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/wmremove-transformed-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="535.0" layoutY="59.0" prefHeight="533.0" prefWidth="419.0" style="-fx-background-radius: 20; -fx-background-color: #ced6e3;">
+         <children>
+            <Label layoutX="99.0" layoutY="104.0" prefHeight="31.0" prefWidth="221.0" text="Login to your account " textFill="#1d2b43">
+               <font>
+                  <Font name="Calibri Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField layoutX="59.0" layoutY="197.0" prefHeight="41.0" prefWidth="302.0" promptText="  Emaill address" style="-fx-background-radius: 20;" />
+            <TextField layoutX="59.0" layoutY="293.0" prefHeight="41.0" prefWidth="302.0" promptText="  Password" style="-fx-background-radius: 20;" />
+            <Label layoutX="69.0" layoutY="166.0" prefHeight="31.0" prefWidth="140.0" text="Enter Emaill Address" textFill="#1d2b43">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="262.0" prefHeight="31.0" prefWidth="140.0" text="Enter Password" textFill="#1d2b43">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font>
+            </Label>
+            <Button layoutX="65.0" layoutY="388.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="288.0" style="-fx-background-radius: 10; -fx-background-color: #1d2b43;" text="Sign in" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="145.0" fitWidth="142.0" layoutX="38.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/LogoTxt.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="58.0" layoutY="210.0" prefHeight="49.0" prefWidth="367.0" text="The Serenity Mental Health" textFill="#4f6d9c">
+         <font>
+            <Font name="Calibri Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label layoutX="58.0" layoutY="243.0" prefHeight="31.0" prefWidth="157.0" text="Therapy Center" textFill="#4f6d9c">
+         <font>
+            <Font name="Calibri Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="143.0" prefHeight="87.0" prefWidth="373.0" text="Wellcome to" textFill="#1d2b43">
+         <font>
+            <Font name="Calibri Bold" size="59.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>
