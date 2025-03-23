@@ -1,5 +1,5 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 
-public class HelloController {
+public class LoginContro {
 }

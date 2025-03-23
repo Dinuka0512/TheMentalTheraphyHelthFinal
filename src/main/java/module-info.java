@@ -18,7 +18,10 @@ module com.example.thementaltheraphyhelthfinal {
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     requires java.naming;
-                            
+
+    opens com.example.thementaltheraphyhelthfinal.entities to org.hibernate.orm.core;
+    opens com.example.thementaltheraphyhelthfinal.entities.Associatentities to org.hibernate.orm.core;
+
     opens com.example.thementaltheraphyhelthfinal to javafx.fxml;
     exports com.example.thementaltheraphyhelthfinal;
     exports com.example.thementaltheraphyhelthfinal.controller;

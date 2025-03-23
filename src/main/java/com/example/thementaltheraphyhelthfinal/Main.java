@@ -1,5 +1,6 @@
 package com.example.thementaltheraphyhelthfinal;
 
+import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,5 +20,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+//        FactoryConfig factoryConfig = FactoryConfig.getInstance();
     }
 }
