@@ -10,11 +10,11 @@ public class BOFactory {
         return (boFactory == null)? boFactory = new BOFactory() : boFactory;
     }
 
-    private enum getBoType{
+    public enum getBoType{
         USER
     }
 
-    private SuperBo getBo(getBoType type){
+    public SuperBo getBo(getBoType type){
         switch (type){
             case USER -> {
                 return new UserBoImpl();
