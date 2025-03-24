@@ -19,6 +19,7 @@ public class User {
 
     private String name;
     private String address;
+    private String jobRole;
 
     @Column(unique = true)
     private String email;
