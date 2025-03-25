@@ -6,6 +6,7 @@ import com.example.thementaltheraphyhelthfinal.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+
 public class UserDAOImpl implements UserDAO {
     ///====
     private Session session = FactoryConfig.getInstance().getSession();
@@ -14,9 +15,11 @@ public class UserDAOImpl implements UserDAO {
     public User getUserDetails(String email) {
         User user = null;
         session.beginTransaction();
+
         Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
         query.setParameter("email" , email);
         user = query.uniqueResult();
+
         session.getTransaction().commit();
         return user;
     }

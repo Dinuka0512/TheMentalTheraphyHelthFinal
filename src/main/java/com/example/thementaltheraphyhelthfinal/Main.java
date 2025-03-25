@@ -25,38 +25,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-//        launch();
-
-        FactoryConfig factoryConfig = FactoryConfig.getInstance();
-        Session session = factoryConfig.getSession();
-        Transaction transaction = session.beginTransaction();
-
-        Query<TherapyProgram> query = session.createQuery("FROM TherapyProgram", TherapyProgram.class);
-        List<TherapyProgram> resultList = query.getResultList();
-
-        for (TherapyProgram therapyProgram : resultList){
-            System.out.println(therapyProgram.getProgram_Id());
-            System.out.println();
-        }
-
-        transaction.commit();
-        session.close();
-
-
-        Session session2 = factoryConfig.getSession();
-        Transaction transaction2 = session2.beginTransaction();
-
-        Query<TherapyProgram> query1 = session2.createQuery("FROM TherapyProgram", TherapyProgram.class);
-        List<TherapyProgram> resultList2 = query1.getResultList();
-
-        for (TherapyProgram therapyProgram1 : resultList){
-            System.out.println(therapyProgram1.getProgram_Id());
-            System.out.println();
-        }
-
-        transaction2.commit();
-        session2.close();
-
+        launch();
 
 //        Session session = factoryConfig.getSession();
 //        Transaction transaction = session.beginTransaction();

@@ -5,6 +5,7 @@ import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.UserDAO;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.entities.User;
+import com.example.thementaltheraphyhelthfinal.util.exceptionsPack.CustomEXception;
 
 public class UserBoImpl implements UserBO {
     //===
@@ -13,15 +14,13 @@ public class UserBoImpl implements UserBO {
 
     @Override
     public UserDto getUserDetails(String email) {
-//        User user = userDAO.getUserDetails(email);
-//        return (user != null)? new UserDto(
-//                user.getUser_Id(),
-//                user.getName(),
-//                user.getEmail(),
-//                user.getContact(),
-//                user.getAddress(),
-//                user.getJobRole()
-//        ): null;
+        try {
+            User user = userDAO.getUserDetails(email);
+            CustomEXception.IsNull(user); //HERE CHECK THE EXCEPTION
+            return new UserDto(user.getUser_Id(), user.getName(), user.getAddress(), user.getJobRole(), user.getEmail(), user.getContact());
+        } catch (CustomEXception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

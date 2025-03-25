@@ -1,4 +1,4 @@
-package com.example.thementaltheraphyhelthfinal.util;
+package com.example.thementaltheraphyhelthfinal.util.validationsPack;
 
 public class Validation {
     public static boolean isValidName(String name){
