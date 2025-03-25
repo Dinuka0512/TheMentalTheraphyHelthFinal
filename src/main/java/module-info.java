@@ -1,8 +1,8 @@
 module com.example.thementaltheraphyhelthfinal {
+    requires static lombok;
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires lombok;
 
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
