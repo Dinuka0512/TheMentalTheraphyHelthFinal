@@ -23,6 +23,9 @@ public class DashboardContro implements Initializable {
     private static UserDto userDto;
 
     @FXML
+    private AnchorPane mainBody;
+
+    @FXML
     private Label txtUEmail;
 
     @FXML
@@ -88,6 +91,16 @@ public class DashboardContro implements Initializable {
         }
     }
 
+    public void navigateToFull(String path){
+        try{
+            mainBody.getChildren().clear();
+            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
+            mainBody.getChildren().add(load);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void managePatient(ActionEvent event) {
 
@@ -113,4 +126,13 @@ public class DashboardContro implements Initializable {
 
     }
 
+    @FXML
+    void homeNavigate(MouseEvent event) {
+        navigateToFull("/view/dashboard.fxml");
+    }
+
+    @FXML
+    void logOut(MouseEvent event) {
+        navigateToFull("/view/Login.fxml");
+    }
 }
