@@ -27,6 +27,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
 
+//        FactoryConfig factoryConfig = FactoryConfig.getInstance();
+
 //        Session session = factoryConfig.getSession();
 //        Transaction transaction = session.beginTransaction();
 //        /*

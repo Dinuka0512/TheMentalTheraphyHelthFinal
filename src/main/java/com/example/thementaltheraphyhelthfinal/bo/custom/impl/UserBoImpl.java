@@ -14,13 +14,7 @@ public class UserBoImpl implements UserBO {
 
     @Override
     public UserDto getUserDetails(String email) {
-        try {
             User user = userDAO.getUserDetails(email);
-            CustomEXception.IsNull(user); //HERE CHECK THE EXCEPTION
-            return new UserDto(user.getUser_Id(), user.getName(), user.getAddress(), user.getJobRole(), user.getEmail(), user.getContact());
-        } catch (CustomEXception e) {
-            e.printStackTrace();
-        }
-        return null;
+            return (user != null)? new UserDto(user.getUser_Id(), user.getName(), user.getAddress(), user.getJobRole(), user.getEmail(), user.getContact(), user.getPassword()) : null;
     }
 }
