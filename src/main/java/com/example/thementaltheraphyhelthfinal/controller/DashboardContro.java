@@ -1,6 +1,7 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -86,4 +87,30 @@ public class DashboardContro implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void managePatient(ActionEvent event) {
+
+    }
+
+    @FXML
+    void managePayments(ActionEvent event) {
+
+    }
+
+    @FXML
+    void managePrograms(ActionEvent event) {
+        navigateTo("/view/TheraphyPrograms.fxml");
+    }
+
+    @FXML
+    void manageSessions(ActionEvent event) {
+
+    }
+
+    @FXML
+    void manageTherephist(ActionEvent event) {
+
+    }
+
 }
