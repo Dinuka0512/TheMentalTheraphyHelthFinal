@@ -35,11 +35,11 @@ public class Main extends Application {
         List<TherapyProgram> resultList = query.getResultList();
 
         for (TherapyProgram therapyProgram : resultList){
-            System.out.println(therapyProgram.getProgram_Id());
-            System.out.println(therapyProgram.getName());
-            System.out.println(therapyProgram.getDuration());
-            System.out.println(therapyProgram.getFee());
-            System.out.println("=====");
+//            System.out.println(therapyProgram.getProgram_Id());
+//            System.out.println(therapyProgram.getName());
+//            System.out.println(therapyProgram.getDuration());
+//            System.out.println(therapyProgram.getFee());
+//            System.out.println("=====");
             System.out.println();
         }
 
@@ -54,12 +54,12 @@ public class Main extends Application {
         List<TherapyProgram> resultList2 = query1.getResultList();
 
         for (TherapyProgram therapyProgram1 : resultList){
-            System.out.println(therapyProgram1.getProgram_Id());
-            System.out.println(therapyProgram1.getName());
-            System.out.println(therapyProgram1.getDuration());
-            System.out.println(therapyProgram1.getFee());
-            System.out.println("=====");
-            System.out.println();
+//            System.out.println(therapyProgram1.getProgram_Id());
+//            System.out.println(therapyProgram1.getName());
+//            System.out.println(therapyProgram1.getDuration());
+//            System.out.println(therapyProgram1.getFee());
+//            System.out.println("=====");
+//            System.out.println();
         }
 
         transaction2.commit();
