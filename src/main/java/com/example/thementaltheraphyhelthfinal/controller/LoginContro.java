@@ -22,16 +22,15 @@ public class LoginContro {
     @FXML
     void LogIn(ActionEvent event) {
         //HERE CHECK THE PASSWORD AND EMAIL LOG INTO LOG IN TO THE DASHBOARD
-        System.out.println(txtEmail.getText());
-        UserDto userDto = userBO.getUserDetails(txtEmail.getText());
-        System.out.println(userDto);
-        if(userDto != null){
-            System.out.println(userDto.getUser_Id());
-            System.out.println(userDto.getName());
-            System.out.println(userDto.getContact());
-            System.out.println(userDto.getJobRole());
-        }else{
-            System.out.println("Null");
-        }
+//        UserDto dto = userBO.getUserDetails(txtEmail.getText());
+//        System.out.println(dto);
+//        if(dto != null){
+//            System.out.println(dto.getUser_Id());
+//            System.out.println(dto.getName());
+//            System.out.println(dto.getContact());
+//            System.out.println(dto.getJobRole());
+//        }else{
+//            System.out.println("Null");
+//        }
     }
 }

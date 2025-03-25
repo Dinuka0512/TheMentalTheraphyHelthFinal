@@ -1,19 +1,22 @@
-package com.example.thementaltheraphyhelthfinal.entities;
+package com.example.thementaltheraphyhelthfinal.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Entity
 @Setter
-public class TheraphySession {
+@Getter
+public class TheraphySessionDto {
     @Id
     private String session_Id;
     private String description;
@@ -23,13 +26,13 @@ public class TheraphySession {
 
     @ManyToOne
     @JoinColumn(name = "patient_Id")
-    private Patient patient;
+    private PatientDto patient;
 
     @ManyToOne
     @JoinColumn(name = "therapist_Id")
-    private Therapist therapist;
+    private TherapistDto therapist;
 
     @ManyToOne
     @JoinColumn(name = "program_Id")
-    private TherapyProgram program;
+    private TherapyProgramDto program;
 }

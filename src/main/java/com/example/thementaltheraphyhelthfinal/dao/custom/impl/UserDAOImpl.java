@@ -1,15 +1,10 @@
-package com.example.thementaltheraphyhelthfinal.dao.impl;
+package com.example.thementaltheraphyhelthfinal.dao.custom.impl;
 
 import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import com.example.thementaltheraphyhelthfinal.dao.custom.UserDAO;
 import com.example.thementaltheraphyhelthfinal.entities.User;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     ///====
@@ -17,9 +12,12 @@ public class UserDAOImpl implements UserDAO {
     ///====
     @Override
     public User getUserDetails(String email) {
+        User user = null;
         session.beginTransaction();
-        Query query = session.createNativeQuery("select * from user where email = '" + email +"';");
-
-        return null;
+        Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
+        query.setParameter("email" , email);
+        user = query.uniqueResult();
+        session.getTransaction().commit();
+        return user;
     }
 }

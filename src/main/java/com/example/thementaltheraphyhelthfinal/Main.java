@@ -9,8 +9,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main extends Application {
     @Override
@@ -25,7 +27,45 @@ public class Main extends Application {
     public static void main(String[] args) {
 //        launch();
 
-//        FactoryConfig factoryConfig = FactoryConfig.getInstance();
+        FactoryConfig factoryConfig = FactoryConfig.getInstance();
+        Session session = factoryConfig.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Query<TherapyProgram> query = session.createQuery("FROM TherapyProgram", TherapyProgram.class);
+        List<TherapyProgram> resultList = query.getResultList();
+
+        for (TherapyProgram therapyProgram : resultList){
+            System.out.println(therapyProgram.getProgram_Id());
+            System.out.println(therapyProgram.getName());
+            System.out.println(therapyProgram.getDuration());
+            System.out.println(therapyProgram.getFee());
+            System.out.println("=====");
+            System.out.println();
+        }
+
+        transaction.commit();
+        session.close();
+
+
+        Session session2 = factoryConfig.getSession();
+        Transaction transaction2 = session2.beginTransaction();
+
+        Query<TherapyProgram> query1 = session2.createQuery("FROM TherapyProgram", TherapyProgram.class);
+        List<TherapyProgram> resultList2 = query1.getResultList();
+
+        for (TherapyProgram therapyProgram1 : resultList){
+            System.out.println(therapyProgram1.getProgram_Id());
+            System.out.println(therapyProgram1.getName());
+            System.out.println(therapyProgram1.getDuration());
+            System.out.println(therapyProgram1.getFee());
+            System.out.println("=====");
+            System.out.println();
+        }
+
+        transaction2.commit();
+        session2.close();
+
+
 //        Session session = factoryConfig.getSession();
 //        Transaction transaction = session.beginTransaction();
 //        /*

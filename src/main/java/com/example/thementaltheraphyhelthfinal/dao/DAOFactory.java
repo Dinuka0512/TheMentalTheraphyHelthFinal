@@ -1,6 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.dao;
 
-import com.example.thementaltheraphyhelthfinal.dao.impl.UserDAOImpl;
+import com.example.thementaltheraphyhelthfinal.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;

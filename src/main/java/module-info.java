@@ -13,16 +13,18 @@ module com.example.thementaltheraphyhelthfinal {
     * and runtime (which is unnecessary and can cause
     * issues).
     * */
+//    requires lombok;
     requires static lombok;
 
-    requires org.hibernate.orm.core;
-    requires jakarta.persistence;
     requires java.naming;
+    requires jakarta.persistence;
+    requires org.hibernate.orm.core;
+
+    exports com.example.thementaltheraphyhelthfinal;
 
     opens com.example.thementaltheraphyhelthfinal.entities to org.hibernate.orm.core;
 
     opens com.example.thementaltheraphyhelthfinal to javafx.fxml;
-    exports com.example.thementaltheraphyhelthfinal;
     exports com.example.thementaltheraphyhelthfinal.controller;
     opens com.example.thementaltheraphyhelthfinal.controller to javafx.fxml;
 }

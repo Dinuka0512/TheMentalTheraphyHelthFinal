@@ -1,6 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.bo;
 
-import com.example.thementaltheraphyhelthfinal.bo.impl.UserBoImpl;
+import com.example.thementaltheraphyhelthfinal.bo.custom.impl.UserBoImpl;
 
 public class BOFactory {
     public static BOFactory boFactory;

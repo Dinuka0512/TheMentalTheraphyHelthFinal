@@ -1,6 +1,8 @@
 package com.example.thementaltheraphyhelthfinal.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,17 +23,4 @@ public class PatientDto {
 
     private String address;
     private String contact;
-
-    @ManyToOne
-    @JoinColumn(name = "user_Id")
-    private UserDto user;
-//
-//    @OneToOne(mappedBy = "patient")
-//    private Payment payment;
-//
-//    @ManyToMany(mappedBy = "patients")
-//    private List<TherapyProgram> therapyPrograms;
-//
-//    @OneToMany(mappedBy = "patient")
-//    private List<org.example.entities.Associatentities.sessoins> sessoins;
 }

@@ -1,4 +1,4 @@
-package com.example.thementaltheraphyhelthfinal.bo.impl;
+package com.example.thementaltheraphyhelthfinal.bo.custom.impl;
 
 import com.example.thementaltheraphyhelthfinal.bo.custom.UserBO;
 import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
@@ -13,14 +13,15 @@ public class UserBoImpl implements UserBO {
 
     @Override
     public UserDto getUserDetails(String email) {
-        User user = userDAO.getUserDetails(email);
-        return (user != null)? new UserDto(
-                user.getUser_Id(),
-                user.getName(),
-                user.getEmail(),
-                user.getContact(),
-                user.getAddress(),
-                user.getJobRole()
-        ): null;
+//        User user = userDAO.getUserDetails(email);
+//        return (user != null)? new UserDto(
+//                user.getUser_Id(),
+//                user.getName(),
+//                user.getEmail(),
+//                user.getContact(),
+//                user.getAddress(),
+//                user.getJobRole()
+//        ): null;
+        return null;
     }
 }
