@@ -11,18 +11,14 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class PaymentDto {
-    @Id
     private String Payment_Id;
     private double amount;
     private LocalDate date;
 
-    @OneToOne
-    @JoinColumn(name = "patient_Id")
     private PatientDto patient;
 }

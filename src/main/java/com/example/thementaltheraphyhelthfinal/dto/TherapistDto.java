@@ -8,19 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class TherapistDto {
-    @Id
     private String therapist_Id;
     private String name;
-
-    @Column(unique = true)
     private String email;
-
     private String address;
     private String contact;
 }

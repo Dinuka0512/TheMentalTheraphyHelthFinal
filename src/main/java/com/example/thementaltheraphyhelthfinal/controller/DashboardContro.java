@@ -2,6 +2,7 @@ package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -75,5 +77,13 @@ public class DashboardContro implements Initializable {
         navigationsList.setVisible(false);
     }
 
-
+    public void navigateTo(String path){
+        try{
+            Body.getChildren().clear();
+            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
+            Body.getChildren().add(load);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

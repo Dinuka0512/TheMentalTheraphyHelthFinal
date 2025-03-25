@@ -1,7 +1,5 @@
-package com.example.thementaltheraphyhelthfinal.dto;
+package com.example.thementaltheraphyhelthfinal.dto.tm;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TherapyProgramDto {
+public class TheraphyProgramTm {
     private String program_Id;
     private String name;
     private String duration;
