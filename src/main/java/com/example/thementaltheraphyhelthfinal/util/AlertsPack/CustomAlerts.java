@@ -17,6 +17,6 @@ public class CustomAlerts extends Alert {
     }
 
     public static void EmailNotFound(){
-        new CustomAlerts(AlertType.WARNING,"The Acount has not found \n Something Went Wrong").show();
+        new CustomAlerts(AlertType.WARNING,"This Email Account is not found \nSomething Went Wrong").show();
     }
 }

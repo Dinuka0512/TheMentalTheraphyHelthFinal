@@ -8,12 +8,20 @@ import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import com.example.thementaltheraphyhelthfinal.util.exceptionsPack.CustomEXception;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class LoginContro {
     //====
     private UserBO userBO = (UserBO) BOFactory.getInstance().getBo(BOFactory.getBoType.USER);
     //====
+
+
+    @FXML
+    private AnchorPane mainAnch;
 
     @FXML
     private TextField txtEmail;
@@ -48,6 +56,12 @@ public class LoginContro {
     }
 
     private void navigateToDashbord() {
-
+        try {
+            mainAnch.getChildren().clear();
+            AnchorPane load = FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"));
+            mainAnch.getChildren().add(load);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

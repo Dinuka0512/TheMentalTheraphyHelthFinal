@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.DashboardContro">
+<AnchorPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.DashboardContro">
    <children>
       <AnchorPane prefHeight="650.0" prefWidth="67.0" style="-fx-background-color: #7575758C;">
          <children>
@@ -60,14 +60,17 @@
          </children></AnchorPane>
       <AnchorPane prefHeight="104.0" prefWidth="1000.0" style="-fx-background-color: #8094b3;">
          <children>
-            <Label layoutX="773.0" layoutY="33.0" text="Sample@User name" textAlignment="RIGHT" textFill="#ced6e3" />
-            <Label layoutX="761.0" layoutY="52.0" text="Sample Email Address" textAlignment="RIGHT" textFill="#ced6e3" />
+            <Label fx:id="txtUName" alignment="TOP_RIGHT" layoutX="696.0" layoutY="24.0" prefHeight="20.0" prefWidth="221.0" text="Sample@User name" textAlignment="JUSTIFY" textFill="#ececec" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Label fx:id="txtUEmail" alignment="TOP_RIGHT" layoutX="695.0" layoutY="43.0" prefHeight="18.0" prefWidth="222.0" text="Sample Email Address" textAlignment="RIGHT" textFill="#ececec" wrapText="true" />
             <ImageView fitHeight="49.0" fitWidth="50.0" layoutX="918.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/Navigation%20images/user.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="34.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="31.0" fitWidth="36.0" layoutX="34.0" layoutY="35.0" onMouseClicked="#openNav" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/menu.png" />
                </image>
@@ -97,10 +100,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </AnchorPane>
+            <Label fx:id="txtUJob" alignment="TOP_RIGHT" layoutX="694.0" layoutY="59.0" prefHeight="18.0" prefWidth="222.0" text="Sample Job Rolle" textAlignment="JUSTIFY" textFill="#ececec" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="88.0" layoutY="104.0" prefHeight="546.0" prefWidth="911.0" style="-fx-background-color: yellow;" />
-      <AnchorPane layoutX="88.0" layoutY="104.0" prefHeight="546.0" prefWidth="157.0" style="-fx-background-color: #7575758C;" visible="false">
+      <AnchorPane fx:id="Body" layoutX="88.0" layoutY="104.0" onMouseClicked="#bodyClick" prefHeight="546.0" prefWidth="911.0" style="-fx-background-color: #EFF4F7;" />
+      <AnchorPane fx:id="navigationsList" layoutX="88.0" layoutY="104.0" prefHeight="546.0" prefWidth="119.0" style="-fx-background-color: #7575758C;" visible="false">
          <children>
             <Label layoutX="2.0" layoutY="50.0" text="Therapist" textFill="WHITE" />
             <Label layoutX="2.0" layoutY="163.0" text="Patient" textFill="WHITE" />
