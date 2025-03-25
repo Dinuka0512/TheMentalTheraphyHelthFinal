@@ -6,5 +6,6 @@ import com.example.thementaltheraphyhelthfinal.dto.tm.TheraphyProgramTm;
 import java.util.ArrayList;
 
 public interface TheraphyProgramBO extends SuperBo {
-    public ArrayList<TheraphyProgramTm> loadTable();
+    ArrayList<TheraphyProgramTm> loadTable();
+    ArrayList<TheraphyProgramTm> searchFromTable(String name);
 }

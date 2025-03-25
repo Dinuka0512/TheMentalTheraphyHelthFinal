@@ -70,13 +70,24 @@ public class TheraphyProgramsContro implements Initializable {
         btnSearchClose.setVisible(true);
 
         //HERE SEARCH
+        ArrayList<TheraphyProgramTm> tmsList = theraphyProgramBO.searchFromTable(txtSearch.getText());
+        ObservableList<TheraphyProgramTm> observableList = FXCollections.observableArrayList();
+        for(TheraphyProgramTm theraphyProgramTm : tmsList){
+            observableList.add(theraphyProgramTm);
+        }
 
+        tblSearch.setItems(observableList);
     }
 
     @FXML
     void closeSearchAnchor(ActionEvent event) {
         anchSearchView.setVisible(false);
         btnSearchClose.setVisible(false);
+
+        txtSearch.setText("");
+        txtSearch.setPromptText("search");
+
+        tblSearch.setItems(null);
     }
 
     @Override

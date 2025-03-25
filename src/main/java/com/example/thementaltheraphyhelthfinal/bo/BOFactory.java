@@ -1,6 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.bo;
 
-import com.example.thementaltheraphyhelthfinal.bo.custom.impl.TherapgyTheraphyProgramBOImpl;
+import com.example.thementaltheraphyhelthfinal.bo.custom.impl.TheraphyProgramBOImpl;
 import com.example.thementaltheraphyhelthfinal.bo.custom.impl.UserBoImpl;
 
 public class BOFactory {
@@ -21,7 +21,7 @@ public class BOFactory {
                 return new UserBoImpl();
             }
             case PROGRAM -> {
-                return new TherapgyTheraphyProgramBOImpl();
+                return new TheraphyProgramBOImpl();
             }
             default -> {
                 return null;

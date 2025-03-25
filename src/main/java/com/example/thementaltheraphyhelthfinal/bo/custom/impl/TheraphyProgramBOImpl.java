@@ -8,7 +8,7 @@ import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 
 import java.util.ArrayList;
 
-public class TherapgyTheraphyProgramBOImpl implements TheraphyProgramBO {
+public class TheraphyProgramBOImpl implements TheraphyProgramBO {
 
     private TheraphyProgramDAO therapyProgramDAO = (TheraphyProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.getDAOType.PROGRAM);
 
@@ -17,7 +17,7 @@ public class TherapgyTheraphyProgramBOImpl implements TheraphyProgramBO {
         ArrayList<TherapyProgram> therapyPrograms = therapyProgramDAO.getAll();
         ArrayList<TheraphyProgramTm> theraphyProgramTms = new ArrayList<>();
 
-        if(therapyPrograms != null){
+        if(!therapyPrograms.isEmpty()){
             for (TherapyProgram therapyProgram : therapyPrograms){
                 TheraphyProgramTm theraphyProgramTm = new TheraphyProgramTm(
                         therapyProgram.getProgram_Id(),
@@ -31,4 +31,27 @@ public class TherapgyTheraphyProgramBOImpl implements TheraphyProgramBO {
         }
         return theraphyProgramTms;
     }
+
+    @Override
+    public ArrayList<TheraphyProgramTm> searchFromTable(String name) {
+        ArrayList<TheraphyProgramTm> arrayList = new ArrayList<>();
+        ArrayList<TherapyProgram> programs = therapyProgramDAO.searchFromTable(name);
+
+        if(!programs.isEmpty()){
+            for (TherapyProgram therapyProgram : programs){
+                TheraphyProgramTm theraphyProgramTm = new TheraphyProgramTm(
+                        therapyProgram.getProgram_Id(),
+                        therapyProgram.getName(),
+                        therapyProgram.getDuration(),
+                        therapyProgram.getFee()
+                );
+
+                arrayList.add(theraphyProgramTm);
+            }
+        }
+
+        return arrayList;
+    }
+
+
 }

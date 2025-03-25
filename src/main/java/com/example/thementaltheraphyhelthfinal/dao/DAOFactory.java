@@ -1,6 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.dao;
 
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.TheraphyTheraphyProgramDAOImpl;
+import com.example.thementaltheraphyhelthfinal.dao.custom.impl.TheraphyProgramDAOImpl;
 import com.example.thementaltheraphyhelthfinal.dao.custom.impl.UserDAOImpl;
 
 public class DAOFactory {
@@ -21,7 +21,7 @@ public class DAOFactory {
                 return new UserDAOImpl();
             }
             case PROGRAM -> {
-                return new TheraphyTheraphyProgramDAOImpl();
+                return new TheraphyProgramDAOImpl();
             }
             default -> {
                 return null;
