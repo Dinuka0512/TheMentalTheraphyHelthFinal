@@ -21,17 +21,4 @@ public class Patient {
 
     private String address;
     private String contact;
-
-    @ManyToOne
-    @JoinColumn(name = "user_Id")
-    private User user;
-//
-//    @OneToOne(mappedBy = "patient")
-//    private Payment payment;
-//
-//    @ManyToMany(mappedBy = "patients")
-//    private List<TherapyProgram> therapyPrograms;
-//
-//    @OneToMany(mappedBy = "patient")
-//    private List<org.example.entities.Associatentities.sessoins> sessoins;
 }

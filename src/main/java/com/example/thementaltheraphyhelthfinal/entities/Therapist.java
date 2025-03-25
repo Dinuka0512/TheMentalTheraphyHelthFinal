@@ -26,10 +26,4 @@ public class Therapist {
 
     private String address;
     private String contact;
-
-    @ManyToMany
-    private List<TherapyProgram> therapyPrograms;
-
-//    @OneToMany(mappedBy = "therapist")
-//    private List<sessoins> sessions;
 }

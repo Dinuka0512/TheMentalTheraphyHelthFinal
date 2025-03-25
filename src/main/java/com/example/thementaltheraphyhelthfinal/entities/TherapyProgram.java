@@ -21,10 +21,4 @@ public class TherapyProgram {
     private String name;
     private String duration;
     private double fee;
-
-    @ManyToMany
-    private List<Patient> patients;
-
-//    @ManyToMany(mappedBy = "therapyPrograms")
-//    private List<Therapist> therapists;
 }

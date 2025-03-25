@@ -25,7 +25,4 @@ public class User {
     private String email;
 
     private String contact;
-
-//    @OneToMany(mappedBy = "user")
-//    private List<Patient> patients;
 }

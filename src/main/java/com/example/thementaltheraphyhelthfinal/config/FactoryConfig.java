@@ -2,7 +2,6 @@ package com.example.thementaltheraphyhelthfinal.config;
 
 
 import com.example.thementaltheraphyhelthfinal.entities.*;
-import com.example.thementaltheraphyhelthfinal.entities.Associatentities.Sessoins;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -20,7 +19,7 @@ public class FactoryConfig {
         configuration.addAnnotatedClass(Payment.class);
         configuration.addAnnotatedClass(TherapyProgram.class);
         configuration.addAnnotatedClass(Therapist.class);
-        configuration.addAnnotatedClass(Sessoins.class);
+        configuration.addAnnotatedClass(TheraphySession.class);
 
         sessionFactory = configuration.buildSessionFactory();
     }
