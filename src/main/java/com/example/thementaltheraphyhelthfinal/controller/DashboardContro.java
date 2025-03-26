@@ -81,24 +81,9 @@ public class DashboardContro implements Initializable {
         navigationsList.setVisible(false);
     }
 
-    public void navigateTo(String path){
-        try{
-            Body.getChildren().clear();
-            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
-            Body.getChildren().add(load);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void navigateToFull(String path){
-        try{
-            mainBody.getChildren().clear();
-            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
-            mainBody.getChildren().add(load);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+    @FXML
+    void manageUsers(ActionEvent event) {
+        navigateTo("/view/ManageUsers.fxml");
     }
 
     @FXML
@@ -134,5 +119,25 @@ public class DashboardContro implements Initializable {
     @FXML
     void logOut(MouseEvent event) {
         navigateToFull("/view/Login.fxml");
+    }
+
+    public void navigateTo(String path){
+        try{
+            Body.getChildren().clear();
+            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
+            Body.getChildren().add(load);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void navigateToFull(String path){
+        try{
+            mainBody.getChildren().clear();
+            AnchorPane load = FXMLLoader.load(getClass().getResource(path));
+            mainBody.getChildren().add(load);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.thementaltheraphyhelthfinal.dto;
+package com.example.thementaltheraphyhelthfinal.dto.tm;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class UserTm {
     private String user_Id;
     private String name;
     private String address;
     private String jobRole;
     private String email;
     private String contact;
-    private String password;
 }

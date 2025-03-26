@@ -6,6 +6,9 @@ import com.example.thementaltheraphyhelthfinal.entities.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class UserDAOImpl implements UserDAO {
     ///====
@@ -22,5 +25,46 @@ public class UserDAOImpl implements UserDAO {
 
         session.getTransaction().commit();
         return user;
+    }
+
+    @Override
+    public ArrayList<User> getAll() {
+        session.beginTransaction();
+
+        Query<User> queree = session.createQuery("FROM User", User.class);
+        List<User> results = queree.getResultList();
+
+        session.getTransaction().commit();
+        return (ArrayList<User>) results;
+    }
+
+    @Override
+    public boolean save(User dto) {
+        return false;
+    }
+
+    @Override
+    public boolean update(User dto) {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return false;
+    }
+
+    @Override
+    public String generateNewId() {
+        return null;
+    }
+
+    @Override
+    public User search(String id) {
+        return null;
     }
 }
