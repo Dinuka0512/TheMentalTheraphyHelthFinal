@@ -78,7 +78,7 @@ public class ManageTheraphyProgramsContro implements Initializable {
     }
 
     private void genarateIDS() {
-
+        lblProID.setText(theraphyProgramBO.generateNewId());
     }
 
     private void loadTable() {

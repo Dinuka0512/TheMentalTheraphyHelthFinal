@@ -72,6 +72,24 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
     }
 
     @Override
+    public String generateNewId(){
+        session.beginTransaction();
+        NativeQuery<TherapyProgram> queree = session.createNativeQuery("SELECT * FROM TherapyProgram GROUP BY program_Id DESC LIMIT 1", TherapyProgram.class);
+        TherapyProgram therapyProgram = queree.uniqueResult();
+        session.getTransaction().commit();
+
+        if(therapyProgram != null){
+            String id = therapyProgram.getProgram_Id(); //MT001
+            String subString = id.substring(2); //001
+            int i =  Integer.parseInt(subString); //1
+            int newIndex = i + 1;
+            return String.format("MT%02d",newIndex);
+        }else {
+            return "MT001";
+        }
+    }
+
+    @Override
     public boolean save(TherapyProgram dto){
         return false;
     }
@@ -89,11 +107,6 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
     @Override
     public boolean delete(String id){
         return false;
-    }
-
-    @Override
-    public String generateNewId(){
-        return null;
     }
 
     @Override

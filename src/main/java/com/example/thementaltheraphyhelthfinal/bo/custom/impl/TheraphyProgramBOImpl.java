@@ -53,5 +53,10 @@ public class TheraphyProgramBOImpl implements TheraphyProgramBO {
         return arrayList;
     }
 
+    @Override
+    public String generateNewId() {
+        return therapyProgramDAO.generateNewId();
+    }
+
 
 }

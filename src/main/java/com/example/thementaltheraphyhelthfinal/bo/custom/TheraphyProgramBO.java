@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface TheraphyProgramBO extends SuperBo {
     ArrayList<TheraphyProgramTm> loadTable();
     ArrayList<TheraphyProgramTm> searchFromTable(String name);
+    public String generateNewId();
 }
