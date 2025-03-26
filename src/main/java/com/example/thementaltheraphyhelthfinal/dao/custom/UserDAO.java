@@ -6,4 +6,5 @@ import com.example.thementaltheraphyhelthfinal.entities.User;
 
 public interface UserDAO extends SuperDAO, CrudDAO<User> {
     User getUserDetails(String email);
+    boolean isUniqueEmail(String email);
 }

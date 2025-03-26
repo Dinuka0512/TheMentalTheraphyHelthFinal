@@ -19,4 +19,33 @@ public class CustomAlerts extends Alert {
     public static void EmailNotFound(){
         new CustomAlerts(AlertType.WARNING,"This Email Account is not found \nSomething Went Wrong").show();
     }
+
+    public static void isNotValidName(){
+        new CustomAlerts(AlertType.WARNING,"Name must contain only letters and valid symbols.\nIts Cannot be Null Ex (Names, Addresses)").show();
+    }
+
+    public static void isNotValidEmail(){
+        new CustomAlerts(AlertType.WARNING,"Please enter a valid email address.\n(e.g., example@gmail.com).").show();
+    }
+
+    public static void isNotValidPassword(){
+        new CustomAlerts(AlertType.WARNING,"Password must be between 4 to 30 characters,\ncontaining only letters and numbers.").show();
+    }
+
+    public static void isNotValidMobileNumber(){
+        new CustomAlerts(AlertType.WARNING,"Enter a valid Sri Lankan mobile number (e.g., 0712345678).").show();
+    }
+
+    //SUCCSESS
+    public static void saved(){
+        new CustomAlerts(AlertType.CONFIRMATION,"Saved Successfully").show();
+    }
+
+    public static void update(){
+        new CustomAlerts(AlertType.CONFIRMATION,"Updated Successfully").show();
+    }
+
+    public static void delete(){
+        new CustomAlerts(AlertType.CONFIRMATION,"Deleted").show();
+    }
 }

@@ -28,6 +28,16 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public boolean isUniqueEmail(String email) {
+        session.beginTransaction();
+        Query<User> query = session.createQuery("FROM User where email = :email", User.class);
+        query.setParameter("email", email);
+        User user = query.uniqueResult();
+        session.getTransaction().commit();
+        return (user == null)? true : false;
+    }
+
+    @Override
     public ArrayList<User> getAll() {
         session.beginTransaction();
 
@@ -40,7 +50,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean save(User dto) {
-        return false;
+        session.beginTransaction();
+        session.persist(dto);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override

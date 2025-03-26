@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @ToString
 public class UserTm {
-    private String user_Id;
+    private int user_Id;
     private String name;
     private String address;
     private String jobRole;

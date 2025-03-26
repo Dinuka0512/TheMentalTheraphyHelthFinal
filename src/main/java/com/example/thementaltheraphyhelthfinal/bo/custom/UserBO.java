@@ -9,4 +9,6 @@ import java.util.ArrayList;
 public interface UserBO extends SuperBo {
     UserDto getUserDetails(String email);
     ArrayList<UserDto> loadTable();
+    boolean saveUser(UserDto user);
+    boolean isUniqueEmail(String email);
 }

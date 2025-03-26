@@ -34,16 +34,16 @@
       </TableView>
       <AnchorPane layoutX="624.0" layoutY="11.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">
          <children>
-            <Label layoutX="23.0" layoutY="51.0" text="Name" textFill="WHITE" />
-            <TextField fx:id="txtName" layoutX="23.0" layoutY="70.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="110.0" text="Address" textFill="WHITE" />
-            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="129.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="174.0" text="Email" textFill="WHITE" />
-            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="193.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="238.0" text="Contact" textFill="WHITE" />
-            <TextField fx:id="txtContact" layoutX="23.0" layoutY="257.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
-            <Label layoutX="24.0" layoutY="310.0" text="Job Role" textFill="WHITE" />
-            <ComboBox fx:id="JobRolleCombo" layoutX="24.0" layoutY="329.0" prefHeight="34.0" prefWidth="242.0" promptText="Select The User Rolle">
+            <Label layoutX="23.0" layoutY="27.0" text="Name" textFill="WHITE" />
+            <TextField fx:id="txtName" layoutX="23.0" layoutY="46.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="84.0" text="Address" textFill="WHITE" />
+            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="103.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="141.0" text="Email" textFill="WHITE" />
+            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="160.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="200.0" text="Contact" textFill="WHITE" />
+            <TextField fx:id="txtContact" layoutX="23.0" layoutY="219.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
+            <Label layoutX="24.0" layoutY="325.0" text="Job Role" textFill="WHITE" />
+            <ComboBox fx:id="JobRolleCombo" layoutX="24.0" layoutY="344.0" prefHeight="34.0" prefWidth="242.0" promptText="Select The User Rolle">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -68,6 +68,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <PasswordField fx:id="txtPw" layoutX="24.0" layoutY="280.0" prefHeight="34.0" prefWidth="242.0" promptText="Password" style="-fx-background-radius: 5;" />
+            <Label layoutX="24.0" layoutY="260.0" text="Password" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

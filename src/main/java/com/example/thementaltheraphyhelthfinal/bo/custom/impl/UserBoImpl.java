@@ -5,6 +5,7 @@ import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.UserDAO;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.entities.User;
+import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import com.example.thementaltheraphyhelthfinal.util.exceptionsPack.CustomEXception;
 
 import java.util.ArrayList;
@@ -40,5 +41,19 @@ public class UserBoImpl implements UserBO {
         }
 
         return dtoLists;
+    }
+
+    @Override
+    public boolean saveUser(UserDto user) {
+        if(userDAO.save(new User(user.getUser_Id(), user.getName(), user.getAddress(), user.getJobRole(), user.getEmail(), user.getContact(), user.getPassword()))){
+            CustomAlerts.saved();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isUniqueEmail(String email) {
+        return userDAO.isUniqueEmail(email);
     }
 }

@@ -4,6 +4,9 @@ import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.UserBO;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.UserTm;
+import com.example.thementaltheraphyhelthfinal.entities.User;
+import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
+import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,8 +64,60 @@ public class ManageUsersContro implements Initializable {
     private Button btnReset;
 
     @FXML
-    void save(ActionEvent event) {
+    private PasswordField txtPw;
 
+    @FXML
+    void save(ActionEvent event) {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidName(txtAddress.getText())){
+                if(Validation.isValidEmail(txtEmail.getText())){
+                    //HERE CHECK IS EMAIL UNIQUE
+                    isUniqueEmail();
+                    if(Validation.isValidMobileNumber(txtContact.getText())){
+                        if(Validation.isValidPassword(txtPw.getText())){
+                            if(!JobRolleCombo.getSelectionModel().isEmpty()){
+                                saveUser();
+                            }else{
+                                new Alert(Alert.AlertType.WARNING, "please Select The User Job role").show();
+                            }
+                        }else{
+                            CustomAlerts.InvalidPassword();
+                        }
+                    }else{
+                        CustomAlerts.isNotValidMobileNumber();
+                    }
+                }else {
+                    CustomAlerts.isNotValidEmail();
+                }
+            }else {
+                CustomAlerts.isNotValidName();
+            }
+        }else{
+            CustomAlerts.isNotValidName();
+        }
+    }
+
+    private void isUniqueEmail() {
+        if(!userBO.isUniqueEmail(txtEmail.getText())){
+            //THE EMAIL IS NOT UNIQUE
+            new Alert(Alert.AlertType.ERROR, "This Email has already exists").show();
+        }
+
+    }
+
+    private void saveUser() {
+        UserDto user = new UserDto();
+        user.setName(txtName.getText());
+        user.setEmail(txtEmail.getText());
+        user.setContact(txtContact.getText());
+        user.setAddress(txtAddress.getText());
+        user.setJobRole(JobRolleCombo.getValue());
+        user.setPassword(txtPw.getText());
+
+        if(userBO.saveUser(user)){
+            loadTable();
+            pageReset();
+        }
     }
 
     @FXML
@@ -77,15 +132,21 @@ public class ManageUsersContro implements Initializable {
 
     @FXML
     void reset(ActionEvent event) {
+        pageReset();
+    }
+
+    private void pageReset() {
         txtAddress.setText("");
         txtEmail.setText("");
         txtName.setText("");
         txtContact.setText("");
+        txtPw.setText("");
 
         txtName.setPromptText("Name");
         txtAddress.setPromptText("Address");
         txtContact.setPromptText("Contact");
         txtEmail.setPromptText("Email");
+        txtPw.setPromptText("Password");
 
         JobRolleCombo.setValue("");
         JobRolleCombo.setPromptText("Select The User Rolle");
@@ -123,7 +184,6 @@ public class ManageUsersContro implements Initializable {
                     userDto.getEmail()
                     );
 
-            System.out.println(userTm.toString());
             observableList.add(userTm);
         }
 
