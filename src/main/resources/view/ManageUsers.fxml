@@ -24,12 +24,12 @@
       </Label>
       <TableView fx:id="tblUsers" layoutX="24.0" layoutY="58.0" prefHeight="460.0" prefWidth="592.0">
         <columns>
-          <TableColumn fx:id="colUserId" prefWidth="82.0" text="Patient_ID" />
-          <TableColumn fx:id="colName" prefWidth="94.0" text="Name" />
-            <TableColumn fx:id="colAddress" prefWidth="123.0" text="Address" />
-            <TableColumn fx:id="colEmail" prefWidth="116.0" text="Email" />
-            <TableColumn fx:id="colContact" prefWidth="98.0" text="Contact" />
-            <TableColumn fx:id="colJobRole" prefWidth="86.0" text="Job Role" />
+          <TableColumn fx:id="colUserId" prefWidth="55.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="97.0" text="Name" />
+            <TableColumn fx:id="colAddress" prefWidth="153.0" text="Address" />
+            <TableColumn fx:id="colEmail" prefWidth="125.0" text="Email" />
+            <TableColumn fx:id="colContact" prefWidth="84.0" text="Contact" />
+            <TableColumn fx:id="colJobRole" prefWidth="85.0" text="Job Role" />
         </columns>
       </TableView>
       <AnchorPane layoutX="624.0" layoutY="11.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">

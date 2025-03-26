@@ -118,10 +118,12 @@ public class ManageUsersContro implements Initializable {
                     userDto.getName(),
                     userDto.getAddress(),
                     userDto.getJobRole(),
-                    userDto.getEmail(),
-                    userDto.getContact()
-            );
+                    userDto.getPassword(),
+                    userDto.getContact(),
+                    userDto.getEmail()
+                    );
 
+            System.out.println(userTm.toString());
             observableList.add(userTm);
         }
 
