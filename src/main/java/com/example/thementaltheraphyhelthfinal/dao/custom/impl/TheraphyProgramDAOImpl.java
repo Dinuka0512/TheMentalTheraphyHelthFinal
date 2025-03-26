@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
-    private Session session = FactoryConfig.getInstance().getSession();
+    private final Session session = FactoryConfig.getInstance().getSession();
 
     @Override
     public ArrayList<TherapyProgram> searchFromTable(String name) {
@@ -45,6 +45,7 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
                 }
 
                 if(results2.isEmpty()){
+                    session.getTransaction().rollback();
                     return null;
                 }
             }

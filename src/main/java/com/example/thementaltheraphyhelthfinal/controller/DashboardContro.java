@@ -53,6 +53,19 @@ public class DashboardContro implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setpage();
+        changeViewAsJobRole();
+    }
+
+    private void changeViewAsJobRole() {
+        if(userDto.getJobRole().equals("admin")){
+            btnUserManage.setVisible(true);
+            btnProgramManage.setVisible(true);
+            btnTheraphistManage.setVisible(true);
+        }else{
+            btnUserManage.setVisible(false);
+            btnProgramManage.setVisible(false);
+            btnTheraphistManage.setVisible(false);
+        }
     }
 
     private void setpage() {

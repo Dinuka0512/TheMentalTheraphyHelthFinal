@@ -37,7 +37,7 @@ public class TheraphyProgramBOImpl implements TheraphyProgramBO {
         ArrayList<TheraphyProgramTm> arrayList = new ArrayList<>();
         ArrayList<TherapyProgram> programs = therapyProgramDAO.searchFromTable(name);
 
-        if(!programs.isEmpty()){
+        if(programs!= null){
             for (TherapyProgram therapyProgram : programs){
                 TheraphyProgramTm theraphyProgramTm = new TheraphyProgramTm(
                         therapyProgram.getProgram_Id(),
