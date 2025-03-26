@@ -90,6 +90,17 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
     }
 
     @Override
+    public boolean delete(String id){
+        session.beginTransaction();
+        System.out.println(id);
+        Query query = session.createQuery("DELETE FROM TherapyProgram WHERE program_Id = :id");
+        query.setParameter("id", id);
+        int result = query.executeUpdate();
+        session.getTransaction().commit();
+        return true;
+    }
+
+    @Override
     public boolean save(TherapyProgram dto){
         return false;
     }
@@ -101,11 +112,6 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
 
     @Override
     public boolean exist(String id){
-        return false;
-    }
-
-    @Override
-    public boolean delete(String id){
         return false;
     }
 
