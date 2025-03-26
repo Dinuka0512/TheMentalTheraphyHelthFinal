@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,6 +66,17 @@ public class ManageUsersContro implements Initializable {
 
     @FXML
     private PasswordField txtPw;
+
+    @FXML
+    private Button btnUpdate;
+
+    @FXML
+    private Button btnSave;
+
+    @FXML
+    private Button btnDelete;
+
+    private UserDto user;
 
     @FXML
     void save(ActionEvent event) {
@@ -126,8 +138,46 @@ public class ManageUsersContro implements Initializable {
     }
 
     @FXML
-    void delete(ActionEvent event) {
+    void gettableDetails(MouseEvent event) {
+        pageReset();
+        UserTm selectUser = tblUsers.getSelectionModel().getSelectedItem();
+        if(selectUser != null){
+            //HERE SAVE THE USER DATA
+            user = userBO.getUserDetails(selectUser.getEmail());
 
+            txtName.setText(user.getName());
+            txtAddress.setText(user.getAddress());
+            txtPw.setText(user.getPassword());
+            txtContact.setText(user.getContact());
+            txtEmail.setText(user.getEmail());
+            JobRolleCombo.setValue(user.getJobRole());
+        }
+
+        btnSave.setDisable(true);
+        btnDelete.setDisable(false);
+        btnUpdate.setDisable(false);
+    }
+
+
+    @FXML
+    void delete(ActionEvent event) {
+        if(user != null){
+            Alert alert = new Alert(Alert.AlertType.WARNING,"Do you want to delete ?", ButtonType.YES, ButtonType.NO);
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+
+                    //NEED TO DELETE
+                    if(userBO.delete(user.getUser_Id())){
+                        loadTable();
+                        CustomAlerts.delete();
+                        pageReset();
+                    }
+
+                }
+            });
+        }else{
+            new Alert(Alert.AlertType.WARNING, "First Select & load data to text fields by selecting table rows").show();
+        }
     }
 
     @FXML
@@ -149,7 +199,13 @@ public class ManageUsersContro implements Initializable {
         txtPw.setPromptText("Password");
 
         JobRolleCombo.setValue("");
-        JobRolleCombo.setPromptText("Select The User Rolle");
+        JobRolleCombo.setPromptText("Select The User Role");
+
+        user = null;
+
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
     }
 
     @Override

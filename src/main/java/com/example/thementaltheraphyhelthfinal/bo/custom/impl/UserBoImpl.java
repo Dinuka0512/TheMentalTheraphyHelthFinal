@@ -56,4 +56,14 @@ public class UserBoImpl implements UserBO {
     public boolean isUniqueEmail(String email) {
         return userDAO.isUniqueEmail(email);
     }
+
+    @Override
+    public boolean update(UserDto dto) {
+        return userDAO.update(new User(dto.getUser_Id(), dto.getName(), dto.getAddress(), dto.getJobRole(), dto.getEmail(), dto.getContact(), dto.getPassword()));
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return userDAO.delete(id);
+    }
 }

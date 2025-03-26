@@ -56,6 +56,17 @@ public class UserDAOImpl implements UserDAO {
         return true;
     }
 
+    public boolean delete(int id) {
+        session.beginTransaction();
+
+        Query query = session.createQuery("DELETE FROM User WHERE id = :id");
+        query.setParameter("id", id);
+        int result = query.executeUpdate();
+
+        session.getTransaction().commit();
+        return (result == 1)? true : false;
+    }
+
     @Override
     public boolean update(User dto) {
         return false;
@@ -67,11 +78,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean delete(String id) {
-        return false;
-    }
-
-    @Override
     public String generateNewId() {
         return null;
     }
@@ -79,5 +85,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User search(String id) {
         return null;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return true;
     }
 }

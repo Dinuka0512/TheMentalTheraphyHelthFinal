@@ -22,7 +22,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tblUsers" layoutX="24.0" layoutY="58.0" prefHeight="460.0" prefWidth="592.0">
+      <TableView fx:id="tblUsers" layoutX="24.0" layoutY="58.0" onMouseClicked="#gettableDetails" prefHeight="460.0" prefWidth="592.0">
         <columns>
           <TableColumn fx:id="colUserId" prefWidth="55.0" text="ID" />
           <TableColumn fx:id="colName" prefWidth="97.0" text="Name" />
@@ -48,17 +48,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ComboBox>
-            <Button layoutX="192.0" layoutY="395.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
+            <Button fx:id="btnSave" layoutX="192.0" layoutY="395.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="109.0" layoutY="395.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
+            <Button fx:id="btnUpdate" layoutX="109.0" layoutY="395.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="27.0" layoutY="395.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
+            <Button fx:id="btnDelete" layoutX="27.0" layoutY="395.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
