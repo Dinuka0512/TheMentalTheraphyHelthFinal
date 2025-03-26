@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
     ///====
-    private Session session = FactoryConfig.getInstance().getSession();
+    private final Session session = FactoryConfig.getInstance().getSession();
     ///====
     @Override
     public User getUserDetails(String email) {
@@ -34,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
         query.setParameter("email", email);
         User user = query.uniqueResult();
         session.getTransaction().commit();
-        return (user == null)? true : false;
+        return user == null;
     }
 
     @Override
@@ -64,12 +64,29 @@ public class UserDAOImpl implements UserDAO {
         int result = query.executeUpdate();
 
         session.getTransaction().commit();
-        return (result == 1)? true : false;
+        return result == 1;
+    }
+
+    @Override
+    public boolean isUniqueEmailForUpdate(String email, int id) {
+        session.beginTransaction();
+
+        Query<User> query = session.createQuery("FROM User WHERE email = :email AND user_Id != :id", User.class);
+        query.setParameter("email",email);
+        query.setParameter("id", id);
+
+        User user = query.uniqueResult();
+        session.getTransaction().commit();
+
+        return user == null;
     }
 
     @Override
     public boolean update(User dto) {
-        return false;
+        session.beginTransaction();
+        session.merge(dto);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override

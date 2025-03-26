@@ -66,4 +66,9 @@ public class UserBoImpl implements UserBO {
     public boolean delete(int id) {
         return userDAO.delete(id);
     }
+
+    @Override
+    public boolean isUniqueEmailForUpdate(String email, int id) {
+        return userDAO.isUniqueEmailForUpdate(email ,id);
+    }
 }

@@ -14,4 +14,5 @@ public interface UserBO extends SuperBo {
     boolean isUniqueEmail(String email);
     boolean update(UserDto dto);
     boolean delete(int id);
+    boolean isUniqueEmailForUpdate(String email, int id);
 }

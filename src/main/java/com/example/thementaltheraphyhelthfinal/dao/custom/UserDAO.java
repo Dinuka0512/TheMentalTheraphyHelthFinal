@@ -8,4 +8,5 @@ public interface UserDAO extends SuperDAO, CrudDAO<User> {
     User getUserDetails(String email);
     boolean isUniqueEmail(String email);
     boolean delete(int id) ;
+    boolean isUniqueEmailForUpdate(String email, int id);
 }

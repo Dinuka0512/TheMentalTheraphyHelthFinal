@@ -84,19 +84,22 @@ public class ManageUsersContro implements Initializable {
             if(Validation.isValidName(txtAddress.getText())){
                 if(Validation.isValidEmail(txtEmail.getText())){
                     //HERE CHECK IS EMAIL UNIQUE
-                    isUniqueEmail();
-                    if(Validation.isValidMobileNumber(txtContact.getText())){
-                        if(Validation.isValidPassword(txtPw.getText())){
-                            if(!JobRolleCombo.getSelectionModel().isEmpty()){
-                                saveUser();
+                    if(isUniqueEmail()){
+                        if(Validation.isValidMobileNumber(txtContact.getText())){
+                            if(Validation.isValidPassword(txtPw.getText())){
+                                if(!JobRolleCombo.getSelectionModel().isEmpty()){
+                                    saveUser();
+                                }else{
+                                    new Alert(Alert.AlertType.WARNING, "please Select The User Job role").show();
+                                }
                             }else{
-                                new Alert(Alert.AlertType.WARNING, "please Select The User Job role").show();
+                                CustomAlerts.InvalidPassword();
                             }
                         }else{
-                            CustomAlerts.InvalidPassword();
+                            CustomAlerts.isNotValidMobileNumber();
                         }
-                    }else{
-                        CustomAlerts.isNotValidMobileNumber();
+                    }else {
+                        new Alert(Alert.AlertType.ERROR, "This Email has already exists").show();
                     }
                 }else {
                     CustomAlerts.isNotValidEmail();
@@ -109,12 +112,11 @@ public class ManageUsersContro implements Initializable {
         }
     }
 
-    private void isUniqueEmail() {
+    private boolean isUniqueEmail() {
         if(!userBO.isUniqueEmail(txtEmail.getText())){
-            //THE EMAIL IS NOT UNIQUE
-            new Alert(Alert.AlertType.ERROR, "This Email has already exists").show();
+            return false;
         }
-
+        return true;
     }
 
     private void saveUser() {
@@ -134,6 +136,54 @@ public class ManageUsersContro implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidName(txtAddress.getText())){
+                if(Validation.isValidEmail(txtEmail.getText())){
+                    //HERE CHECK IS EMAIL UNIQUE
+                    if(isUniqueEmailForUpdate()){
+                        if(Validation.isValidMobileNumber(txtContact.getText())){
+                            if(Validation.isValidPassword(txtPw.getText())){
+                                if(!JobRolleCombo.getSelectionModel().isEmpty()){
+                                    updateUser();
+                                }else{
+                                    new Alert(Alert.AlertType.WARNING, "please Select The User Job role").show();
+                                }
+                            }else{
+                                CustomAlerts.InvalidPassword();
+                            }
+                        }else{
+                            CustomAlerts.isNotValidMobileNumber();
+                        }
+                    }else{
+                        new Alert(Alert.AlertType.WARNING, "This Email is Already exists").show();
+                    }
+                }else {
+                    CustomAlerts.isNotValidEmail();
+                }
+            }else {
+                CustomAlerts.isNotValidName();
+            }
+        }else{
+            CustomAlerts.isNotValidName();
+        }
+    }
+
+    private void updateUser() {
+        UserDto user1 = new UserDto();
+        user1.setName(txtName.getText());
+        user1.setPassword(txtPw.getText());
+        user1.setAddress(txtAddress.getText());
+        user1.setEmail(txtEmail.getText());
+        user1.setContact(txtContact.getText());
+        user1.setUser_Id(user.getUser_Id());
+
+        user1.setJobRole(JobRolleCombo.getSelectionModel().getSelectedItem());
+
+        if(userBO.update(user1)){
+            loadTable();
+            pageReset();
+            CustomAlerts.update();
+        }
 
     }
 
@@ -151,11 +201,23 @@ public class ManageUsersContro implements Initializable {
             txtContact.setText(user.getContact());
             txtEmail.setText(user.getEmail());
             JobRolleCombo.setValue(user.getJobRole());
-        }
 
-        btnSave.setDisable(true);
-        btnDelete.setDisable(false);
-        btnUpdate.setDisable(false);
+            btnSave.setDisable(true);
+            btnDelete.setDisable(false);
+            btnUpdate.setDisable(false);
+        }
+    }
+
+    private boolean isUniqueEmailForUpdate() {
+        if(user != null){
+            if(userBO.isUniqueEmailForUpdate(user.getEmail(), user.getUser_Id())){
+                //UNIQUE
+                return true;
+            }
+        }else{
+            new Alert(Alert.AlertType.WARNING, "First Select & load data to text fields by selecting table rows").show();
+        }
+        return false;
     }
 
 
@@ -198,8 +260,7 @@ public class ManageUsersContro implements Initializable {
         txtEmail.setPromptText("Email");
         txtPw.setPromptText("Password");
 
-        JobRolleCombo.setValue("");
-        JobRolleCombo.setPromptText("Select The User Role");
+        JobRolleCombo.setValue("Select The User Role");
 
         user = null;
 
@@ -224,6 +285,11 @@ public class ManageUsersContro implements Initializable {
         colJobRole.setCellValueFactory(new PropertyValueFactory<>("jobRole"));
 
         loadTable();
+
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
+
     }
 
     private void loadTable() {

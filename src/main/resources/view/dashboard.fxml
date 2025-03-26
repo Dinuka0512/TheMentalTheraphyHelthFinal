@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -11,7 +18,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainBody" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.DashboardContro">
+<AnchorPane fx:id="mainBody" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.DashboardContro">
    <children>
       <AnchorPane prefHeight="650.0" prefWidth="40.0" style="-fx-background-color: #757575;">
          <children>
@@ -131,7 +138,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <AnchorPane layoutX="27.0" layoutY="73.0" onMouseClicked="#logOut" prefHeight="458.0" prefWidth="865.0" style="-fx-background-radius: 20; -fx-background-color: white;">
+            <AnchorPane layoutX="27.0" layoutY="73.0" prefHeight="458.0" prefWidth="865.0" style="-fx-background-radius: 20; -fx-background-color: white;">
                <children>
                   <BarChart layoutX="20.0" layoutY="14.0" prefHeight="426.0" prefWidth="506.0">
                     <xAxis>
