@@ -62,6 +62,14 @@ public class TherapistBOimpl implements TherapistBO {
 
     @Override
     public boolean update(TherapistDto dto) {
-        return therapistDAO.update(new Therapist(dto.getTherapist_Id(), dto.getName(), dto.getAddress(), dto.getEmail(), dto.getContact()));
+        return therapistDAO.update(
+                new Therapist(
+                        dto.getTherapist_Id(),
+                        dto.getName(),
+                        dto.getEmail(),
+                        dto.getAddress(),
+                        dto.getContact()
+                )
+        );
     }
 }

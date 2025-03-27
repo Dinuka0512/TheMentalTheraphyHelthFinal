@@ -103,8 +103,6 @@ public class ManageTherapistContro implements Initializable {
             //HERE SAVE THE SELECTED THERAPIST
             therapist = new TherapistTm(dto.getTherapist_Id(), dto.getName(), dto.getEmail(), dto.getAddress(), dto.getContact());
 
-            System.out.println(dto.toString());
-
             lblTherapistId.setText(therapist.getTherapist_Id());
             txtName.setText(therapist.getName());
             txtAddress.setText(therapist.getAddress());
