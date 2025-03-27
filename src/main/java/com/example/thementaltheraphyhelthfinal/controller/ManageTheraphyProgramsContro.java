@@ -139,7 +139,28 @@ public class ManageTheraphyProgramsContro implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidDouble(txtFee.getText())){
+                updateHere();
+            }else{
+                CustomAlerts.isNotValidDouble();
+            }
+        }else{
+            CustomAlerts.isNotValidName();
+        }
+    }
 
+    private void updateHere() {
+        TherapyProgramDto therapyProgramDto = new TherapyProgramDto();
+        therapyProgramDto.setDuration(txtDuration.getText());
+        therapyProgramDto.setFee(Double.parseDouble(txtFee.getText()));
+        therapyProgramDto.setName(txtName.getText());
+        therapyProgramDto.setProgram_Id(lblProID.getText());
+
+        if(theraphyProgramBO.update(therapyProgramDto)){
+            CustomAlerts.update();
+            pageReLoad();
+        }
     }
 
     @FXML

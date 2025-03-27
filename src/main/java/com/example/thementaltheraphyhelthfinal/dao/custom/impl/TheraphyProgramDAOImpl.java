@@ -113,7 +113,7 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
         session.beginTransaction();
         session.merge(dto.getProgram_Id(), dto);
         session.getTransaction().commit();
-        return false;
+        return true;
     }
 
     @Override
