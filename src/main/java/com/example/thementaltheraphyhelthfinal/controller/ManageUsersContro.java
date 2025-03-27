@@ -224,19 +224,14 @@ public class ManageUsersContro implements Initializable {
     @FXML
     void delete(ActionEvent event) {
         if(user != null){
-            Alert alert = new Alert(Alert.AlertType.WARNING,"Do you want to delete ?", ButtonType.YES, ButtonType.NO);
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.YES) {
-
-                    //NEED TO DELETE
-                    if(userBO.delete(user.getUser_Id())){
-                        loadTable();
-                        CustomAlerts.delete();
-                        pageReset();
-                    }
-
+            if(CustomAlerts.doYouWantToDelete()){
+                //NEED TO DELETE
+                if(userBO.delete(user.getUser_Id())){
+                    loadTable();
+                    CustomAlerts.delete();
+                    pageReset();
                 }
-            });
+            }
         }else{
             new Alert(Alert.AlertType.WARNING, "First Select & load data to text fields by selecting table rows").show();
         }

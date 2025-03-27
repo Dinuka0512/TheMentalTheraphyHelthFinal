@@ -31,4 +31,14 @@ public class TherapistBOimpl implements TherapistBO {
     public String genarateID() {
         return therapistDAO.generateNewId();
     }
+
+    @Override
+    public boolean delete(String id) {
+        return therapistDAO.delete(id);
+    }
+
+    @Override
+    public boolean save(TherapistDto dto) {
+        return therapistDAO.save(new Therapist(dto.getTherapist_Id(), dto.getName(), dto.getAddress(), dto.getEmail(), dto.getContact()));
+    }
 }

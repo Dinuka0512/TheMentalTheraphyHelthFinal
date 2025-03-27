@@ -4,6 +4,8 @@ import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapistTm;
+import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
+import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -115,7 +117,7 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
-
+        IsValidSave();
     }
 
     @FXML
@@ -125,7 +127,48 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
+        if(therapist!=null){
+            if(CustomAlerts.doYouWantToDelete()){
+                if(therapistBO.delete(therapist.getTherapist_Id())){
+                    CustomAlerts.delete();
+                    pageReset();
+                }
+            }
+        }
+    }
 
+    public void IsValidSave(){
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidName(txtAddress.getText())){
+                if(Validation.isValidEmail(txtEmail.getText())){
+                    if(Validation.isValidMobileNumber(txtContact.getText())){
+                        saveTherapist();
+                    }else{
+                        CustomAlerts.isNotValidMobileNumber();
+                    }
+                }else{
+                    CustomAlerts.isNotValidEmail();
+                }
+            }else{
+                CustomAlerts.isNotValidName();
+            }
+        }else {
+            CustomAlerts.isNotValidName();
+        }
+    }
+
+    private void saveTherapist() {
+        TherapistDto dto= new TherapistDto();
+        dto.setTherapist_Id(lblTherapistId.getText());
+        dto.setContact(txtContact.getText());
+        dto.setAddress(txtAddress.getText());
+        dto.setEmail(txtEmail.getText());
+        dto.setName(txtName.getText());
+
+        if(therapistBO.save(dto)){
+            CustomAlerts.saved();
+            pageReset();
+        }
     }
 
     @FXML

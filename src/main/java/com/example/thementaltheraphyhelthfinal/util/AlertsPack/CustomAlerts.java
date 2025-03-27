@@ -3,6 +3,8 @@ package com.example.thementaltheraphyhelthfinal.util.AlertsPack;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.util.Optional;
+
 public class CustomAlerts extends Alert {
     public CustomAlerts(AlertType alertType) {
         super(alertType);
@@ -51,5 +53,12 @@ public class CustomAlerts extends Alert {
 
     public static void delete(){
         new CustomAlerts(AlertType.CONFIRMATION,"Deleted").show();
+    }
+
+    //CONFORMATION
+    public static boolean doYouWantToDelete(){
+        Alert alert = new Alert(Alert.AlertType.WARNING,"Do you want to delete ?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.YES;
     }
 }

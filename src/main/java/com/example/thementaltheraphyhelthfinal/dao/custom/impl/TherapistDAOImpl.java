@@ -27,7 +27,7 @@ public class TherapistDAOImpl implements TherapistDAO {
             String subId = oldId.substring(2); //001
             int i = Integer.parseInt(subId); //1
             i = i + 1; //2
-            return String.format("T%02d",i); //T002
+            return String.format("T%03d",i); //T002
         }
         return "T001";
     }

@@ -92,7 +92,6 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
     @Override
     public boolean delete(String id){
         session.beginTransaction();
-        System.out.println(id);
         Query query = session.createQuery("DELETE FROM TherapyProgram WHERE program_Id = :id");
         query.setParameter("id", id);
         int result = query.executeUpdate();
