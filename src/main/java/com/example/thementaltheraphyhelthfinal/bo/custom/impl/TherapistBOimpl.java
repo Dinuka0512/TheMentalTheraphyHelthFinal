@@ -39,7 +39,6 @@ public class TherapistBOimpl implements TherapistBO {
 
     @Override
     public boolean save(TherapistDto dto) {
-        System.out.println(dto.getAddress());
         return therapistDAO.save(
                 new Therapist(
                         dto.getTherapist_Id(),

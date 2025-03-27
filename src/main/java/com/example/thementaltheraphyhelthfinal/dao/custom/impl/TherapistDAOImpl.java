@@ -48,13 +48,6 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public boolean save(Therapist dto) {
         Session session = factoryConfig.getSession();
-
-        System.out.println("Id"+ dto.getTherapist_Id());
-        System.out.println("Name"+ dto.getName());
-        System.out.println("Address"+ dto.getAddress());
-        System.out.println("Contact"+ dto.getContact());
-        System.out.println("Email"+ dto.getEmail());
-
         session.beginTransaction();
         session.persist(dto);
         session.getTransaction().commit();

@@ -211,7 +211,6 @@ public class ManageTherapistContro implements Initializable {
         dto.setEmail(txtEmail.getText());
         dto.setName(txtName.getText());
 
-        System.out.println(dto.getAddress());
 
         if(therapistBO.save(dto)){
             CustomAlerts.saved();
