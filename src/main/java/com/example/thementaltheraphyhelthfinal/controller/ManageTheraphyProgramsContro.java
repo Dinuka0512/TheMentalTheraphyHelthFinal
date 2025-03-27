@@ -2,8 +2,10 @@ package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TheraphyProgramTm;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
+import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -111,7 +113,28 @@ public class ManageTheraphyProgramsContro implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidDouble(txtFee.getText())){
+                saveHere();
+            }else{
+                CustomAlerts.isNotValidDouble();
+            }
+        }else{
+            CustomAlerts.isNotValidName();
+        }
+    }
 
+    private void saveHere() {
+        TherapyProgramDto therapyProgramDto = new TherapyProgramDto();
+        therapyProgramDto.setDuration(txtDuration.getText());
+        therapyProgramDto.setFee(Double.parseDouble(txtFee.getText()));
+        therapyProgramDto.setName(txtName.getText());
+        therapyProgramDto.setProgram_Id(lblProID.getText());
+
+        if(theraphyProgramBO.save(therapyProgramDto)){
+            CustomAlerts.saved();
+            pageReLoad();
+        }
     }
 
     @FXML

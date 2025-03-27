@@ -102,11 +102,17 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
 
     @Override
     public boolean save(TherapyProgram dto){
-        return false;
+        session.beginTransaction();
+        session.persist(dto);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override
     public boolean update(TherapyProgram dto){
+        session.beginTransaction();
+        session.merge(dto.getProgram_Id(), dto);
+        session.getTransaction().commit();
         return false;
     }
 

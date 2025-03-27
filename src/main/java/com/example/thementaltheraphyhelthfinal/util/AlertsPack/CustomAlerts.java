@@ -36,6 +36,10 @@ public class CustomAlerts extends Alert {
         new CustomAlerts(AlertType.WARNING,"Enter a valid Sri Lankan mobile number (e.g., 0712345678).").show();
     }
 
+    public static void isNotValidDouble(){
+        new CustomAlerts(AlertType.WARNING,"You can only enter the numbers \n(ex - 30,30.5) ").show();
+    }
+
     //SUCCSESS
     public static void saved(){
         new CustomAlerts(AlertType.CONFIRMATION,"Saved Successfully").show();

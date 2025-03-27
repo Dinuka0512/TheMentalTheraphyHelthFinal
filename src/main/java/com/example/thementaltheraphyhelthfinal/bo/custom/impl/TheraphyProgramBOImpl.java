@@ -3,6 +3,7 @@ package com.example.thementaltheraphyhelthfinal.bo.custom.impl;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
 import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.TheraphyProgramDAO;
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TheraphyProgramTm;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 
@@ -63,5 +64,13 @@ public class TheraphyProgramBOImpl implements TheraphyProgramBO {
         return therapyProgramDAO.delete(id);
     }
 
+    @Override
+    public boolean update(TherapyProgramDto dto) {
+        return therapyProgramDAO.update(new TherapyProgram(dto.getProgram_Id(), dto.getName(), dto.getDuration(), dto.getFee()));
+    }
 
+    @Override
+    public boolean save(TherapyProgramDto dto) {
+        return therapyProgramDAO.save(new TherapyProgram(dto.getProgram_Id(), dto.getName(), dto.getDuration(), dto.getFee()));
+    }
 }
