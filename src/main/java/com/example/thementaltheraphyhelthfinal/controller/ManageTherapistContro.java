@@ -76,8 +76,8 @@ public class ManageTherapistContro implements Initializable {
         colTheraphistId.setCellValueFactory(new PropertyValueFactory<>("therapist_Id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
 
         pageReset();
     }
@@ -98,16 +98,18 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     void gettableDetails(MouseEvent event) {
-        TherapistTm therapistSelected = tblTheraphist.getSelectionModel().getSelectedItem();
-        if(therapistSelected != null){
+        TherapistTm dto = tblTheraphist.getSelectionModel().getSelectedItem();
+        if(dto != null){
             //HERE SAVE THE SELECTED THERAPIST
-            therapist = new TherapistTm(therapistSelected.getTherapist_Id(),therapistSelected.getName(), therapistSelected.getEmail(),therapistSelected.getAddress(), therapistSelected.getContact());
+            therapist = new TherapistTm(dto.getTherapist_Id(), dto.getName(), dto.getEmail(), dto.getAddress(), dto.getContact());
 
+            System.out.println(dto.toString());
+
+            lblTherapistId.setText(therapist.getTherapist_Id());
+            txtName.setText(therapist.getName());
             txtAddress.setText(therapist.getAddress());
             txtEmail.setText(therapist.getEmail());
             txtContact.setText(therapist.getContact());
-            txtName.setText(therapist.getName());
-            lblTherapistId.setText(therapist.getTherapist_Id());
 
             btnSave.setDisable(true);
             btnDelete.setDisable(false);
@@ -122,14 +124,54 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        isValidUpdate();
+    }
 
+    private void isValidUpdate() {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidName(txtAddress.getText())){
+                if(Validation.isValidEmail(txtEmail.getText())){
+                    if(therapistBO.isValidToUpdate(txtEmail.getText(), lblTherapistId.getText())){
+                        if(Validation.isValidMobileNumber(txtContact.getText())){
+                            updateTherapist();
+                        }else{
+                            CustomAlerts.isNotValidMobileNumber();
+                        }
+                    }else {
+                        new Alert(Alert.AlertType.ERROR, "This Email is already exist").show();
+                    }
+                }else{
+                    CustomAlerts.isNotValidEmail();
+                }
+            }else{
+                CustomAlerts.isNotValidName();
+            }
+        }else {
+            CustomAlerts.isNotValidName();
+        }
+    }
+
+    private void updateTherapist() {
+        if(therapist!=null){
+            TherapistDto dto= new TherapistDto();
+            dto.setTherapist_Id(lblTherapistId.getText());
+            dto.setContact(txtContact.getText());
+            dto.setAddress(txtAddress.getText());
+            dto.setEmail(txtEmail.getText());
+            dto.setName(txtName.getText());
+
+            if(therapistBO.update(dto)){
+                CustomAlerts.update();
+                pageReset();
+            }
+        }
     }
 
     @FXML
     void delete(ActionEvent event) {
         if(therapist!=null){
             if(CustomAlerts.doYouWantToDelete()){
-                if(therapistBO.delete(therapist.getTherapist_Id())){
+                if(therapistBO.delete(new TherapistDto(therapist.getTherapist_Id(), therapist.getName(), therapist.getAddress(), therapist.getContact(), therapist.getEmail()))){
                     CustomAlerts.delete();
                     pageReset();
                 }
@@ -141,10 +183,14 @@ public class ManageTherapistContro implements Initializable {
         if(Validation.isValidName(txtName.getText())){
             if(Validation.isValidName(txtAddress.getText())){
                 if(Validation.isValidEmail(txtEmail.getText())){
-                    if(Validation.isValidMobileNumber(txtContact.getText())){
-                        saveTherapist();
-                    }else{
-                        CustomAlerts.isNotValidMobileNumber();
+                    if(therapistBO.isValidToSave(txtEmail.getText())){
+                        if(Validation.isValidMobileNumber(txtContact.getText())){
+                            saveTherapist();
+                        }else{
+                            CustomAlerts.isNotValidMobileNumber();
+                        }
+                    }else {
+                        new Alert(Alert.AlertType.ERROR, "This Email is already exist").show();
                     }
                 }else{
                     CustomAlerts.isNotValidEmail();
@@ -164,6 +210,8 @@ public class ManageTherapistContro implements Initializable {
         dto.setAddress(txtAddress.getText());
         dto.setEmail(txtEmail.getText());
         dto.setName(txtName.getText());
+
+        System.out.println(dto.getAddress());
 
         if(therapistBO.save(dto)){
             CustomAlerts.saved();

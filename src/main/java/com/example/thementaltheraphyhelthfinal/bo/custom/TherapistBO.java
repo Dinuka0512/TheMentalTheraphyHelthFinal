@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public interface TherapistBO extends SuperBo {
     ArrayList<TherapistDto> loadTable();
     String genarateID();
-    boolean delete(String id);
+    boolean delete(TherapistDto therapist);
     boolean save(TherapistDto dto);
+    boolean isValidToSave(String email);
+    boolean isValidToUpdate(String email, String id);
+    boolean update(TherapistDto dto);
 }

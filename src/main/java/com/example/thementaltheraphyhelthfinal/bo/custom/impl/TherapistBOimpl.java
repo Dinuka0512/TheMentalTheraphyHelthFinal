@@ -33,12 +33,36 @@ public class TherapistBOimpl implements TherapistBO {
     }
 
     @Override
-    public boolean delete(String id) {
-        return therapistDAO.delete(id);
+    public boolean delete(TherapistDto therapist) {
+        return therapistDAO.delete(new Therapist(therapist.getTherapist_Id(), therapist.getName(), therapist.getEmail(), therapist.getContact(), therapist.getAddress()));
     }
 
     @Override
     public boolean save(TherapistDto dto) {
-        return therapistDAO.save(new Therapist(dto.getTherapist_Id(), dto.getName(), dto.getAddress(), dto.getEmail(), dto.getContact()));
+        System.out.println(dto.getAddress());
+        return therapistDAO.save(
+                new Therapist(
+                        dto.getTherapist_Id(),
+                        dto.getName(),
+                        dto.getEmail(),
+                        dto.getAddress(),
+                        dto.getContact()
+                )
+        );
+    }
+
+    @Override
+    public boolean isValidToSave(String email) {
+        return therapistDAO.isValidToSave(email);
+    }
+
+    @Override
+    public boolean isValidToUpdate(String email, String id) {
+        return therapistDAO.isValidToUpdate(email, id);
+    }
+
+    @Override
+    public boolean update(TherapistDto dto) {
+        return therapistDAO.update(new Therapist(dto.getTherapist_Id(), dto.getName(), dto.getAddress(), dto.getEmail(), dto.getContact()));
     }
 }
