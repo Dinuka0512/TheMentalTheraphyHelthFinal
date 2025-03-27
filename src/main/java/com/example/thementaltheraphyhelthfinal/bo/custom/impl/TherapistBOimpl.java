@@ -2,7 +2,7 @@ package com.example.thementaltheraphyhelthfinal.bo.custom.impl;
 
 import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.TherapistDAO;
+import com.example.thementaltheraphyhelthfinal.dao.custom.TherapistDAO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.entities.Therapist;
 
@@ -25,5 +25,10 @@ public class TherapistBOimpl implements TherapistBO {
             return therapistDtos;
         }
         return null;
+    }
+
+    @Override
+    public String genarateID() {
+        return therapistDAO.generateNewId();
     }
 }

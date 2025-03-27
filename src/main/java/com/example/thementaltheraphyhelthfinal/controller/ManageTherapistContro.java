@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class ManageTherapistContro implements Initializable {
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        loadTable();
+        pageReset();
     }
 
     private void loadTable() {
@@ -94,7 +95,7 @@ public class ManageTherapistContro implements Initializable {
     }
 
     @FXML
-    void gettableDetails(ActionEvent event) {
+    void gettableDetails(MouseEvent event) {
         TherapistTm therapistSelected = tblTheraphist.getSelectionModel().getSelectedItem();
         if(therapistSelected != null){
             //HERE SAVE THE SELECTED THERAPIST
@@ -129,6 +130,25 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     void reset(ActionEvent event) {
+        pageReset();
+    }
 
+    private void pageReset() {
+        txtName.setText("");
+        txtContact.setText("");
+        txtEmail.setText("");
+        txtAddress.setText("");
+
+        txtName.setPromptText("Name");
+        txtContact.setPromptText("Contact");
+        txtEmail.setPromptText("Email");
+        txtAddress.setPromptText("Address");
+
+        lblTherapistId.setText(therapistBO.genarateID());
+        loadTable();
+
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
+        btnUpdate.setDisable(true);
     }
 }
