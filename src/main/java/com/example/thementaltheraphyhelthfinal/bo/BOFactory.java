@@ -1,5 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.bo;
 
+import com.example.thementaltheraphyhelthfinal.bo.custom.impl.TherapistBOimpl;
 import com.example.thementaltheraphyhelthfinal.bo.custom.impl.TheraphyProgramBOImpl;
 import com.example.thementaltheraphyhelthfinal.bo.custom.impl.UserBoImpl;
 
@@ -12,7 +13,7 @@ public class BOFactory {
     }
 
     public enum getBoType{
-        USER, PROGRAM
+        USER, PROGRAM, THERAPHIST
     }
 
     public SuperBo getBo(getBoType type){
@@ -22,6 +23,9 @@ public class BOFactory {
             }
             case PROGRAM -> {
                 return new TheraphyProgramBOImpl();
+            }
+            case THERAPHIST -> {
+                return new TherapistBOimpl();
             }
             default -> {
                 return null;
