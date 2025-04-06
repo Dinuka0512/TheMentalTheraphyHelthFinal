@@ -1,12 +1,10 @@
 package com.example.thementaltheraphyhelthfinal.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,9 +19,8 @@ public class TheraphySession {
     private double amount;
     private String time;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_Id")
-    private Patient patient;
+    @ManyToMany
+    private List<Patient> patient;
 
     @ManyToOne
     @JoinColumn(name = "therapist_Id")
