@@ -3,6 +3,7 @@ package com.example.thementaltheraphyhelthfinal.controller;
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
+import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapistTm;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
@@ -70,6 +71,15 @@ public class ManageTherapistContro implements Initializable {
 
     @FXML
     private Label lblTherapistId;
+    private static UserDto userDto;
+
+    public static UserDto getUserDto() {
+        return userDto;
+    }
+
+    public static void setUserDto(UserDto userDto) {
+        ManageTherapistContro.userDto = userDto;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,9 +119,11 @@ public class ManageTherapistContro implements Initializable {
             txtEmail.setText(therapist.getEmail());
             txtContact.setText(therapist.getContact());
 
-            btnSave.setDisable(true);
-            btnDelete.setDisable(false);
-            btnUpdate.setDisable(false);
+            if(userDto.getJobRole().equals("admin")){
+                btnSave.setDisable(true);
+                btnDelete.setDisable(false);
+                btnUpdate.setDisable(false);
+            }
         }
     }
 
@@ -222,6 +234,17 @@ public class ManageTherapistContro implements Initializable {
     }
 
     private void pageReset() {
+        if(getUserDto()!= null){
+            if(userDto.getJobRole().equals("admin")){
+                btnSave.setDisable(false);
+                btnDelete.setDisable(true);
+                btnUpdate.setDisable(true);
+            }else{
+                btnSave.setDisable(true);
+                btnDelete.setDisable(true);
+                btnUpdate.setDisable(true);
+            }
+        }
         txtName.setText("");
         txtContact.setText("");
         txtEmail.setText("");
@@ -234,9 +257,5 @@ public class ManageTherapistContro implements Initializable {
 
         lblTherapistId.setText(therapistBO.genarateID());
         loadTable();
-
-        btnSave.setDisable(false);
-        btnDelete.setDisable(true);
-        btnUpdate.setDisable(true);
     }
 }

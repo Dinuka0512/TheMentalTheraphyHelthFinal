@@ -131,7 +131,8 @@ public class DashboardContro implements Initializable {
 
     @FXML
     void manageTherephist(ActionEvent event) {
-
+        ManageTherapistContro.setUserDto(getUserDto());
+        navigateTo("/view/ManageTheraphist.fxml");
     }
 
     @FXML
