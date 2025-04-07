@@ -2,6 +2,7 @@ package com.example.thementaltheraphyhelthfinal.dao.custom.impl;
 
 import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import com.example.thementaltheraphyhelthfinal.dao.custom.PatienDAO;
+import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
 import com.example.thementaltheraphyhelthfinal.entities.User;
 import org.hibernate.Session;
@@ -74,6 +75,16 @@ public class PatientDAOImpl implements PatienDAO {
         session.getTransaction().commit();
         session.close();
         return resultList.isEmpty();
+    }
+
+    @Override
+    public boolean delete(Patient dto) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        session.remove(dto);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override

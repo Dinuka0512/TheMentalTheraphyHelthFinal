@@ -201,7 +201,14 @@ public class ManagePatientsContro implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-
+        if(patientTm != null){
+           if(CustomAlerts.doYouWantToDelete()){
+               if(patientBO.delete(new PatientDto(patientTm.getPatient_Id(), patientTm.getName(), patientTm.getEmail(), patientTm.getAddress(), patientTm.getContact()))){
+                   CustomAlerts.delete();
+                   pageReset();
+               }
+           }
+        }
     }
 
     @FXML

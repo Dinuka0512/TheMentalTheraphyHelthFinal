@@ -13,4 +13,5 @@ public interface PatientBO extends SuperBo {
     boolean save(PatientDto patientDto);
     boolean isValidToUpdate(String email, String id);
     boolean update(PatientDto dto);
+    boolean delete(PatientDto dto);
 }

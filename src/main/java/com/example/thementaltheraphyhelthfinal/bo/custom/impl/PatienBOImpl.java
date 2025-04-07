@@ -47,4 +47,10 @@ public class PatienBOImpl implements PatientBO {
         Patient patient = new Patient(dto.getPatient_Id(),dto.getName(),dto.getEmail(),dto.getAddress(),dto.getContact());
         return patienDAO.update(patient);
     }
+
+    @Override
+    public boolean delete(PatientDto dto) {
+        Patient patient = new Patient(dto.getPatient_Id(),dto.getName(),dto.getEmail(),dto.getAddress(),dto.getContact());
+        return patienDAO.delete(patient);
+    }
 }
