@@ -37,5 +37,14 @@ public class PatienBOImpl implements PatientBO {
         return patienDAO.save(patient);
     }
 
+    @Override
+    public boolean isValidToUpdate(String email, String id) {
+        return patienDAO.isValidToUpdate(email,id);
+    }
 
+    @Override
+    public boolean update(PatientDto dto) {
+        Patient patient = new Patient(dto.getPatient_Id(),dto.getName(),dto.getEmail(),dto.getAddress(),dto.getContact());
+        return patienDAO.update(patient);
+    }
 }

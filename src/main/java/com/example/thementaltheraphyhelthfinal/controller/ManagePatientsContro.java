@@ -68,6 +68,8 @@ public class ManagePatientsContro implements Initializable {
     @FXML
     private Button btnReset;
 
+    private PatientTm patientTm = null;
+
     //=========
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //=========
@@ -160,7 +162,41 @@ public class ManagePatientsContro implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        isValidToUpdate();
+    }
 
+    private void isValidToUpdate() {
+        if(Validation.isValidName(txtName.getText())){
+            if(Validation.isValidName(txtAddress.getText())){
+                if(Validation.isValidEmail(txtEmail.getText())){
+                    if(patientBO.isValidToUpdate(txtEmail.getText(), lblPatientId.getText())){
+                        if(Validation.isValidMobileNumber(txtContact.getText())){
+                            updatePatient();
+                        }else{
+                            CustomAlerts.isNotValidMobileNumber();
+                        }
+                    }else {
+                        new Alert(Alert.AlertType.ERROR, "This Email is already exist").show();
+                    }
+                }else{
+                    CustomAlerts.isNotValidEmail();
+                }
+            }else{
+                CustomAlerts.isNotValidName();
+            }
+        }else {
+            CustomAlerts.isNotValidName();
+        }
+    }
+
+    private void updatePatient() {
+        if(patientTm != null){
+            PatientDto dto = new PatientDto(lblPatientId.getText(), txtName.getText(), txtEmail.getText(), txtAddress.getText(), txtContact.getText());
+            if(patientBO.update(dto)){
+                CustomAlerts.update();
+                pageReset();
+            }
+        }
     }
 
     @FXML
@@ -175,9 +211,9 @@ public class ManagePatientsContro implements Initializable {
 
     @FXML
     void gettableDetails(MouseEvent event) {
-        PatientTm patientTm = tblPatients.getSelectionModel().getSelectedItem();
+        patientTm = tblPatients.getSelectionModel().getSelectedItem();
         if(patientTm!= null){
-            txtName.setText(patientTm.getPatient_Id());
+            txtName.setText(patientTm.getName());
             txtContact.setText(patientTm.getContact());
             txtAddress.setText(patientTm.getAddress());
             txtEmail.setText(patientTm.getEmail());

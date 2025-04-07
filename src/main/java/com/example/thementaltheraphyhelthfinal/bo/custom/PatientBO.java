@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public interface PatientBO extends SuperBo {
     ArrayList<PatientDto> getAll();
     String generateNewId();
-
     boolean isValidToSave(String email);
-
     boolean save(PatientDto patientDto);
+    boolean isValidToUpdate(String email, String id);
+    boolean update(PatientDto dto);
 }

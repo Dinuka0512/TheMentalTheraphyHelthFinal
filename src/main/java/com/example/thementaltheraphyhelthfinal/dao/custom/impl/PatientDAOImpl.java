@@ -62,6 +62,21 @@ public class PatientDAOImpl implements PatienDAO {
     }
 
     @Override
+    public boolean isValidToUpdate(String email, String id) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Query<Patient> query = session.createQuery("FROM Patient WHERE email = :email AND patient_Id != :id", Patient.class);
+        query.setParameter("email",email);
+        query.setParameter("id",id);
+
+        List<Patient> resultList = query.getResultList();
+
+        session.getTransaction().commit();
+        session.close();
+        return resultList.isEmpty();
+    }
+
+    @Override
     public boolean save(Patient dto) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
@@ -73,7 +88,12 @@ public class PatientDAOImpl implements PatienDAO {
 
     @Override
     public boolean update(Patient dto) {
-        return false;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        session.merge(dto);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
