@@ -111,7 +111,7 @@ public class DashboardContro implements Initializable {
 
     @FXML
     void managePatient(ActionEvent event) {
-
+        navigateTo("/view/Patient.fxml");
     }
 
     @FXML
