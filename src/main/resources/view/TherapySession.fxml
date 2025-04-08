@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.thementaltheraphyhelthfinal.controller.ManageTherapySession"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="546.0" prefWidth="926.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.thementaltheraphyhelthfinal.controller.ManageTherapySession">
+   <children>
+      <TableView fx:id="tblUsers" layoutX="31.0" layoutY="330.0" onMouseClicked="#gettableDetails" prefHeight="191.0" prefWidth="862.0">
+         <columns>
+            <TableColumn fx:id="colUserId" prefWidth="104.0" text="Session ID" />
+            <TableColumn fx:id="colUserId1" prefWidth="133.0" text="Program_ID" />
+            <TableColumn fx:id="colUserId11" prefWidth="130.0" text="Therapist_ID" />
+            <TableColumn fx:id="colUserId111" prefWidth="130.0" text="Patient_ID" />
+            <TableColumn fx:id="colUserId2" prefWidth="162.0" text="Date" />
+            <TableColumn fx:id="colUserId21" prefWidth="92.0" text="Time" />
+            <TableColumn fx:id="colUserId211" prefWidth="118.0" text="Amount" />
+         </columns>
+      </TableView>
+      <AnchorPane layoutX="29.0" layoutY="69.0" prefHeight="243.0" prefWidth="868.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">
+         <children>
+            <Label layoutX="26.0" layoutY="28.0" text="Session ID :" textFill="WHITE" />
+            <Label layoutX="109.0" layoutY="27.0" text="S001" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="453.0" layoutY="22.0" prefHeight="31.0" prefWidth="231.0" />
+            <Label layoutX="359.0" layoutY="27.0" text="Program ID :" textFill="WHITE" />
+            <Label layoutX="696.0" layoutY="24.0" text="Duration :" textFill="WHITE" />
+            <Label layoutX="456.0" layoutY="58.0" prefHeight="21.0" prefWidth="231.0" text="Sample name " textFill="#6700ab" />
+            <Label layoutX="774.0" layoutY="24.0" text="1 Week" textFill="#6700ab" />
+            <Label layoutX="736.0" layoutY="45.0" text="Rs.20000.00/=" textFill="#6700ab" />
+            <Label layoutX="697.0" layoutY="45.0" text="Fee :" textFill="WHITE" />
+            <ComboBox layoutX="119.0" layoutY="87.0" prefHeight="31.0" prefWidth="231.0" />
+            <Label layoutX="26.0" layoutY="92.0" text="Patient ID :" textFill="WHITE" />
+            <Label layoutX="119.0" layoutY="118.0" prefHeight="21.0" prefWidth="231.0" text="Sample name " textFill="#6700ab" />
+            <Label layoutX="117.0" layoutY="186.0" prefHeight="21.0" prefWidth="231.0" text="Sample name " textFill="#6700ab" />
+            <ComboBox layoutX="117.0" layoutY="155.0" prefHeight="31.0" prefWidth="231.0" />
+            <Label layoutX="26.0" layoutY="160.0" text="Therapist ID :" textFill="WHITE" />
+            <Label layoutX="395.0" layoutY="93.0" text="Date :" textFill="WHITE" />
+            <DatePicker layoutX="453.0" layoutY="88.0" prefHeight="31.0" prefWidth="231.0" />
+            <Label layoutX="709.0" layoutY="93.0" text="Time :" textFill="WHITE" />
+            <Button layoutX="750.0" layoutY="129.0" mnemonicParsing="false" prefHeight="102.0" prefWidth="105.0" style="-fx-background-color: #ff0000; -fx-background-radius: 10;" text="  Pay Now" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <AnchorPane layoutX="380.0" layoutY="129.0" prefHeight="102.0" prefWidth="389.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+               <children>
+                  <Label layoutX="14.0" layoutY="12.0" text="Full Payment :" textFill="#5b0b0b" />
+                  <Label layoutX="14.0" layoutY="21.0" text="20000.00/=" textFill="#008a49">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="179.0" layoutY="32.0" text="Rs.19000.00/=" textFill="#d30707">
+                     <font>
+                        <Font name="System Bold" size="29.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="179.0" layoutY="16.0" text="To Pay :" textFill="#5b0b0b" />
+                  <Label layoutX="16.0" layoutY="49.0" text="Paid : " textFill="#5b0b0b" />
+                  <Label layoutX="14.0" layoutY="58.0" text="1000.00/=" textFill="#808080">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#656565" height="102.0" layoutX="161.0" opacity="0.53" stroke="BLACK" strokeType="INSIDE" width="6.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Label layoutX="31.0" layoutY="26.0" prefHeight="27.0" prefWidth="260.0" text="Register for Therapy Sessions">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

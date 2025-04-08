@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -96,7 +95,7 @@ public class DashboardContro implements Initializable {
 
     @FXML
     void manageTheraphyPrograms(ActionEvent event) {
-        navigateTo("/view/ManageTheraphyProgramsContro.fxml");
+        navigateTo("/view/ManageTheraphyPrograms.fxml");
     }
 
     @FXML
