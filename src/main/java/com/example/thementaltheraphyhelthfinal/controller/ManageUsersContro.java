@@ -6,6 +6,7 @@ import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.UserTm;
 import com.example.thementaltheraphyhelthfinal.entities.User;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
+import com.example.thementaltheraphyhelthfinal.util.PasswordEncript.EncryptionUtil;
 import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -126,7 +128,9 @@ public class ManageUsersContro implements Initializable {
         user.setContact(txtContact.getText());
         user.setAddress(txtAddress.getText());
         user.setJobRole(JobRolleCombo.getValue());
-        user.setPassword(txtPw.getText());
+        //HERE ENCRYPT THE PASSWORD
+        user.setPassword(BCrypt.hashpw(txtPw.getText(), BCrypt.gensalt()));
+
 
         if(userBO.saveUser(user)){
             loadTable();
@@ -171,7 +175,10 @@ public class ManageUsersContro implements Initializable {
     private void updateUser() {
         UserDto user1 = new UserDto();
         user1.setName(txtName.getText());
-        user1.setPassword(txtPw.getText());
+
+        //HERE ENCRIPT THE PASSWORD
+        user1.setPassword(BCrypt.hashpw(txtPw.getText(), BCrypt.gensalt()));
+
         user1.setAddress(txtAddress.getText());
         user1.setEmail(txtEmail.getText());
         user1.setContact(txtContact.getText());
@@ -197,7 +204,15 @@ public class ManageUsersContro implements Initializable {
 
             txtName.setText(user.getName());
             txtAddress.setText(user.getAddress());
-            txtPw.setText(user.getPassword());
+
+            try {
+                String decryptedPassword = EncryptionUtil.decrypt(user.getPassword());
+                txtPw.setText(decryptedPassword);
+            } catch (Exception e) {
+                e.printStackTrace();
+                txtPw.setPromptText("Password decrypt failed");
+            }
+
             txtContact.setText(user.getContact());
             txtEmail.setText(user.getEmail());
             JobRolleCombo.setValue(user.getJobRole());

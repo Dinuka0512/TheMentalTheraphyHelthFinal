@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -40,6 +41,8 @@ public class LoginContro {
         if(dto != null){
             if(txtEmail.getText().equals(dto.getEmail())){
                 //EMAIL IS OK
+
+
                 if (txtPw.getText().equals(dto.getPassword())){
                     //PASSWORD IS OK
                     DashboardContro.setUserDto(dto);
