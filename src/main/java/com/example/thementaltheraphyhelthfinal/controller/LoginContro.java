@@ -5,6 +5,7 @@ import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.UserBO;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
+import com.example.thementaltheraphyhelthfinal.util.PasswordEncript.EncryptionUtil;
 import com.example.thementaltheraphyhelthfinal.util.exceptionsPack.CustomEXception;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +44,7 @@ public class LoginContro {
                 //EMAIL IS OK
 
 
-                if (txtPw.getText().equals(dto.getPassword())){
+                if (txtPw.getText().equals(EncryptionUtil.decrypt(dto.getPassword()))){
                     //PASSWORD IS OK
                     DashboardContro.setUserDto(dto);
                     navigateToDashbord();
