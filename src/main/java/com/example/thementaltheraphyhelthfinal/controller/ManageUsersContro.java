@@ -128,8 +128,9 @@ public class ManageUsersContro implements Initializable {
         user.setContact(txtContact.getText());
         user.setAddress(txtAddress.getText());
         user.setJobRole(JobRolleCombo.getValue());
+
         //HERE ENCRYPT THE PASSWORD
-        user.setPassword(BCrypt.hashpw(txtPw.getText(), BCrypt.gensalt()));
+        user.setPassword(EncryptionUtil.encrypt(txtPw.getText()));
 
 
         if(userBO.saveUser(user)){
@@ -177,7 +178,7 @@ public class ManageUsersContro implements Initializable {
         user1.setName(txtName.getText());
 
         //HERE ENCRIPT THE PASSWORD
-        user1.setPassword(BCrypt.hashpw(txtPw.getText(), BCrypt.gensalt()));
+        user1.setPassword(EncryptionUtil.encrypt(txtPw.getText()));
 
         user1.setAddress(txtAddress.getText());
         user1.setEmail(txtEmail.getText());
@@ -205,13 +206,8 @@ public class ManageUsersContro implements Initializable {
             txtName.setText(user.getName());
             txtAddress.setText(user.getAddress());
 
-            try {
-                String decryptedPassword = EncryptionUtil.decrypt(user.getPassword());
-                txtPw.setText(decryptedPassword);
-            } catch (Exception e) {
-                e.printStackTrace();
-                txtPw.setPromptText("Password decrypt failed");
-            }
+            String decryptedPassword = EncryptionUtil.decrypt(user.getPassword());
+            txtPw.setText(decryptedPassword);
 
             txtContact.setText(user.getContact());
             txtEmail.setText(user.getEmail());
