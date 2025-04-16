@@ -2,7 +2,9 @@ package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
+import com.example.thementaltheraphyhelthfinal.bo.custom.SessionBO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
+import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.PatientTm;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
@@ -70,7 +72,14 @@ public class ManagePatientsContro implements Initializable {
 
     private PatientTm patientTm = null;
 
+    @FXML
+    private ComboBox<String> comboSession;
+
+    @FXML
+    private Label lblDetails;
+
     //=========
+    private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //=========
 
@@ -96,8 +105,24 @@ public class ManagePatientsContro implements Initializable {
         btnSave.setDisable(false);
     }
 
-    private void loadSessionIds() {
 
+    @FXML
+    void getSessionDetails(ActionEvent event) {
+        //HERE WHEN SELECTED THE COMBOBOX VALUES
+        String selectedID = comboSession.getSelectionModel().getSelectedItem();
+        if(selectedID != null){
+            TheraphySessionDto program = sessionBO.getProgram(selectedID);
+            lblDetails.setText(program.getProgram().getName() + " | " + program.getDate());
+        }
+    }
+
+    private void loadSessionIds() {
+        ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
+        ObservableList<String> sessionIds = FXCollections.observableArrayList();
+        for (TheraphySessionDto dto : allSessions){
+            sessionIds.add(dto.getSession_Id());
+        }
+        comboSession.setItems(sessionIds);
     }
 
     private void loadNextId() {

@@ -46,8 +46,8 @@
             </Label>
             <Label layoutX="24.0" layoutY="23.0" text="Patients Id :" textFill="WHITE" />
             <Label layoutX="24.0" layoutY="330.0" text="Session" textFill="WHITE" />
-            <ComboBox fx:id="comboSession" layoutX="25.0" layoutY="351.0" prefHeight="31.0" prefWidth="242.0" promptText="Select Session" />
-            <Label layoutX="25.0" layoutY="382.0" prefHeight="21.0" prefWidth="242.0" text="Session name" textFill="#5d00ae" />
+            <ComboBox fx:id="comboSession" layoutX="25.0" layoutY="351.0" onAction="#getSessionDetails" prefHeight="31.0" prefWidth="242.0" promptText="Select Session" />
+            <Label fx:id="lblDetails" layoutX="25.0" layoutY="382.0" prefHeight="21.0" prefWidth="242.0" text="Session name" textFill="#5d00ae" />
             <TextField fx:id="txtAmount" layoutX="23.0" layoutY="294.0" prefHeight="34.0" prefWidth="242.0" promptText="Amount" style="-fx-background-radius: 5;" />
             <Label layoutX="23.0" layoutY="275.0" text="Payment Amont" textFill="WHITE" />
          </children>

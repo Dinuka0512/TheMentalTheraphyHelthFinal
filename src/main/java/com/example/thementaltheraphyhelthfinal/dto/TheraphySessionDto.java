@@ -1,5 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.dto;
 
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -17,14 +18,9 @@ import java.time.LocalDate;
 @Getter
 public class TheraphySessionDto {
     private String session_Id;
-    private String description;
     private LocalDate date;
     private double amount;
     private String time;
 
-    private PatientDto patient;
-
-    private TherapistDto therapist;
-
-    private TherapyProgramDto program;
+    private TherapyProgram program;
 }

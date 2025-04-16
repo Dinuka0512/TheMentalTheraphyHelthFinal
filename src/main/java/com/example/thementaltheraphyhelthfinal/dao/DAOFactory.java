@@ -1,9 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.dao;
 
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.PatientDAOImpl;
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.TheraphyProgramDAOImpl;
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.TherapistDAOImpl;
-import com.example.thementaltheraphyhelthfinal.dao.custom.impl.UserDAOImpl;
+import com.example.thementaltheraphyhelthfinal.dao.custom.impl.*;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -14,7 +11,7 @@ public class DAOFactory {
     }
 
     public enum getDAOType{
-        USER, PROGRAM,THERAPIST, PATIENTS
+        USER, PROGRAM,THERAPIST, PATIENTS, SESSION
     }
 
     public SuperDAO getDAO(getDAOType type){
@@ -31,6 +28,9 @@ public class DAOFactory {
             }
             case PATIENTS -> {
                 return new PatientDAOImpl();
+            }
+            case SESSION -> {
+                return new SessionDAOImpl();
             }
             default -> {
                 return null;

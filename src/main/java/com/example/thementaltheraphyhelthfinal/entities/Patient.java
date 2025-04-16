@@ -2,7 +2,12 @@ package com.example.thementaltheraphyhelthfinal.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -22,9 +27,11 @@ public class Patient {
 
 
     @ManyToMany
-    private TheraphySession theraphySession;
+    @Cascade(CascadeType.ALL)
+    private List<TheraphySession> theraphySession;
 
     @OneToOne
+    @Cascade(CascadeType.ALL)
     private Payment payment;
 
     public Patient(String patient_Id, String name, String email, String address, String contact) {
