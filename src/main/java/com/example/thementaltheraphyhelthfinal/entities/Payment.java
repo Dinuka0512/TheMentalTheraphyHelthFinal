@@ -1,9 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -14,11 +11,9 @@ import java.time.LocalDate;
 @Setter
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String Payment_Id;
+
     private double amount;
     private LocalDate date;
-
-    @OneToOne
-    @JoinColumn(name = "patient_Id")
-    private Patient patient;
 }

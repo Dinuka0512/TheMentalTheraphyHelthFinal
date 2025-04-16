@@ -14,17 +14,9 @@ import java.util.List;
 public class TheraphySession {
     @Id
     private String session_Id;
-    private String description;
     private LocalDate date;
     private double amount;
     private String time;
-
-    @ManyToMany
-    private List<Patient> patient;
-
-    @ManyToOne
-    @JoinColumn(name = "therapist_Id")
-    private Therapist therapist;
 
     @ManyToOne
     @JoinColumn(name = "program_Id")

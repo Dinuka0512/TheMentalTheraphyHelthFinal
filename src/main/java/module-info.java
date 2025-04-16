@@ -8,7 +8,6 @@ module com.example.thementaltheraphyhelthfinal {
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
     requires java.naming;
-    requires jbcrypt;
 
     opens com.example.thementaltheraphyhelthfinal.entities to org.hibernate.orm.core;
 

@@ -1,9 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -23,4 +20,17 @@ public class Therapist {
 
     private String address;
     private String contact;
+
+    @ManyToOne
+    private TherapyProgram program;
+
+
+    public Therapist(String therapist_Id, String name, String email, String address, String contact) {
+        this.therapist_Id = therapist_Id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.contact = contact;
+    }
+
 }
