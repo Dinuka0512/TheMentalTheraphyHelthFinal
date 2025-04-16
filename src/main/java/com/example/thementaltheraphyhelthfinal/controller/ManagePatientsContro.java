@@ -89,10 +89,15 @@ public class ManagePatientsContro implements Initializable {
         loadTable();
         clearTexts();
         loadNextId();
+        loadSessionIds();
 
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
         btnSave.setDisable(false);
+    }
+
+    private void loadSessionIds() {
+
     }
 
     private void loadNextId() {

@@ -1,0 +1,8 @@
+package com.example.thementaltheraphyhelthfinal.dao.custom;
+
+import com.example.thementaltheraphyhelthfinal.dao.CrudDAO;
+import com.example.thementaltheraphyhelthfinal.dao.SuperDAO;
+import com.example.thementaltheraphyhelthfinal.entities.TheraphySession;
+
+public interface SessionDAO extends SuperDAO, CrudDAO<TheraphySession> {
+}

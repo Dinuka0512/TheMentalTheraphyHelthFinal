@@ -11,42 +11,45 @@
    <children>
       <AnchorPane layoutX="624.0" layoutY="12.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">
          <children>
-            <Label layoutX="24.0" layoutY="71.0" text="Name" textFill="WHITE" />
-            <TextField fx:id="txtName" layoutX="24.0" layoutY="90.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="141.0" text="Address" textFill="WHITE" />
-            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="160.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="208.0" text="Email" textFill="WHITE" />
-            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="227.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
-            <Label layoutX="24.0" layoutY="278.0" text="Contact" textFill="WHITE" />
-            <TextField fx:id="txtContact" layoutX="24.0" layoutY="297.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
-            <Button fx:id="btnSave" layoutX="191.0" layoutY="414.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
+            <Label layoutX="24.0" layoutY="48.0" text="Name" textFill="WHITE" />
+            <TextField fx:id="txtName" layoutX="24.0" layoutY="67.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="105.0" text="Address" textFill="WHITE" />
+            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="124.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="162.0" text="Email" textFill="WHITE" />
+            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="181.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
+            <Label layoutX="24.0" layoutY="219.0" text="Contact" textFill="WHITE" />
+            <TextField fx:id="txtContact" layoutX="24.0" layoutY="238.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
+            <Button fx:id="btnSave" layoutX="191.0" layoutY="413.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="414.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
+            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="413.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnDelete" layoutX="26.0" layoutY="414.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
+            <Button fx:id="btnDelete" layoutX="26.0" layoutY="413.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnReset" layoutX="23.0" layoutY="454.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
+            <Button fx:id="btnReset" layoutX="23.0" layoutY="453.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="lblPatientId" layoutX="114.0" layoutY="38.0" text="P001" textFill="WHITE">
+            <Label fx:id="lblPatientId" layoutX="114.0" layoutY="19.0" text="P001" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="24.0" layoutY="42.0" text="Patients Id :" textFill="WHITE" />
-            <Label layoutX="24.0" layoutY="341.0" text="Session" textFill="WHITE" />
-            <ComboBox layoutX="25.0" layoutY="362.0" prefHeight="31.0" prefWidth="242.0" promptText="Select Session" />
+            <Label layoutX="24.0" layoutY="23.0" text="Patients Id :" textFill="WHITE" />
+            <Label layoutX="24.0" layoutY="330.0" text="Session" textFill="WHITE" />
+            <ComboBox fx:id="comboSession" layoutX="25.0" layoutY="351.0" prefHeight="31.0" prefWidth="242.0" promptText="Select Session" />
+            <Label layoutX="25.0" layoutY="382.0" prefHeight="21.0" prefWidth="242.0" text="Session name" textFill="#5d00ae" />
+            <TextField fx:id="txtAmount" layoutX="23.0" layoutY="294.0" prefHeight="34.0" prefWidth="242.0" promptText="Amount" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="275.0" text="Payment Amont" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="176.0" text="Manage Patients">
