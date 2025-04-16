@@ -19,22 +19,22 @@
             <TextField fx:id="txtEmail" layoutX="23.0" layoutY="181.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
             <Label layoutX="24.0" layoutY="219.0" text="Contact" textFill="WHITE" />
             <TextField fx:id="txtContact" layoutX="24.0" layoutY="238.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
-            <Button fx:id="btnSave" layoutX="191.0" layoutY="413.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
+            <Button fx:id="btnSave" layoutX="191.0" layoutY="427.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="413.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
+            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="427.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnDelete" layoutX="26.0" layoutY="413.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
+            <Button fx:id="btnDelete" layoutX="26.0" layoutY="427.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnReset" layoutX="23.0" layoutY="453.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
+            <Button fx:id="btnReset" layoutX="23.0" layoutY="467.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -50,6 +50,8 @@
             <Label fx:id="lblDetails" layoutX="25.0" layoutY="382.0" prefHeight="21.0" prefWidth="242.0" text="Session name" textFill="#5d00ae" />
             <TextField fx:id="txtAmount" layoutX="23.0" layoutY="294.0" prefHeight="34.0" prefWidth="242.0" promptText="Amount" style="-fx-background-radius: 5;" />
             <Label layoutX="23.0" layoutY="275.0" text="Payment Amont" textFill="WHITE" />
+            <Label fx:id="lblFee" layoutX="98.0" layoutY="397.0" prefHeight="21.0" prefWidth="169.0" text="Rs. 20000/=" textFill="#5d00ae" />
+            <Label layoutX="25.0" layoutY="397.0" text="Total Fee :" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="176.0" text="Manage Patients">

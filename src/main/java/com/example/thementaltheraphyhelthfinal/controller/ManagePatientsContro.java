@@ -78,6 +78,12 @@ public class ManagePatientsContro implements Initializable {
     @FXML
     private Label lblDetails;
 
+    @FXML
+    private Label lblFee;
+
+    @FXML
+    private TextField txtAmount;
+
     //=========
     private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
@@ -113,6 +119,7 @@ public class ManagePatientsContro implements Initializable {
         if(selectedID != null){
             TheraphySessionDto program = sessionBO.getProgram(selectedID);
             lblDetails.setText(program.getProgram().getName() + " | " + program.getDate());
+            lblFee.setText("Rs. " + program.getProgram().getFee() + "/=");
         }
     }
 
@@ -135,10 +142,19 @@ public class ManagePatientsContro implements Initializable {
         txtEmail.setText("");
         txtName.setText("");
 
+        txtAmount.setText("");
+
+        lblFee.setText("0.0/=");
+        lblDetails.setText("Session name");
+
+        comboSession.setValue(null);
+        comboSession.setPromptText("Select Session");
+
         txtEmail.setPromptText("email");
         txtAddress.setPromptText("address");
         txtContact.setPromptText("contact");
         txtName.setPromptText("name");
+        txtAmount.setPromptText("Amount");
     }
 
     private void loadTable() {
