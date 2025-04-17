@@ -1,4 +1,7 @@
 package com.example.thementaltheraphyhelthfinal.bo.custom.impl;
 
-public class PaymentBOImpl {
+import com.example.thementaltheraphyhelthfinal.bo.custom.PaymentBO;
+
+public class PaymentBOImpl implements PaymentBO{
+
 }

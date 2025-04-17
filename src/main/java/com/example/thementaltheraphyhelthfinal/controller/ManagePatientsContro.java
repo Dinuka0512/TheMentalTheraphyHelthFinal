@@ -85,6 +85,7 @@ public class ManagePatientsContro implements Initializable {
     private TextField txtAmount;
 
     //=========
+
     private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //=========

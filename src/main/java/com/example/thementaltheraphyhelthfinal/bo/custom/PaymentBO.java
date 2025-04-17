@@ -1,4 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.bo.custom;
 
-public interface PaymentBO {
+import com.example.thementaltheraphyhelthfinal.bo.SuperBo;
+
+public interface PaymentBO extends SuperBo {
 }
