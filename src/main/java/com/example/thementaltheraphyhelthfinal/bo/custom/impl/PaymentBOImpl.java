@@ -16,4 +16,9 @@ public class PaymentBOImpl implements PaymentBO{
     public boolean save(PaymentDto paymentDto) {
         return paymentDAO.save(new Payment(paymentDto.getPayment_Id(),paymentDto.getAmount(), paymentDto.getDate()));
     }
+
+    @Override
+    public int genarateIds() {
+        return paymentDAO.genarateId();
+    }
 }

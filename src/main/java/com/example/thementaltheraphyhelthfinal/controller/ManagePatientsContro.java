@@ -213,6 +213,9 @@ public class ManagePatientsContro implements Initializable {
 
         //HERE CREATE THE OBJ SAVE THE PAYMENT
         PaymentDto paymentDto = new PaymentDto();
+
+        //HERE NEED TO GENERATE THE ID
+        paymentDto.setPayment_Id(paymentBO.genarateIds());
         paymentDto.setAmount(Double.parseDouble(txtAmount.getText()));
         paymentDto.setDate(LocalDate.now());
 
