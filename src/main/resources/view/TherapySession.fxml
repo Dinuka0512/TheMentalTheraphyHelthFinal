@@ -17,11 +17,10 @@
       </Label>
       <TableView fx:id="tblPatients" layoutX="14.0" layoutY="57.0" onMouseClicked="#gettableDetails" prefHeight="460.0" prefWidth="592.0">
          <columns>
-            <TableColumn fx:id="colPatientsId" prefWidth="113.0" text="Patients ID" />
-            <TableColumn fx:id="colName" prefWidth="109.0" text="Name" />
-            <TableColumn fx:id="colAddress" prefWidth="144.0" text="Address" />
-            <TableColumn fx:id="colEmail" prefWidth="125.0" text="Email" />
-            <TableColumn fx:id="colContact" prefWidth="100.0" text="Contact" />
+            <TableColumn fx:id="colPatientsId" prefWidth="113.0" text="Session ID" />
+            <TableColumn fx:id="colName" prefWidth="167.0" text="Program Name" />
+            <TableColumn fx:id="colAddress" prefWidth="173.0" text="Therapist Name" />
+            <TableColumn fx:id="colContact" prefWidth="138.0" text="Date" />
          </columns>
       </TableView>
       <AnchorPane layoutX="624.0" layoutY="12.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">

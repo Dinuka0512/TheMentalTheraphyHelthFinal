@@ -61,4 +61,8 @@ public class CustomAlerts extends Alert {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.YES;
     }
+
+    public static void comboboxValueNotSelected(){
+        new Alert(AlertType.WARNING,"The combobox value is not selected").show();
+    }
 }

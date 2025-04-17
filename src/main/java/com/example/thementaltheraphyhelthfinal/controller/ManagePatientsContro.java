@@ -120,6 +120,8 @@ public class ManagePatientsContro implements Initializable {
             TheraphySessionDto program = sessionBO.getProgram(selectedID);
             lblDetails.setText(program.getProgram().getName() + " | " + program.getDate());
             lblFee.setText("Rs. " + program.getProgram().getFee() + "/=");
+
+            txtAmount.setText(String.valueOf(program.getProgram().getFee()));
         }
     }
 
@@ -179,7 +181,11 @@ public class ManagePatientsContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(patientBO.isValidToSave(txtEmail.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            savePatient();
+                            if(comboSession.getSelectionModel().getSelectedItem() != null){
+                                savePatient();
+                            }else{
+                                CustomAlerts.comboboxValueNotSelected();
+                            }
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
@@ -217,7 +223,11 @@ public class ManagePatientsContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(patientBO.isValidToUpdate(txtEmail.getText(), lblPatientId.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            updatePatient();
+                            if(comboSession.getSelectionModel().getSelectedItem() != null){
+                                updatePatient();
+                            }else {
+                                CustomAlerts.comboboxValueNotSelected();
+                            }
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
