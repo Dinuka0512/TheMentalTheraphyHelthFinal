@@ -10,6 +10,7 @@ import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.PatientTm;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
+import com.example.thementaltheraphyhelthfinal.entities.Payment;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import com.example.thementaltheraphyhelthfinal.util.validationsPack.Validation;
 import javafx.collections.FXCollections;
@@ -208,9 +209,6 @@ public class ManagePatientsContro implements Initializable {
     }
 
     private void savePatient() {
-        //HERE CREATE THE OBJ TO SAVE THE PATIENT
-        PatientDto patientDto = new PatientDto(lblPatientId.getText(), txtName.getText(), txtEmail.getText(), txtAddress.getText(), txtContact.getText());
-
         //HERE CREATE THE OBJ SAVE THE PAYMENT
         PaymentDto paymentDto = new PaymentDto();
 
@@ -218,6 +216,10 @@ public class ManagePatientsContro implements Initializable {
         paymentDto.setPayment_Id(paymentBO.genarateIds());
         paymentDto.setAmount(Double.parseDouble(txtAmount.getText()));
         paymentDto.setDate(LocalDate.now());
+
+
+        //HERE CREATE THE OBJ TO SAVE THE PATIENT
+        PatientDto patientDto = new PatientDto(lblPatientId.getText(), txtName.getText(), txtEmail.getText(), txtAddress.getText(), txtContact.getText());
 
         if(patientBO.save(patientDto)){
             if(paymentBO.save(paymentDto)){
@@ -296,6 +298,8 @@ public class ManagePatientsContro implements Initializable {
             txtAddress.setText(patientTm.getAddress());
             txtEmail.setText(patientTm.getEmail());
             lblPatientId.setText(patientTm.getPatient_Id());
+
+
 
             btnSave.setDisable(true);
             btnDelete.setDisable(false);

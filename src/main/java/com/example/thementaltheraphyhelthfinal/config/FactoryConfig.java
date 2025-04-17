@@ -11,7 +11,7 @@ public class FactoryConfig {
     public SessionFactory sessionFactory;
 
     private FactoryConfig(){
-        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
+        Configuration configuration = new Configuration();
 
         //Annotated Classes
         configuration.addAnnotatedClass(User.class);

@@ -25,10 +25,10 @@ public class Patient {
     private String address;
     private String contact;
 
-
-    @ManyToMany
+//
+//    @ManyToMany
     @Cascade(CascadeType.ALL)
-    private List<TheraphySession> theraphySession;
+    private List<String> theraphySession;
 
     @OneToOne
     @Cascade(CascadeType.ALL)
