@@ -22,16 +22,4 @@ public class PatientDto {
     private String email;
     private String address;
     private String contact;
-
-    private List<String> theraphySession;
-
-    private PaymentDto payment;
-
-    public PatientDto(String patient_Id, String name, String email, String address, String contact) {
-        this.patient_Id = patient_Id;
-        this.name = name;
-        this.email = email;
-        this.address = address;
-        this.contact = contact;
-    }
 }

@@ -11,47 +11,40 @@
    <children>
       <AnchorPane layoutX="624.0" layoutY="12.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">
          <children>
-            <Label layoutX="24.0" layoutY="52.0" text="Name" textFill="WHITE" />
-            <TextField fx:id="txtName" layoutX="24.0" layoutY="71.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="109.0" text="Address" textFill="WHITE" />
-            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="128.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="166.0" text="Email" textFill="WHITE" />
-            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="185.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
-            <Label layoutX="24.0" layoutY="223.0" text="Contact" textFill="WHITE" />
-            <TextField fx:id="txtContact" layoutX="24.0" layoutY="242.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
-            <Button fx:id="btnSave" layoutX="191.0" layoutY="412.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
+            <Label layoutX="24.0" layoutY="104.0" text="Name" textFill="WHITE" />
+            <TextField fx:id="txtName" layoutX="24.0" layoutY="123.0" prefHeight="34.0" prefWidth="242.0" promptText="Name" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="171.0" text="Address" textFill="WHITE" />
+            <TextField fx:id="txtAddress" layoutX="23.0" layoutY="190.0" prefHeight="34.0" prefWidth="242.0" promptText="Address" style="-fx-background-radius: 5;" />
+            <Label layoutX="23.0" layoutY="237.0" text="Email" textFill="WHITE" />
+            <TextField fx:id="txtEmail" layoutX="23.0" layoutY="256.0" prefHeight="34.0" prefWidth="242.0" promptText="Email" style="-fx-background-radius: 5;" />
+            <Label layoutX="24.0" layoutY="302.0" text="Contact" textFill="WHITE" />
+            <TextField fx:id="txtContact" layoutX="24.0" layoutY="321.0" prefHeight="34.0" prefWidth="242.0" promptText="Contact" style="-fx-background-radius: 5;" />
+            <Button fx:id="btnSave" layoutX="191.0" layoutY="381.0" mnemonicParsing="false" onAction="#save" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-border-radius: 10; -fx-border-color: 10;" text="Save" textFill="GREEN">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="412.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
+            <Button fx:id="btnUpdate" layoutX="108.0" layoutY="381.0" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Update" textFill="BLUE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnDelete" layoutX="26.0" layoutY="412.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
+            <Button fx:id="btnDelete" layoutX="26.0" layoutY="381.0" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="73.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Delete" textFill="RED">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnReset" layoutX="23.0" layoutY="452.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
+            <Button fx:id="btnReset" layoutX="23.0" layoutY="421.0" mnemonicParsing="false" onAction="#reset" prefHeight="34.0" prefWidth="242.0" style="-fx-background-color: white; -fx-background-radius: 5;" text="Reset" textFill="#1d2b43">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="lblPatientId" layoutX="114.0" layoutY="23.0" text="P001" textFill="WHITE">
+            <Label fx:id="lblPatientId" layoutX="114.0" layoutY="68.0" text="P001" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="24.0" layoutY="27.0" text="Patients Id :" textFill="WHITE" />
-            <TextField fx:id="txtAmount" editable="false" layoutX="125.0" layoutY="370.0" prefHeight="34.0" prefWidth="140.0" promptText="Amount" style="-fx-background-radius: 5;" />
-            <Label layoutX="23.0" layoutY="377.0" text="Total Payment " textFill="WHITE" />
-            <Label layoutX="25.0" layoutY="349.0" text="Total Fee :" textFill="WHITE" />
-            <Label fx:id="lblFee" layoutX="98.0" layoutY="349.0" prefHeight="21.0" prefWidth="169.0" text="Rs. 20000/=" textFill="#5d00ae" />
-            <Label fx:id="lblDetails" layoutX="25.0" layoutY="334.0" prefHeight="21.0" prefWidth="242.0" text="Session name" textFill="#5d00ae" />
-            <ComboBox fx:id="comboSession" layoutX="25.0" layoutY="303.0" onAction="#getSessionDetails" prefHeight="31.0" prefWidth="242.0" promptText="Select Session" />
-            <Label layoutX="24.0" layoutY="282.0" text="Session" textFill="WHITE" />
+            <Label layoutX="24.0" layoutY="72.0" text="Patients Id :" textFill="WHITE" />
          </children>
       </AnchorPane>
       <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="176.0" text="Manage Patients">

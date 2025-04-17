@@ -76,22 +76,8 @@ public class ManagePatientsContro implements Initializable {
 
     private PatientTm patientTm = null;
 
-    @FXML
-    private ComboBox<String> comboSession;
-
-    @FXML
-    private Label lblDetails;
-
-    @FXML
-    private Label lblFee;
-
-    @FXML
-    private TextField txtAmount;
-
     //=========
-    private PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PAYMENT);
-    private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
-    private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
+     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //=========
 
     @Override
@@ -109,34 +95,10 @@ public class ManagePatientsContro implements Initializable {
         loadTable();
         clearTexts();
         loadNextId();
-        loadSessionIds();
 
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
         btnSave.setDisable(false);
-    }
-
-
-    @FXML
-    void getSessionDetails(ActionEvent event) {
-        //HERE WHEN SELECTED THE COMBOBOX VALUES
-        String selectedID = comboSession.getSelectionModel().getSelectedItem();
-        if(selectedID != null){
-            TheraphySessionDto program = sessionBO.getProgram(selectedID);
-            lblDetails.setText(program.getProgram().getName() + " | " + program.getDate());
-            lblFee.setText("Rs. " + program.getProgram().getFee() + "/=");
-
-            txtAmount.setText(String.valueOf(program.getProgram().getFee()));
-        }
-    }
-
-    private void loadSessionIds() {
-        ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
-        ObservableList<String> sessionIds = FXCollections.observableArrayList();
-        for (TheraphySessionDto dto : allSessions){
-            sessionIds.add(dto.getSession_Id());
-        }
-        comboSession.setItems(sessionIds);
     }
 
     private void loadNextId() {
@@ -149,19 +111,10 @@ public class ManagePatientsContro implements Initializable {
         txtEmail.setText("");
         txtName.setText("");
 
-        txtAmount.setText("");
-
-        lblFee.setText("0.0/=");
-        lblDetails.setText("Session name");
-
-        comboSession.setValue(null);
-        comboSession.setPromptText("Select Session");
-
         txtEmail.setPromptText("email");
         txtAddress.setPromptText("address");
         txtContact.setPromptText("contact");
         txtName.setPromptText("name");
-        txtAmount.setPromptText("Amount");
     }
 
     private void loadTable() {
@@ -186,11 +139,7 @@ public class ManagePatientsContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(patientBO.isValidToSave(txtEmail.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            if(comboSession.getSelectionModel().getSelectedItem() != null){
-                                savePatient();
-                            }else{
-                                CustomAlerts.comboboxValueNotSelected();
-                            }
+                            savePatient();
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
@@ -209,23 +158,12 @@ public class ManagePatientsContro implements Initializable {
     }
 
     private void savePatient() {
-        //HERE CREATE THE OBJ SAVE THE PAYMENT
-        PaymentDto paymentDto = new PaymentDto();
-
-        //HERE NEED TO GENERATE THE ID
-        paymentDto.setPayment_Id(paymentBO.genarateIds());
-        paymentDto.setAmount(Double.parseDouble(txtAmount.getText()));
-        paymentDto.setDate(LocalDate.now());
-
-
         //HERE CREATE THE OBJ TO SAVE THE PATIENT
         PatientDto patientDto = new PatientDto(lblPatientId.getText(), txtName.getText(), txtEmail.getText(), txtAddress.getText(), txtContact.getText());
 
         if(patientBO.save(patientDto)){
-            if(paymentBO.save(paymentDto)){
-                CustomAlerts.saved();
-                pageReset();
-            }
+            CustomAlerts.saved();
+            pageReset();
         }
     }
 
@@ -240,11 +178,7 @@ public class ManagePatientsContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(patientBO.isValidToUpdate(txtEmail.getText(), lblPatientId.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            if(comboSession.getSelectionModel().getSelectedItem() != null){
-                                updatePatient();
-                            }else {
-                                CustomAlerts.comboboxValueNotSelected();
-                            }
+                            updatePatient();
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
