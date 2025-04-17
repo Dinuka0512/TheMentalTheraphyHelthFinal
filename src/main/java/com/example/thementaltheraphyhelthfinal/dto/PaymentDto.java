@@ -16,9 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PaymentDto {
-    private String Payment_Id;
+    private int Payment_Id;
     private double amount;
     private LocalDate date;
-
-    private PatientDto patient;
 }

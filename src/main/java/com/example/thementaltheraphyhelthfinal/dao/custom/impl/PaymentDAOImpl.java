@@ -1,19 +1,26 @@
 package com.example.thementaltheraphyhelthfinal.dao.custom.impl;
 
+import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import com.example.thementaltheraphyhelthfinal.dao.custom.PaymentDAO;
 import com.example.thementaltheraphyhelthfinal.entities.Payment;
+import org.hibernate.Session;
 
 import java.util.ArrayList;
 
 public class PaymentDAOImpl implements PaymentDAO {
     @Override
-    public ArrayList<Payment> getAll() {
-        return null;
+    public boolean save(Payment dto) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        session.persist(dto);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
-    public boolean save(Payment dto) {
-        return false;
+    public ArrayList<Payment> getAll() {
+        return null;
     }
 
     @Override

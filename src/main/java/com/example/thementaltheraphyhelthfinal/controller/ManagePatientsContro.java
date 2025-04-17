@@ -2,8 +2,10 @@ package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
+import com.example.thementaltheraphyhelthfinal.bo.custom.PaymentBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.SessionBO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
+import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
 import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.PatientTm;
@@ -20,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -85,7 +88,7 @@ public class ManagePatientsContro implements Initializable {
     private TextField txtAmount;
 
     //=========
-
+    private PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PAYMENT);
     private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //=========
@@ -205,11 +208,19 @@ public class ManagePatientsContro implements Initializable {
     }
 
     private void savePatient() {
+        //HERE CREATE THE OBJ TO SAVE THE PATIENT
         PatientDto patientDto = new PatientDto(lblPatientId.getText(), txtName.getText(), txtEmail.getText(), txtAddress.getText(), txtContact.getText());
 
+        //HERE CREATE THE OBJ SAVE THE PAYMENT
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setAmount(Double.parseDouble(txtAmount.getText()));
+        paymentDto.setDate(LocalDate.now());
+
         if(patientBO.save(patientDto)){
-            CustomAlerts.saved();
-            pageReset();
+            if(paymentBO.save(paymentDto)){
+                CustomAlerts.saved();
+                pageReset();
+            }
         }
     }
 

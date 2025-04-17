@@ -32,6 +32,7 @@ public class Patient {
 
     @OneToOne
     @Cascade(CascadeType.ALL)
+    @JoinColumn(name = "payment_Payment_Id", referencedColumnName = "Payment_Id")
     private Payment payment;
 
     public Patient(String patient_Id, String name, String email, String address, String contact) {
