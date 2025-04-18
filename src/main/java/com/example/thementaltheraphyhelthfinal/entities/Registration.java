@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Regiistration {
+public class Registration {
     @Id
     private String Registration_Id;
 

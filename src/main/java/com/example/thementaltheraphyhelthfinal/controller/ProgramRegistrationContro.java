@@ -64,6 +64,10 @@ public class ProgramRegistrationContro implements Initializable {
     @FXML
     private TableView<RegistrationTm> tblRegistration;
 
+    //===========
+//    private
+    //===========
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colId.setCellValueFactory(new PropertyValueFactory<>("registration_Id"));
@@ -77,6 +81,25 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     private void pageReload() {
+        loadTable();
+        ClearText();
+        genarateNewId();
+        loadComboBoxIds();
+    }
+
+    private void loadComboBoxIds() {
+
+    }
+
+    private void loadTable() {
+    }
+
+    private void ClearText() {
+
+    }
+
+    private void genarateNewId() {
+
     }
 
     @FXML
