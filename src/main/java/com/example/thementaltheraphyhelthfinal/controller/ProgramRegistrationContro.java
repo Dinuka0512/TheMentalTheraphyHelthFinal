@@ -1,31 +1,35 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
+import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ProgramRegistrationContro implements Initializable {
     @FXML
-    private TableColumn<?, ?> colProFee;
+    private TableColumn<RegistrationTm, Double> colProFee;
 
     @FXML
     private Button btnUpdate;
 
     @FXML
-    private ComboBox<?> comboProgram;
+    private ComboBox<String> comboProgram;
 
     @FXML
-    private TableColumn<?, ?> colPatientId;
+    private TableColumn<RegistrationTm, String> colPatientId;
 
     @FXML
     private Label lblId;
 
     @FXML
-    private TableColumn<?, ?> colPatientName;
+    private TableColumn<RegistrationTm, String> colPatientName;
 
     @FXML
     private Label lblFee;
@@ -34,22 +38,22 @@ public class ProgramRegistrationContro implements Initializable {
     private Button btnSave;
 
     @FXML
-    private ComboBox<?> comboPatient;
+    private ComboBox<String> comboPatient;
 
     @FXML
     private Button btnDelete;
 
     @FXML
-    private TableColumn<?, ?> colProName;
+    private TableColumn<RegistrationTm, String> colProName;
 
     @FXML
     private Label lblProgramName;
 
     @FXML
-    private TableColumn<?, ?> colProId;
+    private TableColumn<RegistrationTm, String> colProId;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<RegistrationTm, String> colId;
 
     @FXML
     private Label lblPatientName;
@@ -58,11 +62,21 @@ public class ProgramRegistrationContro implements Initializable {
     private Button btnReset;
 
     @FXML
-    private TableView<?> tblRegistration;
+    private TableView<RegistrationTm> tblRegistration;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colId.setCellValueFactory(new PropertyValueFactory<>("registration_Id"));
+        colPatientId.setCellValueFactory(new PropertyValueFactory<>("patient_Id"));
+        colPatientName.setCellValueFactory(new PropertyValueFactory<>("PatientName"));
+        colProId.setCellValueFactory(new PropertyValueFactory<>("program_Id"));
+        colProName.setCellValueFactory(new PropertyValueFactory<>("program_Name"));
+        colProFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+    
+        pageReload();
+    }
 
+    private void pageReload() {
     }
 
     @FXML
