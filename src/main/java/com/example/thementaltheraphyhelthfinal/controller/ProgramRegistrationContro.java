@@ -1,10 +1,14 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
+import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
+import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ProgramRegistrationContro implements Initializable {
@@ -68,6 +73,8 @@ public class ProgramRegistrationContro implements Initializable {
 
     //===========
     private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
+    private TheraphyProgramBO theraphyProgramBO = (TheraphyProgramBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PROGRAM);
+    private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
     //===========
 
     @Override
@@ -90,7 +97,22 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     private void loadComboBoxIds() {
+        //LOAD PROGRAM DATA 
+        loadProgramDetails();
+        loadPatientDetails();
+    }
 
+    private void loadProgramDetails() {
+        ArrayList<String> programIds = theraphyProgramBO.getAllIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for(String s : programIds){
+            observableList.add(s);
+        }
+        comboProgram.setItems(observableList);
+    }
+
+    private void loadPatientDetails() {
+        
     }
 
     private void loadTable() {

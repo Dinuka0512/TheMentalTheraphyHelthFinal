@@ -73,4 +73,15 @@ public class TheraphyProgramBOImpl implements TheraphyProgramBO {
     public boolean save(TherapyProgramDto dto) {
         return therapyProgramDAO.save(new TherapyProgram(dto.getProgram_Id(), dto.getName(), dto.getDuration(), dto.getFee()));
     }
+
+    @Override
+    public ArrayList<String> getAllIds() {
+        ArrayList<TherapyProgram> all = therapyProgramDAO.getAll();
+        ArrayList<String> ids = new ArrayList<>();
+        for(TherapyProgram therapyProgram : all){
+            ids.add(therapyProgram.getProgram_Id());
+        }
+
+        return ids;
+    }
 }

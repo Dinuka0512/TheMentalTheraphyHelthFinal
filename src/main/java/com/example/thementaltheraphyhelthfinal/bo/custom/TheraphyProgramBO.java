@@ -14,4 +14,6 @@ public interface TheraphyProgramBO extends SuperBo {
     boolean delete(String id);
     boolean update(TherapyProgramDto dto);
     boolean save(TherapyProgramDto dto);
+
+    ArrayList<String> getAllIds();
 }
