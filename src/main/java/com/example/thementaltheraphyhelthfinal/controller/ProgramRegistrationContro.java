@@ -1,5 +1,7 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
+import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
+import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
@@ -65,7 +67,7 @@ public class ProgramRegistrationContro implements Initializable {
     private TableView<RegistrationTm> tblRegistration;
 
     //===========
-//    private
+    private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
     //===========
 
     @Override
@@ -95,11 +97,17 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     private void ClearText() {
+        comboPatient.setValue("Select Patient");
+        comboProgram.setValue("Select Program");
+        lblFee.setText("0.0/=");
 
+        lblPatientName.setText("Patient Name");
+        lblProgramName.setText("Program Name");
     }
 
     private void genarateNewId() {
-
+        String newId = registrationBO.genaratenewId();
+        lblId.setText(newId);
     }
 
     @FXML
