@@ -51,4 +51,31 @@ public class RegistrationBOImpl implements RegistrationBO {
         }
         return dtos;
     }
+
+    @Override
+    public boolean update(RegistrationDto registrationDto) {
+        return registrationDAO.update(
+                new Registration(
+                        //ID
+                        registrationDto.getRegistration_Id(),
+
+                        //PATIENT
+                        new Patient(
+                                registrationDto.getPatient().getPatient_Id(),
+                                registrationDto.getPatient().getName(),
+                                registrationDto.getPatient().getEmail(),
+                                registrationDto.getPatient().getAddress(),
+                                registrationDto.getPatient().getContact()
+                        ),
+
+                        //PROGRAM
+                        new TherapyProgram(
+                            registrationDto.getTherapyProgram().getProgram_Id(),
+                            registrationDto.getTherapyProgram().getName(),
+                            registrationDto.getTherapyProgram().getDuration(),
+                            registrationDto.getTherapyProgram().getFee()
+                        )
+                )
+        );
+    }
 }

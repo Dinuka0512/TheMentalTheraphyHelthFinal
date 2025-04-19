@@ -227,7 +227,22 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     void update(ActionEvent event) {
+        if(comboProgram.getValue()!=null){
+            if(comboPatient.getValue() != null){
+                updateRegistration();
+            }else{
+                CustomAlerts.comboboxValueNotSelected();
+            }
+        }else{
+            CustomAlerts.comboboxValueNotSelected();
+        }
+    }
 
+    private void updateRegistration() {
+        if(registrationBO.update(new RegistrationDto(lblId.getText(), patientDto, therapyProgramDto))){
+            CustomAlerts.update();
+            pageReload();
+        }
     }
 
     @FXML

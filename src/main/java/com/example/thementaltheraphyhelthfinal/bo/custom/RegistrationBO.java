@@ -11,4 +11,6 @@ public interface RegistrationBO extends SuperBo {
 
     boolean save(RegistrationDto registrationDto);
     ArrayList<RegistrationDto> getAll();
+
+    boolean update(RegistrationDto registrationDto);
 }
