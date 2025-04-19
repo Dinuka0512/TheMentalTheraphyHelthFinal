@@ -129,6 +129,24 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     private void loadTable() {
+        //HERE LOAD THE TABLE
+        ArrayList<RegistrationDto> all = registrationBO.getAll();
+        ObservableList<RegistrationTm> observableList = FXCollections.observableArrayList();
+
+        for(RegistrationDto registrationDto : all){
+            RegistrationTm registrationTm = new RegistrationTm(
+                    registrationDto.getRegistration_Id(),
+                    registrationDto.getPatient().getPatient_Id(),
+                    registrationDto.getPatient().getName(),
+                    registrationDto.getTherapyProgram().getProgram_Id(),
+                    registrationDto.getTherapyProgram().getName(),
+                    registrationDto.getTherapyProgram().getFee()
+            );
+
+            observableList.add(registrationTm);
+        }
+
+        tblRegistration.setItems(observableList);
     }
 
     private void ClearText() {

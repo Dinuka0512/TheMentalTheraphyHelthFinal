@@ -5,8 +5,10 @@ import com.example.thementaltheraphyhelthfinal.dao.custom.RegistrationDAO;
 import com.example.thementaltheraphyhelthfinal.entities.Registration;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrationDAOImpl implements RegistrationDAO {
     @Override
@@ -38,7 +40,13 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public ArrayList<Registration> getAll() {
-        return null;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Query<Registration> query = session.createQuery("FROM Registration", Registration.class);
+        List<Registration> resultList = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return (ArrayList<Registration>) resultList;
     }
 
     @Override
