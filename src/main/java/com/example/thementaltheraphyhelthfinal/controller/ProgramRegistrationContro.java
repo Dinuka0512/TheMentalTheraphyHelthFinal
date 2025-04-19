@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -76,6 +77,8 @@ public class ProgramRegistrationContro implements Initializable {
 
     private PatientDto patientDto;
     private TherapyProgramDto therapyProgramDto;
+
+    private RegistrationTm registrationTm;
 
     //===========
     private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
@@ -185,8 +188,15 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     @FXML
-    void gettableDetails(ActionEvent event) {
+    void gettableDetails(MouseEvent event) {
+        registrationTm = tblRegistration.getSelectionModel().getSelectedItem();
 
+        if(registrationTm != null){
+            //HERE SET THE VALES FOR FIELDS
+            lblId.setText(registrationTm.getRegistration_Id());
+            comboProgram.setValue(registrationTm.getProgram_Id());
+            comboPatient.setValue(registrationTm.getPatient_Id());
+        }
     }
 
     @FXML
