@@ -60,12 +60,20 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     }
 
     @Override
-    public boolean exist(String id) {
-        return false;
+    public boolean delete(String id) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Registration registration = session.get(Registration.class, id);
+        if(registration!=null){
+            session.remove(registration);
+        }
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean exist(String id) {
         return false;
     }
 

@@ -78,4 +78,9 @@ public class RegistrationBOImpl implements RegistrationBO {
                 )
         );
     }
+
+    @Override
+    public boolean delete(String id) {
+        return registrationDAO.delete(id);
+    }
 }

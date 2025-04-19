@@ -103,6 +103,13 @@ public class ProgramRegistrationContro implements Initializable {
         ClearText();
         genarateNewId();
         loadComboBoxIds();
+        setupButttons();
+    }
+
+    private void setupButttons() {
+        btnDelete.setDisable(true);
+        btnSave.setDisable(false);
+        btnUpdate.setDisable(true);
     }
 
     private void loadComboBoxIds() {
@@ -196,6 +203,10 @@ public class ProgramRegistrationContro implements Initializable {
             lblId.setText(registrationTm.getRegistration_Id());
             comboProgram.setValue(registrationTm.getProgram_Id());
             comboPatient.setValue(registrationTm.getPatient_Id());
+
+            btnDelete.setDisable(false);
+            btnSave.setDisable(true);
+            btnUpdate.setDisable(false);
         }
     }
 
@@ -247,8 +258,18 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     void delete(ActionEvent event) {
-
+        if(CustomAlerts.doYouWantToDelete()){
+            deleteRegistation();
+        }
     }
+
+    private void deleteRegistation() {
+        if(registrationBO.delete(lblId.getText())){
+            CustomAlerts.delete();
+            pageReload();
+        }
+    }
+
 
     @FXML
     void reset(ActionEvent event) {
