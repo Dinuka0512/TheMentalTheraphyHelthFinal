@@ -8,4 +8,6 @@ import java.util.ArrayList;
 
 public interface TheraphyProgramDAO extends SuperDAO, CrudDAO<TherapyProgram> {
     ArrayList<TherapyProgram> searchFromTable(String name);
+
+    TherapyProgram getDetails(String selectedItem);
 }

@@ -30,7 +30,7 @@
       <AnchorPane layoutX="624.0" layoutY="11.0" prefHeight="522.0" prefWidth="289.0" style="-fx-background-radius: 10; -fx-background-color: B5A8D5;">
          <children>
             <Label layoutX="24.0" layoutY="93.0" text="Patient" textFill="WHITE" />
-            <ComboBox fx:id="comboPatient" layoutX="25.0" layoutY="114.0" prefHeight="34.0" prefWidth="242.0" promptText="Select Patient">
+            <ComboBox fx:id="comboPatient" layoutX="25.0" layoutY="114.0" onAction="#selectPatient" prefHeight="34.0" prefWidth="242.0" promptText="Select Patient">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -56,7 +56,7 @@
                </cursor>
             </Button>
             <Label layoutX="23.0" layoutY="178.0" text="Program " textFill="WHITE" />
-            <ComboBox fx:id="comboProgram" layoutX="24.0" layoutY="199.0" prefHeight="34.0" prefWidth="242.0" promptText="Select Program">
+            <ComboBox fx:id="comboProgram" layoutX="24.0" layoutY="199.0" onAction="#selectProgram" prefHeight="34.0" prefWidth="242.0" promptText="Select Program">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

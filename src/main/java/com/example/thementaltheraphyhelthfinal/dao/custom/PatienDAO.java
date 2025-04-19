@@ -9,4 +9,6 @@ public interface PatienDAO extends CrudDAO<Patient> , SuperDAO {
     boolean isValidToSave(String email);
     boolean isValidToUpdate(String email, String id);
     boolean delete(Patient dto);
+
+    Patient getDetails(String selectedItem);
 }

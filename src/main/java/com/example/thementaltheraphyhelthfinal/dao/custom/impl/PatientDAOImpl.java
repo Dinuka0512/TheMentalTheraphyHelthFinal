@@ -88,6 +88,20 @@ public class PatientDAOImpl implements PatienDAO {
     }
 
     @Override
+    public Patient getDetails(String selectedItem) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Query<Patient> query = session.createQuery("FROM Patient WHERE patient_Id = :item", Patient.class);
+        query.setParameter("item", selectedItem);
+
+        Patient result = query.getSingleResult();
+
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    @Override
     public boolean save(Patient dto) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();

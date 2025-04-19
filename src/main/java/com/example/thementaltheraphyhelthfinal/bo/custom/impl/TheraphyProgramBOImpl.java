@@ -84,4 +84,10 @@ public class TheraphyProgramBOImpl implements TheraphyProgramBO {
 
         return ids;
     }
+
+    @Override
+    public TherapyProgramDto getDetails(String selectedItem) {
+        TherapyProgram therapyProgram = therapyProgramDAO.getDetails(selectedItem);
+        return (therapyProgram!=null)? new TherapyProgramDto(therapyProgram.getProgram_Id(), therapyProgram.getName(), therapyProgram.getDuration(), therapyProgram.getFee()) : null;
+    }
 }

@@ -4,6 +4,7 @@ import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
+import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
@@ -99,6 +100,8 @@ public class ProgramRegistrationContro implements Initializable {
     private void loadComboBoxIds() {
         //LOAD PROGRAM DATA 
         loadProgramDetails();
+
+        //LOAD PATIENT DATA
         loadPatientDetails();
     }
 
@@ -112,7 +115,12 @@ public class ProgramRegistrationContro implements Initializable {
     }
 
     private void loadPatientDetails() {
-        
+        ArrayList<String> patientIds = patientBO.getAllIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for(String s : patientIds){
+            observableList.add(s);
+        }
+        comboPatient.setItems(observableList);
     }
 
     private void loadTable() {
@@ -130,6 +138,19 @@ public class ProgramRegistrationContro implements Initializable {
     private void genarateNewId() {
         String newId = registrationBO.genaratenewId();
         lblId.setText(newId);
+    }
+
+    @FXML
+    void selectPatient(ActionEvent event) {
+        PatientDto patientDto = patientBO.getDetails(comboPatient.getSelectionModel().getSelectedItem());
+        lblPatientName.setText(patientDto.getName());
+    }
+
+    @FXML
+    void selectProgram(ActionEvent event) {
+        TherapyProgramDto therapyProgramDto = theraphyProgramBO.getDetails(comboProgram.getSelectionModel().getSelectedItem());
+        lblProgramName.setText(therapyProgramDto.getName());
+        lblFee.setText("Rs "+ therapyProgramDto.getFee() + "/=");
     }
 
     @FXML
@@ -154,7 +175,7 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     void reset(ActionEvent event) {
-
+        pageReload();
     }
 
 }

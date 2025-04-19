@@ -5,6 +5,7 @@ import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.PatienDAO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 
 import java.util.ArrayList;
 
@@ -53,4 +54,22 @@ public class PatienBOImpl implements PatientBO {
         Patient patient = new Patient(dto.getPatient_Id(),dto.getName(),dto.getEmail(),dto.getAddress(),dto.getContact());
         return patienDAO.delete(patient);
     }
+
+    @Override
+    public ArrayList<String> getAllIds() {
+        ArrayList<Patient> all = patienDAO.getAll();
+        ArrayList<String> ids = new ArrayList<>();
+        for(Patient dto : all){
+            ids.add(dto.getPatient_Id());
+        }
+
+        return ids;
+    }
+
+    @Override
+    public PatientDto getDetails(String selectedItem) {
+        Patient patient = patienDAO.getDetails(selectedItem);
+        return (patient!=null)? new PatientDto(patient.getPatient_Id(), patient.getName(), patient.getEmail(), patient.getAddress(), patient.getContact()): null;
+    }
+
 }

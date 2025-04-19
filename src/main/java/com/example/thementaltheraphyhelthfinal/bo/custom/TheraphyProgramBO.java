@@ -16,4 +16,6 @@ public interface TheraphyProgramBO extends SuperBo {
     boolean save(TherapyProgramDto dto);
 
     ArrayList<String> getAllIds();
+
+    TherapyProgramDto getDetails(String selectedItem);
 }
