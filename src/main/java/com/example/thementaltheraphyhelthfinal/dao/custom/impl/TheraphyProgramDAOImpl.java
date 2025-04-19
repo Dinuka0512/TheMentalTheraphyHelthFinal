@@ -58,13 +58,10 @@ public class TheraphyProgramDAOImpl implements TheraphyProgramDAO {
     public TherapyProgram getDetails(String selectedItem) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
-        Query<TherapyProgram> query = session.createQuery("FROM TherapyProgram WHERE program_Id = :id", TherapyProgram.class);
-        query.setParameter("id", selectedItem);
-
-        TherapyProgram result = query.getSingleResult();
+        TherapyProgram therapyProgram = session.get(TherapyProgram.class, selectedItem);
         session.getTransaction().commit();
         session.close();
-        return result;
+        return therapyProgram;
     }
 
     @Override

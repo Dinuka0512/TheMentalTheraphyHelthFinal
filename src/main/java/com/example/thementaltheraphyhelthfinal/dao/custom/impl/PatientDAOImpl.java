@@ -91,14 +91,10 @@ public class PatientDAOImpl implements PatienDAO {
     public Patient getDetails(String selectedItem) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
-        Query<Patient> query = session.createQuery("FROM Patient WHERE patient_Id = :item", Patient.class);
-        query.setParameter("item", selectedItem);
-
-        Patient result = query.getSingleResult();
-
+        Patient patient = session.get(Patient.class, selectedItem);
         session.getTransaction().commit();
         session.close();
-        return result;
+        return patient;
     }
 
     @Override

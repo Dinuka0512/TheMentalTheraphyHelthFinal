@@ -31,13 +31,18 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     }
 
     @Override
-    public ArrayList<Registration> getAll() {
-        return null;
+    public boolean save(Registration dto) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        session.persist(dto);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
-    public boolean save(Registration dto) {
-        return false;
+    public ArrayList<Registration> getAll() {
+        return null;
     }
 
     @Override

@@ -5,9 +5,11 @@ import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
+import com.example.thementaltheraphyhelthfinal.dto.RegistrationDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
+import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,6 +73,9 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     private TableView<RegistrationTm> tblRegistration;
+
+    private PatientDto patientDto;
+    private TherapyProgramDto therapyProgramDto;
 
     //===========
     private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
@@ -142,15 +147,23 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     void selectPatient(ActionEvent event) {
-        PatientDto patientDto = patientBO.getDetails(comboPatient.getSelectionModel().getSelectedItem());
-        lblPatientName.setText(patientDto.getName());
+        if(comboPatient!= null){
+            patientDto = patientBO.getDetails(comboPatient.getSelectionModel().getSelectedItem());
+            if(patientDto != null){
+                lblPatientName.setText(patientDto.getName());
+            }
+        }
     }
 
     @FXML
     void selectProgram(ActionEvent event) {
-        TherapyProgramDto therapyProgramDto = theraphyProgramBO.getDetails(comboProgram.getSelectionModel().getSelectedItem());
-        lblProgramName.setText(therapyProgramDto.getName());
-        lblFee.setText("Rs "+ therapyProgramDto.getFee() + "/=");
+        if(comboProgram!=null){
+            therapyProgramDto = theraphyProgramBO.getDetails(comboProgram.getSelectionModel().getSelectedItem());
+            if(therapyProgramDto != null){
+                lblProgramName.setText(therapyProgramDto.getName());
+                lblFee.setText("Rs "+ therapyProgramDto.getFee() + "/=");
+            }
+        }
     }
 
     @FXML
@@ -160,7 +173,28 @@ public class ProgramRegistrationContro implements Initializable {
 
     @FXML
     void save(ActionEvent event) {
+        if(comboProgram.getValue()!=null){
+            if(comboPatient.getValue() != null){
+                saveRegistration();
+            }else{
+                CustomAlerts.comboboxValueNotSelected();
+            }
+        }else{
+            CustomAlerts.comboboxValueNotSelected();
+        }
+    }
 
+    private void saveRegistration() {
+        RegistrationDto registrationDto = new RegistrationDto();
+        registrationDto.setRegistration_Id(lblId.getText());
+        registrationDto.setPatient(patientDto);
+        registrationDto.setTherapyProgram(therapyProgramDto);
+
+        //HERE NEED TO SAVE
+        if(registrationBO.save(registrationDto)){
+            CustomAlerts.saved();
+            pageReload();
+        }
     }
 
     @FXML
