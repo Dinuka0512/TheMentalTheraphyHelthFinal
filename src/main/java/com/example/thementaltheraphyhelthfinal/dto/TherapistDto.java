@@ -1,5 +1,6 @@
 package com.example.thementaltheraphyhelthfinal.dto;
 
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,4 +19,5 @@ public class TherapistDto {
     private String email;
     private String address;
     private String contact;
+    private TherapyProgramDto programDto;
 }

@@ -93,13 +93,21 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
-    public boolean delete(Therapist therapist) {
-        Session session = factoryConfig.getSession();
+    public boolean delete(String id) {
+        Session session = FactoryConfig.factoryCongig.getSession();
         session.beginTransaction();
-        session.remove(therapist);
+        Therapist therapist = session.get(Therapist.class, id);
+        if(therapist!=null){
+            session.remove(therapist);
+        }
         session.getTransaction().commit();
         session.close();
         return true;
+    }
+
+    @Override
+    public boolean delete(Therapist therapist) {
+        return false;
     }
 
     @Override
@@ -110,10 +118,5 @@ public class TherapistDAOImpl implements TherapistDAO {
     @Override
     public Therapist search(String id) {
         return null;
-    }
-
-    @Override
-    public boolean delete(String id) {
-        return false;
     }
 }

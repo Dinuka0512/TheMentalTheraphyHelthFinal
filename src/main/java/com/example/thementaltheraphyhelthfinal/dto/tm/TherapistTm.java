@@ -1,5 +1,7 @@
 package com.example.thementaltheraphyhelthfinal.dto.tm;
 
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 import lombok.*;
 
 @AllArgsConstructor
@@ -13,4 +15,5 @@ public class TherapistTm {
     private String email;
     private String address;
     private String contact;
+    private TherapyProgramDto therapyProgramDto;
 }

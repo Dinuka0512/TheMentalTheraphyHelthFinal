@@ -1,8 +1,10 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
+import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapistTm;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
@@ -21,12 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ManageTherapistContro implements Initializable {
-    //=========
-    private TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.getBoType.THERAPHIST);
-    //=========
 
-    @FXML
-    private TableColumn<TherapistTm, String> colContact;
 
     @FXML
     private TableColumn<TherapistTm, String> colName;
@@ -73,6 +70,23 @@ public class ManageTherapistContro implements Initializable {
     private Label lblTherapistId;
     private static UserDto userDto;
 
+    @FXML
+    private ComboBox<String> comboProgram;
+
+    @FXML
+    private Label lblProName;
+
+    private TherapyProgramDto therapyProgramDto;
+
+
+    //=========
+    private TheraphyProgramBO theraphyProgramBO = (TheraphyProgramBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PROGRAM);
+    private TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.getBoType.THERAPHIST);
+    //=========
+
+    @FXML
+    private TableColumn<TherapistTm, String> colContact;
+
     public static UserDto getUserDto() {
         return userDto;
     }
@@ -98,7 +112,7 @@ public class ManageTherapistContro implements Initializable {
 
             ObservableList<TherapistTm> observableList = FXCollections.observableArrayList();
             for (TherapistDto therapistDto : dtos){
-                TherapistTm therapistTm = new TherapistTm(therapistDto.getTherapist_Id(), therapistDto.getName(), therapistDto.getEmail(), therapistDto.getAddress(), therapistDto.getContact());
+                TherapistTm therapistTm = new TherapistTm(therapistDto.getTherapist_Id(), therapistDto.getName(), therapistDto.getEmail(), therapistDto.getAddress(), therapistDto.getContact(), therapistDto.getProgramDto());
                 observableList.add(therapistTm);
             }
 
@@ -107,11 +121,21 @@ public class ManageTherapistContro implements Initializable {
     }
 
     @FXML
+    void selectProgram(ActionEvent event) {
+        if(comboProgram!=null){
+            therapyProgramDto = theraphyProgramBO.getDetails(comboProgram.getSelectionModel().getSelectedItem());
+            if(therapyProgramDto != null){
+                lblProName.setText(therapyProgramDto.getName());
+            }
+        }
+    }
+
+    @FXML
     void gettableDetails(MouseEvent event) {
         TherapistTm dto = tblTheraphist.getSelectionModel().getSelectedItem();
         if(dto != null){
             //HERE SAVE THE SELECTED THERAPIST
-            therapist = new TherapistTm(dto.getTherapist_Id(), dto.getName(), dto.getEmail(), dto.getAddress(), dto.getContact());
+            therapist = new TherapistTm(dto.getTherapist_Id(), dto.getName(), dto.getEmail(), dto.getAddress(), dto.getContact(), dto.getTherapyProgramDto());
 
             lblTherapistId.setText(therapist.getTherapist_Id());
             txtName.setText(therapist.getName());
@@ -119,10 +143,14 @@ public class ManageTherapistContro implements Initializable {
             txtEmail.setText(therapist.getEmail());
             txtContact.setText(therapist.getContact());
 
-            if(userDto.getJobRole().equals("admin")){
-                btnSave.setDisable(true);
-                btnDelete.setDisable(false);
-                btnUpdate.setDisable(false);
+            comboProgram.setValue(therapist.getTherapyProgramDto().getProgram_Id());
+
+            if(userDto!=null){
+                if(userDto.getJobRole().equals("admin")){
+                    btnSave.setDisable(true);
+                    btnDelete.setDisable(false);
+                    btnUpdate.setDisable(false);
+                }
             }
         }
     }
@@ -143,7 +171,11 @@ public class ManageTherapistContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(therapistBO.isValidToUpdate(txtEmail.getText(), lblTherapistId.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            updateTherapist();
+                            if(comboProgram.getSelectionModel().getSelectedItem()!=null){
+                                updateTherapist();
+                            }else{
+                                CustomAlerts.comboboxValueNotSelected();
+                            }
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
@@ -169,6 +201,8 @@ public class ManageTherapistContro implements Initializable {
             dto.setAddress(txtAddress.getText());
             dto.setEmail(txtEmail.getText());
             dto.setName(txtName.getText());
+            dto.setProgramDto(therapyProgramDto);
+
 
             if(therapistBO.update(dto)){
                 CustomAlerts.update();
@@ -181,7 +215,7 @@ public class ManageTherapistContro implements Initializable {
     void delete(ActionEvent event) {
         if(therapist!=null){
             if(CustomAlerts.doYouWantToDelete()){
-                if(therapistBO.delete(new TherapistDto(therapist.getTherapist_Id(), therapist.getName(), therapist.getAddress(), therapist.getContact(), therapist.getEmail()))){
+                if(therapistBO.delete(lblTherapistId.getText())){
                     CustomAlerts.delete();
                     pageReset();
                 }
@@ -195,7 +229,11 @@ public class ManageTherapistContro implements Initializable {
                 if(Validation.isValidEmail(txtEmail.getText())){
                     if(therapistBO.isValidToSave(txtEmail.getText())){
                         if(Validation.isValidMobileNumber(txtContact.getText())){
-                            saveTherapist();
+                            if(comboProgram.getSelectionModel().getSelectedItem()!=null){
+                                saveTherapist();
+                            }else{
+                                CustomAlerts.comboboxValueNotSelected();
+                            }
                         }else{
                             CustomAlerts.isNotValidMobileNumber();
                         }
@@ -220,7 +258,7 @@ public class ManageTherapistContro implements Initializable {
         dto.setAddress(txtAddress.getText());
         dto.setEmail(txtEmail.getText());
         dto.setName(txtName.getText());
-
+        dto.setProgramDto(therapyProgramDto);
 
         if(therapistBO.save(dto)){
             CustomAlerts.saved();
@@ -255,7 +293,20 @@ public class ManageTherapistContro implements Initializable {
         txtEmail.setPromptText("Email");
         txtAddress.setPromptText("Address");
 
+        comboProgram.setValue("Select Program");
+        lblProName.setText("Select Therapy Program");
+
         lblTherapistId.setText(therapistBO.genarateID());
         loadTable();
+        loadProgramIds();
+    }
+
+    private void loadProgramIds() {
+        ArrayList<String> programIds = theraphyProgramBO.getAllIds();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for(String s : programIds){
+            observableList.add(s);
+        }
+        comboProgram.setItems(observableList);
     }
 }

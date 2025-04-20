@@ -4,7 +4,9 @@ import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.TherapistDAO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
+import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.entities.Therapist;
+import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public class TherapistBOimpl implements TherapistBO {
         if(therapists!=null){
             ArrayList<TherapistDto> therapistDtos = new ArrayList<>();
             for(Therapist therapist : therapists){
-                TherapistDto dto = new TherapistDto(therapist.getTherapist_Id(), therapist.getName(), therapist.getEmail(), therapist.getAddress(), therapist.getContact());
+                TherapistDto dto = new TherapistDto(therapist.getTherapist_Id(), therapist.getName(), therapist.getEmail(), therapist.getAddress(), therapist.getContact(),new TherapyProgramDto(therapist.getProgram().getProgram_Id(), therapist.getProgram().getName(), therapist.getProgram().getDuration(), therapist.getProgram().getFee()));
                 therapistDtos.add(dto);
             }
             return therapistDtos;
@@ -33,19 +35,27 @@ public class TherapistBOimpl implements TherapistBO {
     }
 
     @Override
-    public boolean delete(TherapistDto therapist) {
-        return therapistDAO.delete(new Therapist(therapist.getTherapist_Id(), therapist.getName(), therapist.getEmail(), therapist.getContact(), therapist.getAddress()));
+    public boolean delete(String id) {
+        return therapistDAO.delete(id);
     }
 
     @Override
     public boolean save(TherapistDto dto) {
+        TherapyProgram therapyProgram = new TherapyProgram(
+                dto.getProgramDto().getProgram_Id(),
+                dto.getProgramDto().getName(),
+                dto.getProgramDto().getDuration(),
+                dto.getProgramDto().getFee()
+        );
+
         return therapistDAO.save(
                 new Therapist(
                         dto.getTherapist_Id(),
                         dto.getName(),
                         dto.getEmail(),
                         dto.getAddress(),
-                        dto.getContact()
+                        dto.getContact(),
+                        therapyProgram
                 )
         );
     }
@@ -62,13 +72,21 @@ public class TherapistBOimpl implements TherapistBO {
 
     @Override
     public boolean update(TherapistDto dto) {
+        TherapyProgram therapyProgram = new TherapyProgram(
+                dto.getProgramDto().getProgram_Id(),
+                dto.getProgramDto().getName(),
+                dto.getProgramDto().getDuration(),
+                dto.getProgramDto().getFee()
+        );
+
         return therapistDAO.update(
                 new Therapist(
                         dto.getTherapist_Id(),
                         dto.getName(),
                         dto.getEmail(),
                         dto.getAddress(),
-                        dto.getContact()
+                        dto.getContact(),
+                        therapyProgram
                 )
         );
     }
