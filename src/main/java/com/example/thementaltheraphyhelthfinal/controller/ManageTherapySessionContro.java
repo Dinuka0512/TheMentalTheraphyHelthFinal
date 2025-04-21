@@ -299,7 +299,11 @@ public class ManageTherapySessionContro implements Initializable {
         if(comboProgram.getValue()!=null){
             if(comboPatient.getValue() != null){
                 if(comboTherapist.getValue() != null){
-
+                    if(txtdateSelect.getValue()!=null){
+                        saveSession();
+                    }else {
+                        CustomAlerts.notSelectedTheDate();
+                    }
                 }else{
                     CustomAlerts.comboboxValueNotSelected();
                 }
@@ -312,13 +316,17 @@ public class ManageTherapySessionContro implements Initializable {
     }
 
     private void saveSession() {
-        RegistrationDto registrationDto = new RegistrationDto();
-        registrationDto.setRegistration_Id(lblId.getText());
-        registrationDto.setPatient(patientDto);
-        registrationDto.setTherapyProgram(therapyProgramDto);
+        TheraphySessionDto theraphySessionDto = new TheraphySessionDto(
+                lblId.getText(),
+                txtdateSelect.getValue(),
+                Double.parseDouble(lblFee.getText()),
+                therapyProgramDto,
+                patientDto,
+                comboTherapist.getSelectionModel().getSelectedItem()
+        );
 
         //HERE NEED TO SAVE
-        if(registrationBO.save(registrationDto)){
+        if(sessionBO.save(theraphySessionDto)){
             CustomAlerts.saved();
             pageReload();
         }

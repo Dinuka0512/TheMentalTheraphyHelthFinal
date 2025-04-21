@@ -65,4 +65,8 @@ public class CustomAlerts extends Alert {
     public static void comboboxValueNotSelected(){
         new Alert(AlertType.WARNING,"The combobox value is not selected").show();
     }
+
+    public static void notSelectedTheDate(){
+        new CustomAlerts(AlertType.WARNING,"Before save select the date first").show();
+    }
 }

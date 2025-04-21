@@ -75,4 +75,29 @@ public class SessionBOImpl implements SessionBO {
     public boolean delete(String id) {
         return sessionDAO.delete(id);
     }
+
+    @Override
+    public boolean save(TheraphySessionDto theraphySessionDto) {
+        TheraphySession theraphySession = new TheraphySession(
+                theraphySessionDto.getSession_Id(),
+                theraphySessionDto.getDate(),
+                theraphySessionDto.getAmount(),
+                new TherapyProgram(
+                        theraphySessionDto.getProgram().getProgram_Id(),
+                        theraphySessionDto.getProgram().getName(),
+                        theraphySessionDto.getProgram().getDuration(),
+                        theraphySessionDto.getProgram().getFee()
+                ),
+                new Patient(
+                        theraphySessionDto.getPatient().getPatient_Id(),
+                        theraphySessionDto.getPatient().getName(),
+                        theraphySessionDto.getPatient().getEmail(),
+                        theraphySessionDto.getPatient().getAddress(),
+                        theraphySessionDto.getPatient().getContact()
+                ),
+                theraphySessionDto.getTherapist_Id()
+        );
+
+        return sessionDAO.save(theraphySession);
+    }
 }

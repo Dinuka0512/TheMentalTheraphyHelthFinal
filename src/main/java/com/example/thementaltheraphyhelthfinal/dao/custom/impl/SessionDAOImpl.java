@@ -37,7 +37,12 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public boolean save(TheraphySession dto) {
-        return false;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        session.persist(dto);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
