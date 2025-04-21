@@ -21,8 +21,8 @@ public class TheraphySession {
     @JoinColumn(name = "program_Id")
     private TherapyProgram program;
 
-    @ManyToMany
-    private List<Patient> patient;
+    @ManyToOne
+    private Patient patient;
 
     private String therapist_Id;
 }

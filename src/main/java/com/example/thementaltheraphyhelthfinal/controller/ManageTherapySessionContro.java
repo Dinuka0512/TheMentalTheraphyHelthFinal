@@ -5,6 +5,7 @@ import com.example.thementaltheraphyhelthfinal.bo.custom.*;
 import com.example.thementaltheraphyhelthfinal.dto.*;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapySessionTm;
+import com.example.thementaltheraphyhelthfinal.entities.TheraphySession;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ManageTherapySessionContro implements Initializable {
@@ -166,6 +168,30 @@ public class ManageTherapySessionContro implements Initializable {
     private void loadTable() {
         //HERE LOAD THE TABLE
         ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
+        ObservableList<TherapySessionTm> observableList = FXCollections.observableArrayList();
+
+        for(TheraphySessionDto theraphySessionDto : allSessions){
+            //HERE LOAD THERAPIST DETAILS
+            TherapistDto therapistDetails = therapistBO.getTherapistDetails(theraphySessionDto.getTherapist_Id());
+
+            if(therapistDetails!=null){
+                TherapySessionTm therapySession = new TherapySessionTm(
+                        theraphySessionDto.getSession_Id(),
+                        theraphySessionDto.getPatient().getPatient_Id(),
+                        theraphySessionDto.getPatient().getName(),
+                        theraphySessionDto.getProgram().getProgram_Id(),
+                        theraphySessionDto.getProgram().getName(),
+                        theraphySessionDto.getAmount(),
+                        therapistDetails.getTherapist_Id(),
+                        therapistDetails.getName(),
+                        theraphySessionDto.getDate().toString()
+                );
+
+                observableList.add(therapySession);
+            }
+        }
+
+        tblSession.setItems(observableList);
     }
 
     private void ClearText() {

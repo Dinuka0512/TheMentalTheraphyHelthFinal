@@ -23,7 +23,7 @@ public class TheraphySessionDto {
 
     private TherapyProgramDto program;
 
-    private List<PatientDto> patient;
+    private PatientDto patient;
 
     private String therapist_Id;
 }
