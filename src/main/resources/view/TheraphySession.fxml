@@ -92,7 +92,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ComboBox>
-            <DatePicker fx:id="dateSelect" layoutX="25.0" layoutY="158.0" prefHeight="34.0" prefWidth="265.0" />
+            <DatePicker fx:id="txtdateSelect" layoutX="25.0" layoutY="158.0" onAction="#selectTheDate" prefHeight="34.0" prefWidth="265.0" />
             <Label layoutX="25.0" layoutY="135.0" text="Session Date Arange :" textFill="WHITE" />
             <Label fx:id="lblAvailable" layoutX="25.0" layoutY="197.0" prefHeight="21.0" prefWidth="144.0" text="Date Free Available" textFill="#00a803" />
             <Label fx:id="lblBooked" layoutX="25.0" layoutY="197.0" prefHeight="21.0" prefWidth="211.0" text="Booked the Another session" textFill="#ff4747" visible="false" />

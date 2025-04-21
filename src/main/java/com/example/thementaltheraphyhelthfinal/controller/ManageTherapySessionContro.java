@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -71,7 +72,7 @@ public class ManageTherapySessionContro implements Initializable {
     private ComboBox<String> comboProgram;
 
     @FXML
-    private DatePicker dateSelect;
+    private DatePicker txtdateSelect;
 
     @FXML
     private TableColumn<TherapySessionTm, String> colPatientId;
@@ -131,6 +132,22 @@ public class ManageTherapySessionContro implements Initializable {
         genarateNewId();
         loadComboBoxIds();
         setupButttons();
+        datePikerReset();
+    }
+
+    private void datePikerReset() {
+        txtdateSelect.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+                if (date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #dddddd;"); // Optional: grey-out style
+                }
+            }
+        });
+
     }
 
     private void setupButttons() {
@@ -192,6 +209,11 @@ public class ManageTherapySessionContro implements Initializable {
         }
 
         tblSession.setItems(observableList);
+    }
+
+    @FXML
+    void selectTheDate(ActionEvent event) {
+
     }
 
     private void ClearText() {
@@ -276,7 +298,11 @@ public class ManageTherapySessionContro implements Initializable {
     void save(ActionEvent event) {
         if(comboProgram.getValue()!=null){
             if(comboPatient.getValue() != null){
-                saveSession();
+                if(comboTherapist.getValue() != null){
+
+                }else{
+                    CustomAlerts.comboboxValueNotSelected();
+                }
             }else{
                 CustomAlerts.comboboxValueNotSelected();
             }
@@ -327,14 +353,6 @@ public class ManageTherapySessionContro implements Initializable {
             }
         }
     }
-
-    private void deleteSession() {
-        if(registrationBO.delete(lblId.getText())){
-            CustomAlerts.delete();
-            pageReload();
-        }
-    }
-
 
     @FXML
     void reset(ActionEvent event) {
