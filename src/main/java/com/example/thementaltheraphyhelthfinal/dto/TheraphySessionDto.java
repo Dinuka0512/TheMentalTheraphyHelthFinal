@@ -20,7 +20,5 @@ public class TheraphySessionDto {
     private String session_Id;
     private LocalDate date;
     private double amount;
-    private String time;
-
     private TherapyProgram program;
 }

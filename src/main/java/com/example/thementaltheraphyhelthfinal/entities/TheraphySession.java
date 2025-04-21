@@ -16,7 +16,6 @@ public class TheraphySession {
     private String session_Id;
     private LocalDate date;
     private double amount;
-    private String time;
 
     @ManyToOne
     @JoinColumn(name = "program_Id")

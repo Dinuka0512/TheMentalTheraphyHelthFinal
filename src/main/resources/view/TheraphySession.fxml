@@ -87,7 +87,7 @@
             </Label>
             <Label fx:id="lblTherapistName" layoutX="584.0" layoutY="101.0" prefHeight="21.0" prefWidth="265.0" text="Therapist name" textFill="#4400ff" />
             <Label layoutX="582.0" layoutY="44.0" text="Therapist " textFill="WHITE" />
-            <ComboBox fx:id="comboTherapist" layoutX="584.0" layoutY="66.0" onAction="#selectProgram" prefHeight="34.0" prefWidth="265.0" promptText="Select Therapist">
+            <ComboBox fx:id="comboTherapist" layoutX="584.0" layoutY="66.0" onAction="#selectTherapist" prefHeight="34.0" prefWidth="265.0" promptText="Select Therapist">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

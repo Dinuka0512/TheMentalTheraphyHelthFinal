@@ -95,4 +95,23 @@ public class TherapistBOimpl implements TherapistBO {
     public ArrayList<String> loadtherapist(String programId) {
         return therapistDAO.loadtherapist(programId);
     }
+
+    @Override
+    public TherapistDto getTherapistDetails(String selectedItem) {
+        Therapist therapist = therapistDAO.getTherapistDetails(selectedItem);
+        return (therapist!=null)?
+                new TherapistDto(
+                        therapist.getTherapist_Id(),
+                        therapist.getName(),
+                        therapist.getEmail(),
+                        therapist.getAddress(),
+                        therapist.getContact(),
+                        new TherapyProgramDto(
+                                therapist.getProgram().getProgram_Id(),
+                                therapist.getProgram().getName(),
+                                therapist.getProgram().getDuration(),
+                                therapist.getProgram().getFee()
+                        )
+                ) : null;
+    }
 }

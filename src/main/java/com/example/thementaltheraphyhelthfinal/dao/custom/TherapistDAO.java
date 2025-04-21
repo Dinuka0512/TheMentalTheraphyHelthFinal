@@ -11,4 +11,5 @@ public interface TherapistDAO extends SuperDAO, CrudDAO<Therapist> {
     boolean isValidToUpdate(String email,String id);
     boolean delete(Therapist therapist);
     ArrayList<String> loadtherapist(String programId);
+    Therapist getTherapistDetails(String selectedItem);
 }

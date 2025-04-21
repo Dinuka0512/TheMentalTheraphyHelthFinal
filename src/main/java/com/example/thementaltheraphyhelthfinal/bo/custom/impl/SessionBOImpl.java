@@ -23,7 +23,6 @@ public class SessionBOImpl implements SessionBO {
                     theraphySession.getSession_Id(),
                     theraphySession.getDate(),
                     theraphySession.getAmount(),
-                    theraphySession.getTime(),
                     theraphySession.getProgram()
             );
 
@@ -36,6 +35,11 @@ public class SessionBOImpl implements SessionBO {
     @Override
     public TheraphySessionDto getProgram(String id) {
         TheraphySession program = sessionDAO.getProgram(id);
-        return (program != null)? new TheraphySessionDto(program.getSession_Id(), program.getDate(), program.getAmount(), program.getTime(), program.getProgram()): null;
+        return (program != null)? new TheraphySessionDto(program.getSession_Id(), program.getDate(), program.getAmount(), program.getProgram()): null;
+    }
+
+    @Override
+    public String genarateNewId() {
+        return sessionDAO.generateNewId();
     }
 }

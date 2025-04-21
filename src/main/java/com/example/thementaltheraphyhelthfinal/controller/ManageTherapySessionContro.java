@@ -1,12 +1,10 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
-import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
-import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
-import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
-import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
+import com.example.thementaltheraphyhelthfinal.bo.custom.*;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.dto.RegistrationDto;
+import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapySessionTm;
@@ -104,9 +102,10 @@ public class ManageTherapySessionContro implements Initializable {
 
     private TherapyProgramDto therapyProgramDto;
     private TherapySessionTm therapySessionTm;
+    private TherapistDto therapistDto;
 
     //===========
-
+    private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.getBoType.THERAPHIST);
     private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
     private TheraphyProgramBO theraphyProgramBO = (TheraphyProgramBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PROGRAM);
@@ -114,12 +113,15 @@ public class ManageTherapySessionContro implements Initializable {
     //===========
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colId.setCellValueFactory(new PropertyValueFactory<>("registration_Id"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("sessionId"));
         colPatientId.setCellValueFactory(new PropertyValueFactory<>("patient_Id"));
-        colPatientName.setCellValueFactory(new PropertyValueFactory<>("PatientName"));
+        colPatientName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         colProId.setCellValueFactory(new PropertyValueFactory<>("program_Id"));
         colProName.setCellValueFactory(new PropertyValueFactory<>("program_Name"));
-        colProFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+        colProFee.setCellValueFactory(new PropertyValueFactory<>("program_Fee"));
+        colTherapistId.setCellValueFactory(new PropertyValueFactory<>("therapist_Id"));
+        colTherapistName.setCellValueFactory(new PropertyValueFactory<>("therapist_Name"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         pageReload();
     }
@@ -130,11 +132,6 @@ public class ManageTherapySessionContro implements Initializable {
         genarateNewId();
         loadComboBoxIds();
         setupButttons();
-    }
-
-    @FXML
-    void gettableDetails(ActionEvent event) {
-
     }
 
     private void setupButttons() {
@@ -177,14 +174,17 @@ public class ManageTherapySessionContro implements Initializable {
     private void ClearText() {
         comboPatient.setValue("Select Patient");
         comboProgram.setValue("Select Program");
+        comboTherapist.setValue("Select Therapist");
+
         lblFee.setText("0.0/=");
 
+        lblTherapistName.setText("Therapist name");
         lblPatientName.setText("Patient Name");
         lblProgramName.setText("Program Name");
     }
 
     private void genarateNewId() {
-        String newId = registrationBO.genaratenewId();
+        String newId = sessionBO.genarateNewId();
         lblId.setText(newId);
     }
 
@@ -221,6 +221,17 @@ public class ManageTherapySessionContro implements Initializable {
         }
     }
 
+
+    @FXML
+    void selectTherapist(ActionEvent event) {
+        //HERE SELECT THE THERAPIST
+        therapistDto = therapistBO.getTherapistDetails(comboTherapist.getSelectionModel().getSelectedItem());
+        if(therapistDto!=null){
+            lblTherapistName.setText(therapistDto.getName());
+        }
+
+    }
+
     @FXML
     void gettableDetails(MouseEvent event) {
         therapySessionTm = tblSession.getSelectionModel().getSelectedItem();
@@ -239,7 +250,7 @@ public class ManageTherapySessionContro implements Initializable {
     void save(ActionEvent event) {
         if(comboProgram.getValue()!=null){
             if(comboPatient.getValue() != null){
-                saveRegistration();
+                saveSession();
             }else{
                 CustomAlerts.comboboxValueNotSelected();
             }
@@ -248,7 +259,7 @@ public class ManageTherapySessionContro implements Initializable {
         }
     }
 
-    private void saveRegistration() {
+    private void saveSession() {
         RegistrationDto registrationDto = new RegistrationDto();
         registrationDto.setRegistration_Id(lblId.getText());
         registrationDto.setPatient(patientDto);
@@ -265,7 +276,7 @@ public class ManageTherapySessionContro implements Initializable {
     void update(ActionEvent event) {
         if(comboProgram.getValue()!=null){
             if(comboPatient.getValue() != null){
-                updateRegistration();
+                updateSession();
             }else{
                 CustomAlerts.comboboxValueNotSelected();
             }
@@ -274,7 +285,7 @@ public class ManageTherapySessionContro implements Initializable {
         }
     }
 
-    private void updateRegistration() {
+    private void updateSession() {
         if(registrationBO.update(new RegistrationDto(lblId.getText(), patientDto, therapyProgramDto))){
             CustomAlerts.update();
             pageReload();
@@ -284,11 +295,11 @@ public class ManageTherapySessionContro implements Initializable {
     @FXML
     void delete(ActionEvent event) {
         if(CustomAlerts.doYouWantToDelete()){
-            deleteRegistation();
+            deleteSession();
         }
     }
 
-    private void deleteRegistation() {
+    private void deleteSession() {
         if(registrationBO.delete(lblId.getText())){
             CustomAlerts.delete();
             pageReload();

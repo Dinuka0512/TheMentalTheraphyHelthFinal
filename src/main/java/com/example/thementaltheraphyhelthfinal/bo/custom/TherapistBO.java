@@ -14,6 +14,6 @@ public interface TherapistBO extends SuperBo {
     boolean isValidToSave(String email);
     boolean isValidToUpdate(String email, String id);
     boolean update(TherapistDto dto);
-
     ArrayList<String> loadtherapist(String programId);
+    TherapistDto getTherapistDetails(String selectedItem);
 }
