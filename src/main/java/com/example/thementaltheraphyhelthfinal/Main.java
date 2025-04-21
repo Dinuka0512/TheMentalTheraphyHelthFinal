@@ -28,17 +28,18 @@ public class Main extends Application {
         launch();
 
 //        FactoryConfig factoryConfig = FactoryConfig.getInstance();
-
+//
 //        Session session = factoryConfig.getSession();
 //        Transaction transaction = session.beginTransaction();
-//        /*
-//        * MT1001 Cognitive Behavioral Therapy 12 weeks 80,000.00
-//        * MT1002 Mindfulness-Based Stress Reduction 8 weeks 50,000.00
-//        * MT1003 Dialectical Behavior Therapy 16 weeks 100,000.00
-//        * MT1004 Group Therapy Sessions 6 months 120,000.00
-//        * MT1005 Family Counseling 3 months 40,000.00
-//        * */
 //
+////        /*
+////        * MT1001 Cognitive Behavioral Therapy 12 weeks 80,000.00
+////        * MT1002 Mindfulness-Based Stress Reduction 8 weeks 50,000.00
+////        * MT1003 Dialectical Behavior Therapy 16 weeks 100,000.00
+////        * MT1004 Group Therapy Sessions 6 months 120,000.00
+////        * MT1005 Family Counseling 3 months 40,000.00
+////        * */
+////
 //        TherapyProgram therapyProgram1 = new TherapyProgram();
 //        therapyProgram1.setProgram_Id("MT1001");
 //        therapyProgram1.setName("Cognitive Behavioral Therapy");
@@ -77,10 +78,9 @@ public class Main extends Application {
 //
 //        User user = new User();
 //        user.setName("Dinuka");
-//        user.setUser_Id("U001");
 //        user.setAddress("96 D/1 Namaluwa Kothalawala Bandaragama");
 //        user.setContact("0787135526");
-//        user.setEmail("Dinuka0512@gmail.com");
+//        user.setEmail("admin");
 //        user.setJobRole("admin");
 //
 //        session.persist(user);

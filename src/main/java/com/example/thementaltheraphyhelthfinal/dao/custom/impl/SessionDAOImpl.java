@@ -52,7 +52,17 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        TheraphySession theraphySession = session.get(TheraphySession.class, id);
+
+        if(theraphySession != null){
+            session.remove(theraphySession);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
@@ -60,9 +70,9 @@ public class SessionDAOImpl implements SessionDAO {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
         NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession ORDER BY session_Id DESC LIMIT 1", TheraphySession.class);
-        TheraphySession result = query.getSingleResult();
-        if(result!=null){
-            String last_Id = result.getSession_Id(); //S001
+        List<TheraphySession> list = query.getResultList();
+        if(!list.isEmpty()){
+            String last_Id = list.getFirst().getSession_Id(); //S001
             String sub = last_Id.substring(1); //001
             int i = Integer.parseInt(sub); //1
             i = i + 1;

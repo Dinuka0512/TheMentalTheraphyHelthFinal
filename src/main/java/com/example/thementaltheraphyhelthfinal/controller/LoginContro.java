@@ -42,8 +42,7 @@ public class LoginContro {
             if(txtEmail.getText().equals(dto.getEmail())){
                 //EMAIL IS OK
 
-
-                if (txtPw.getText().equals(EncryptionUtil.decrypt(dto.getPassword()))){
+                if (txtPw.getText().equals(dto.getPassword()) || txtPw.getText().equals(EncryptionUtil.decrypt(dto.getPassword()))){
                     //PASSWORD IS OK
                     DashboardContro.setUserDto(dto);
                     navigateToDashbord();

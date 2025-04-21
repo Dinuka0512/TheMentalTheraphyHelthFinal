@@ -1,16 +1,16 @@
 package com.example.thementaltheraphyhelthfinal.dto;
 
+import com.example.thementaltheraphyhelthfinal.entities.Patient;
+import com.example.thementaltheraphyhelthfinal.entities.Therapist;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +20,10 @@ public class TheraphySessionDto {
     private String session_Id;
     private LocalDate date;
     private double amount;
-    private TherapyProgram program;
+
+    private TherapyProgramDto program;
+
+    private List<PatientDto> patient;
+
+    private String therapist_Id;
 }

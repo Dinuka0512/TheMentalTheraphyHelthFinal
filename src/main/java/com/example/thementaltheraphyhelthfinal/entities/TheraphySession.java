@@ -23,4 +23,6 @@ public class TheraphySession {
 
     @ManyToMany
     private List<Patient> patient;
+
+    private String therapist_Id;
 }

@@ -2,10 +2,7 @@ package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.*;
-import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
-import com.example.thementaltheraphyhelthfinal.dto.RegistrationDto;
-import com.example.thementaltheraphyhelthfinal.dto.TherapistDto;
-import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
+import com.example.thementaltheraphyhelthfinal.dto.*;
 import com.example.thementaltheraphyhelthfinal.dto.tm.RegistrationTm;
 import com.example.thementaltheraphyhelthfinal.dto.tm.TherapySessionTm;
 import com.example.thementaltheraphyhelthfinal.util.AlertsPack.CustomAlerts;
@@ -168,7 +165,7 @@ public class ManageTherapySessionContro implements Initializable {
 
     private void loadTable() {
         //HERE LOAD THE TABLE
-
+        ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
     }
 
     private void ClearText() {
@@ -200,6 +197,10 @@ public class ManageTherapySessionContro implements Initializable {
 
     @FXML
     void selectProgram(ActionEvent event) {
+        //HERE IS IF THERE SELECT THE PROGRAM FIRSTLY RESET THE THAT SELECTED
+        comboTherapist.setValue("Select Therapist");
+        lblTherapistName.setText("Therapist Name");
+
         if(comboProgram!=null){
             therapyProgramDto = theraphyProgramBO.getDetails(comboProgram.getSelectionModel().getSelectedItem());
             if(therapyProgramDto != null){
@@ -229,7 +230,6 @@ public class ManageTherapySessionContro implements Initializable {
         if(therapistDto!=null){
             lblTherapistName.setText(therapistDto.getName());
         }
-
     }
 
     @FXML
@@ -295,7 +295,10 @@ public class ManageTherapySessionContro implements Initializable {
     @FXML
     void delete(ActionEvent event) {
         if(CustomAlerts.doYouWantToDelete()){
-            deleteSession();
+            if(sessionBO.delete(lblId.getText())){
+                CustomAlerts.delete();
+                pageReload();
+            }
         }
     }
 
