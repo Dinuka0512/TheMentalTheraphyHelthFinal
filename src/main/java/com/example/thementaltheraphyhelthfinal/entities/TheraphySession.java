@@ -21,4 +21,7 @@ public class TheraphySession {
     @ManyToOne
     @JoinColumn(name = "program_Id")
     private TherapyProgram program;
+
+    @ManyToMany
+    private List<Patient> patient;
 }
