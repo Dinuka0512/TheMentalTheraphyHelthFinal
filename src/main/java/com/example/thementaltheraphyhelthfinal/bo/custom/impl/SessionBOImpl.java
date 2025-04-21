@@ -100,4 +100,9 @@ public class SessionBOImpl implements SessionBO {
 
         return sessionDAO.save(theraphySession);
     }
+
+    @Override
+    public ArrayList<String> sessionBookdedDates(String therapist) {
+        return sessionDAO.sessionBookdedDates(therapist);
+    }
 }

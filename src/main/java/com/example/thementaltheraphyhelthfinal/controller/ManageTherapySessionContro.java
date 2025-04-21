@@ -20,7 +20,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ManageTherapySessionContro implements Initializable {
     @FXML
@@ -226,6 +228,8 @@ public class ManageTherapySessionContro implements Initializable {
         lblTherapistName.setText("Therapist name");
         lblPatientName.setText("Patient Name");
         lblProgramName.setText("Program Name");
+
+        txtdateSelect.setValue(null);
     }
 
     private void genarateNewId() {
@@ -265,6 +269,8 @@ public class ManageTherapySessionContro implements Initializable {
                     }
 
                     comboTherapist.setItems(observableList);
+                }else{
+                    comboTherapist.getItems().clear();
                 }
             }
         }
@@ -273,10 +279,41 @@ public class ManageTherapySessionContro implements Initializable {
 
     @FXML
     void selectTherapist(ActionEvent event) {
+        //THERE BEFORE SELECT THE THERAPIST THERE NEED TO CLEAR THE DATE SELECTED
+        txtdateSelect.setValue(null);
+
         //HERE SELECT THE THERAPIST
         therapistDto = therapistBO.getTherapistDetails(comboTherapist.getSelectionModel().getSelectedItem());
         if(therapistDto!=null){
             lblTherapistName.setText(therapistDto.getName());
+
+            //AFTER SET THAT THERE WE NEED TO CHECK DATA AVAILABILITY
+            ArrayList<String> ids = sessionBO.sessionBookdedDates(therapistDto.getTherapist_Id());
+
+            if(ids != null){
+                // Convert to LocalDate
+                List<LocalDate> bookedDates = ids.stream()
+                        .map(LocalDate::parse)
+                        .collect(Collectors.toList());
+
+                // Set custom cell factory
+                txtdateSelect.setDayCellFactory(picker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate date, boolean empty) {
+                        super.updateItem(date, empty);
+
+                        if (empty || date == null) return;
+
+                        if (date.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #dddddd;");
+                        } else if (bookedDates.contains(date)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ff6b6b; -fx-text-fill: white;");
+                        }
+                    }
+                });
+            }
         }
     }
 
@@ -319,7 +356,7 @@ public class ManageTherapySessionContro implements Initializable {
         TheraphySessionDto theraphySessionDto = new TheraphySessionDto(
                 lblId.getText(),
                 txtdateSelect.getValue(),
-                Double.parseDouble(lblFee.getText()),
+                therapyProgramDto.getFee(),
                 therapyProgramDto,
                 patientDto,
                 comboTherapist.getSelectionModel().getSelectedItem()

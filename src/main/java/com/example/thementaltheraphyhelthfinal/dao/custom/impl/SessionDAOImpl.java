@@ -36,6 +36,25 @@ public class SessionDAOImpl implements SessionDAO {
     }
 
     @Override
+    public ArrayList<String> sessionBookdedDates(String therapist) {
+        Session session = FactoryConfig.factoryCongig.getSession();
+        session.beginTransaction();
+        NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE therapist_Id = :id", TheraphySession.class);
+        query.setParameter("id", therapist);
+        List<TheraphySession> list = query.getResultList();
+        if(list!=null){
+            ArrayList<String> ids = new ArrayList<>();
+            for(TheraphySession theraphySession : list){
+                ids.add(theraphySession.getDate().toString());
+            }
+
+            return ids;
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean save(TheraphySession dto) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();

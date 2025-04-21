@@ -11,5 +11,6 @@ public interface SessionBO extends SuperBo {
     String genarateNewId();
     boolean delete(String id);
     boolean save(TheraphySessionDto theraphySessionDto);
+    ArrayList<String> sessionBookdedDates(String therapist);
 }
 
