@@ -4,6 +4,7 @@ import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
 import com.example.thementaltheraphyhelthfinal.bo.custom.PatientBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.RegistrationBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.TheraphyProgramBO;
+import com.example.thementaltheraphyhelthfinal.bo.custom.TherapistBO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.dto.RegistrationDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
@@ -106,6 +107,7 @@ public class ManageTherapySessionContro implements Initializable {
 
     //===========
 
+    private TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.getBoType.THERAPHIST);
     private RegistrationBO registrationBO = (RegistrationBO) BOFactory.getInstance().getBo(BOFactory.getBoType.REGISTRATION);
     private TheraphyProgramBO theraphyProgramBO = (TheraphyProgramBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PROGRAM);
     private PatientBO patientBO = (PatientBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PATIENT);
@@ -203,6 +205,18 @@ public class ManageTherapySessionContro implements Initializable {
             if(therapyProgramDto != null){
                 lblProgramName.setText(therapyProgramDto.getName());
                 lblFee.setText("Rs "+ therapyProgramDto.getFee() + "/=");
+
+                //HERE SELECTED THE PROGRAM NOW NEED TO LOAD THAT PROGRAM SPECIALISTS THERAPISTS
+                //HERE LOAD THE THERAPIST TO COMBO
+                ArrayList<String> therapistsIds = therapistBO.loadtherapist(therapyProgramDto.getProgram_Id());
+                if(therapistsIds!=null){
+                    ObservableList<String> observableList = FXCollections.observableArrayList();
+                    for(String id : therapistsIds){
+                        observableList.add(id);
+                    }
+
+                    comboTherapist.setItems(observableList);
+                }
             }
         }
     }

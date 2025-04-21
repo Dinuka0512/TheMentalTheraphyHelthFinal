@@ -23,14 +23,4 @@ public class Therapist {
 
     @ManyToOne
     private TherapyProgram program;
-
-
-//    public Therapist(String therapist_Id, String name, String email, String address, String contact) {
-//        this.therapist_Id = therapist_Id;
-//        this.name = name;
-//        this.email = email;
-//        this.address = address;
-//        this.contact = contact;
-//    }
-
 }

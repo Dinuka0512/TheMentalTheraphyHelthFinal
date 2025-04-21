@@ -90,4 +90,9 @@ public class TherapistBOimpl implements TherapistBO {
                 )
         );
     }
+
+    @Override
+    public ArrayList<String> loadtherapist(String programId) {
+        return therapistDAO.loadtherapist(programId);
+    }
 }

@@ -111,6 +111,24 @@ public class TherapistDAOImpl implements TherapistDAO {
     }
 
     @Override
+    public ArrayList<String> loadtherapist(String programId) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        NativeQuery<Therapist> query = session.createNativeQuery("SELECT * from Therapist WHERE program_program_Id = :programId", Therapist.class);
+        query.setParameter("programId", programId);
+        List<Therapist> list = query.getResultList();
+        ArrayList<String> arrayList = new ArrayList<>();
+        if(list!=null){
+            for(Therapist therapist : list){
+                arrayList.add(therapist.getTherapist_Id());
+            }
+            return arrayList;
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean exist(String id) {
         return false;
     }
