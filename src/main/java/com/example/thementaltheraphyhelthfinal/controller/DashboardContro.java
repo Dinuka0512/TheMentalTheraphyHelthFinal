@@ -1,10 +1,16 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
+import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
+import com.example.thementaltheraphyhelthfinal.bo.custom.SessionBO;
+import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -14,9 +20,13 @@ import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DashboardContro implements Initializable {
+    //=========
+    private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
+    //=========
     @Getter
     @Setter
     private static UserDto userDto;
@@ -49,10 +59,32 @@ public class DashboardContro implements Initializable {
     private Button btnUserManage;
 
 
+    @FXML
+    private LineChart<String, Number> barchart;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setpage();
         changeViewAsJobRole();
+        loadBarchart();
+    }
+
+    private void loadBarchart() {
+        ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
+
+        //VALUES ADDING TO BAR CHART
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("INCOME BARCHART");
+
+        for(TheraphySessionDto theraphySessionDto : allSessions){
+            String date = String.valueOf(theraphySessionDto.getDate());
+            double amount = theraphySessionDto.getAmount();
+
+            series.getData().add(new XYChart.Data<>(date, amount));
+        }
+
+        barchart.getData().add(series);
     }
 
     private void changeViewAsJobRole() {
