@@ -4,7 +4,10 @@ import com.example.thementaltheraphyhelthfinal.bo.custom.PaymentBO;
 import com.example.thementaltheraphyhelthfinal.dao.DAOFactory;
 import com.example.thementaltheraphyhelthfinal.dao.custom.PaymentDAO;
 import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
+import com.example.thementaltheraphyhelthfinal.entities.Patient;
 import com.example.thementaltheraphyhelthfinal.entities.Payment;
+
+import java.util.List;
 
 public class PaymentBOImpl implements PaymentBO{
 
@@ -14,11 +17,25 @@ public class PaymentBOImpl implements PaymentBO{
 
     @Override
     public boolean save(PaymentDto paymentDto) {
-        return paymentDAO.save(new Payment(paymentDto.getPayment_Id(),paymentDto.getAmount(), paymentDto.getDate()));
+        Payment payment = new Payment(
+                paymentDto.getPayment_Id(),
+                paymentDto.getAmount(),
+                paymentDto.getDate(),
+                paymentDto.getPatient_id(),
+                paymentDto.getSession_Id()
+        );
+
+        return paymentDAO.save(payment);
     }
 
     @Override
-    public int genarateIds() {
-        return paymentDAO.genarateId();
+    public String generateNewId() {
+        return paymentDAO.generateNewId();
+    }
+
+    @Override
+    public PaymentDto getPaymenDto(String session_Id) {
+        Payment payment = paymentDAO.getPaymenDto(session_Id);
+        return (payment != null)? new PaymentDto(payment.getPayment_Id(), payment.getAmount(), payment.getDate(), payment.getPatient_id(), payment.getSession_Id()): null;
     }
 }

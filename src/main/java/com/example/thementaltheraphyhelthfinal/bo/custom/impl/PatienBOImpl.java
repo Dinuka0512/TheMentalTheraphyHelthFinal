@@ -34,8 +34,11 @@ public class PatienBOImpl implements PatientBO {
 
     @Override
     public boolean save(PatientDto patientDto) {
-        Patient patient = new Patient(patientDto.getPatient_Id(), patientDto.getName(), patientDto.getEmail(), patientDto.getAddress(), patientDto.getContact());
-        return patienDAO.save(patient);
+        if(patientDto!=null){
+            Patient patient = new Patient(patientDto.getPatient_Id(), patientDto.getName(), patientDto.getEmail(), patientDto.getAddress(), patientDto.getContact());
+            return patienDAO.save(patient);
+        }
+        return false;
     }
 
     @Override

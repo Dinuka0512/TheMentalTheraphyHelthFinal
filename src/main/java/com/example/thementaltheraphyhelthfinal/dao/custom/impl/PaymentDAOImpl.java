@@ -4,38 +4,30 @@ import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import com.example.thementaltheraphyhelthfinal.dao.custom.PaymentDAO;
 import com.example.thementaltheraphyhelthfinal.entities.Payment;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PaymentDAOImpl implements PaymentDAO {
-
-    public int genarateId() {
+    @Override
+    public String generateNewId() {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
 
-        // Using native SQL query with LIMIT
-        String sql = "SELECT * FROM Payment ORDER BY Payment_Id DESC LIMIT 1";
-        Query query = session.createNativeQuery(sql, Payment.class);
-        Payment payment = (Payment) query.uniqueResult();  // This will return the first result, if any
+        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment ORDER BY Payment_Id DESC LIMIT 1", Payment.class);
+        List<Payment> resultList = query.getResultList();
 
-        if (payment != null) {
-            int lastId = payment.getPayment_Id();
-            session.getTransaction().commit();
-            session.close();
-            return lastId + 1;
-        } else {
-            session.getTransaction().commit();
-            session.close();
-            return 1;  // Return 1 if no payments exist
+        if(!resultList.isEmpty() ){
+            String lastId = resultList.getFirst().getPayment_Id(); //P001
+            String suubId = lastId.substring(1); //001
+            int i = Integer.parseInt(suubId); //1
+            i = i + 1;
+            return String.format("P%03d",i);
         }
-    }
 
-
-
-    @Override
-    public String generateNewId() {
-        return null;
+        return "P001";
     }
 
     @Override
@@ -71,5 +63,17 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public Payment search(String id) {
         return null;
+    }
+
+    @Override
+    public Payment getPaymenDto(String session_Id) {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE session_Id = :id", Payment.class);
+        query.setParameter("id", session_Id);
+        Payment result = query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 }

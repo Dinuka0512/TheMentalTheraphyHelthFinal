@@ -105,8 +105,10 @@ public class ManageTherapySessionContro implements Initializable {
     private TherapyProgramDto therapyProgramDto;
     private TherapySessionTm therapySessionTm;
     private TherapistDto therapistDto;
+    private PaymentDto paymentDto;
 
     //===========
+    private PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PAYMENT);
     private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     private TherapistBO therapistBO = (TherapistBO) BOFactory.getInstance().getBo(BOFactory.getBoType.THERAPHIST);
     private TheraphyProgramBO theraphyProgramBO = (TheraphyProgramBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PROGRAM);
@@ -328,6 +330,10 @@ public class ManageTherapySessionContro implements Initializable {
             comboTherapist.setValue(therapySessionTm.getTherapist_Id());
             txtdateSelect.setValue(LocalDate.parse(therapySessionTm.getDate()));
 
+            //HERE GET PAYMENT DETAILS
+            paymentDto = paymentBO.getPaymenDto(therapySessionTm.getSessionId());
+
+            //BUTTONS SET
             btnDelete.setDisable(false);
             btnSave.setDisable(true);
             btnUpdate.setDisable(false);
@@ -356,6 +362,8 @@ public class ManageTherapySessionContro implements Initializable {
     }
 
     private void saveSession() {
+
+        //CREATE OBJ FOR SAVE SESSION
         TheraphySessionDto theraphySessionDto = new TheraphySessionDto(
                 lblId.getText(),
                 txtdateSelect.getValue(),
@@ -365,10 +373,24 @@ public class ManageTherapySessionContro implements Initializable {
                 comboTherapist.getSelectionModel().getSelectedItem()
         );
 
+        //HERE NEED TO GENERATE THE PAYMENT DETAILS
+        String payId = paymentBO.generateNewId();
+        PaymentDto paymentDto1 = new PaymentDto(
+                payId,
+                theraphySessionDto.getAmount(),
+                LocalDate.now(),
+                theraphySessionDto.getPatient().getPatient_Id(),
+                theraphySessionDto.getSession_Id()
+        );
+
+
         //HERE NEED TO SAVE
         if(sessionBO.save(theraphySessionDto)){
             CustomAlerts.saved();
             pageReload();
+
+            //SAVE PAYMENTS
+            paymentBO.save(paymentDto);
         }
     }
 

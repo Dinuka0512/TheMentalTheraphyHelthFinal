@@ -5,5 +5,6 @@ import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
 
 public interface PaymentBO extends SuperBo {
     boolean save(PaymentDto paymentDto);
-    int genarateIds();
+    String generateNewId();
+    PaymentDto getPaymenDto(String session_Id);
 }

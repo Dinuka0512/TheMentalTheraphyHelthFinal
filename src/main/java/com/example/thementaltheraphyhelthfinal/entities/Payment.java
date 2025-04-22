@@ -11,8 +11,11 @@ import java.time.LocalDate;
 @Setter
 public class Payment {
     @Id
-    private int Payment_Id;
+    private String Payment_Id;
 
     private double amount;
     private LocalDate date;
+
+    private String patient_id;
+    private String session_Id;
 }
