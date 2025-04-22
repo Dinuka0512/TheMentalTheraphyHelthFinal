@@ -323,7 +323,11 @@ public class ManageTherapySessionContro implements Initializable {
 
         if(therapySessionTm != null){
             //HERE SET THE VALES FOR FIELDS
-            ///////=======HERE NEED TO SET VALUES
+            lblId.setText(therapySessionTm.getSessionId());
+            comboPatient.setValue(therapySessionTm.getPatient_Id());
+            comboProgram.setValue(therapySessionTm.getProgram_Id());
+            comboTherapist.setValue(therapySessionTm.getTherapist_Id());
+            txtdateSelect.setValue(LocalDate.parse(therapySessionTm.getDate()));
 
             btnDelete.setDisable(false);
             btnSave.setDisable(true);
@@ -373,7 +377,15 @@ public class ManageTherapySessionContro implements Initializable {
     void update(ActionEvent event) {
         if(comboProgram.getValue()!=null){
             if(comboPatient.getValue() != null){
-                updateSession();
+                if(comboTherapist.getValue() != null){
+                    if(txtdateSelect.getValue()!=null){
+                        updateSession();
+                    }else {
+                        CustomAlerts.notSelectedTheDate();
+                    }
+                }else{
+                    CustomAlerts.comboboxValueNotSelected();
+                }
             }else{
                 CustomAlerts.comboboxValueNotSelected();
             }
@@ -383,7 +395,17 @@ public class ManageTherapySessionContro implements Initializable {
     }
 
     private void updateSession() {
-        if(registrationBO.update(new RegistrationDto(lblId.getText(), patientDto, therapyProgramDto))){
+        //CREATING THE OBJ TO UPDATE
+        TheraphySessionDto theraphySessionDto = new TheraphySessionDto(
+                lblId.getText(),
+                txtdateSelect.getValue(),
+                therapyProgramDto.getFee(),
+                therapyProgramDto,
+                patientDto,
+                therapistDto.getTherapist_Id()
+        );
+
+        if(sessionBO.update(theraphySessionDto)){
             CustomAlerts.update();
             pageReload();
         }
