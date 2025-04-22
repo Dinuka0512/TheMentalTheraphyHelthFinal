@@ -426,9 +426,16 @@ public class ManageTherapySessionContro implements Initializable {
                 therapistDto.getTherapist_Id()
         );
 
+        //SET PAYMENT_DTO VALUES
+        paymentDto.setAmount(therapyProgramDto.getFee());
+        paymentDto.setPatient_id(paymentDto.getPatient_id());
+
         if(sessionBO.update(theraphySessionDto)){
             CustomAlerts.update();
             pageReload();
+
+            //HERE UPDATE THE PAYMENT DETAILS
+            paymentBO.update(paymentDto);
         }
     }
 

@@ -38,4 +38,9 @@ public class PaymentBOImpl implements PaymentBO{
         Payment payment = paymentDAO.getPaymenDto(session_Id);
         return (payment != null)? new PaymentDto(payment.getPayment_Id(), payment.getAmount(), payment.getDate(), payment.getPatient_id(), payment.getSession_Id()): null;
     }
+
+    @Override
+    public void update(PaymentDto paymentDto) {
+        paymentDAO.update(new Payment(paymentDto.getPayment_Id(), paymentDto.getAmount(), paymentDto.getDate(), paymentDto.getPatient_id(), paymentDto.getSession_Id()));
+    }
 }
