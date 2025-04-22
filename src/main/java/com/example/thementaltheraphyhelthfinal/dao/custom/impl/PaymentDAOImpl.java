@@ -62,7 +62,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean delete(String id) {
-        return false;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Payment payment = session.get(Payment.class, id);
+        session.remove(payment);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override

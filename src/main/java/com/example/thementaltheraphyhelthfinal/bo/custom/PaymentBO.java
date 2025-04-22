@@ -9,4 +9,6 @@ public interface PaymentBO extends SuperBo {
     PaymentDto getPaymenDto(String session_Id);
 
     void update(PaymentDto paymentDto);
+
+    void delete(String paymentId);
 }

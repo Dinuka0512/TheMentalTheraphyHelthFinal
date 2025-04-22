@@ -43,4 +43,9 @@ public class PaymentBOImpl implements PaymentBO{
     public void update(PaymentDto paymentDto) {
         paymentDAO.update(new Payment(paymentDto.getPayment_Id(), paymentDto.getAmount(), paymentDto.getDate(), paymentDto.getPatient_id(), paymentDto.getSession_Id()));
     }
+
+    @Override
+    public void delete(String paymentId) {
+        paymentDAO.delete(paymentId);
+    }
 }

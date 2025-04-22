@@ -445,6 +445,9 @@ public class ManageTherapySessionContro implements Initializable {
             if(sessionBO.delete(lblId.getText())){
                 CustomAlerts.delete();
                 pageReload();
+
+                //HERE DELETE PAYMENT
+                paymentBO.delete(paymentDto.getPayment_Id());
             }
         }
     }
