@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public ArrayList<Payment> getAll() {
-        return null;
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        Query<Payment> query = session.createQuery("FROM Payment", Payment.class);
+        List<Payment> list = query.getResultList();
+        return (ArrayList<Payment>) list;
     }
 
     @Override
@@ -80,11 +85,35 @@ public class PaymentDAOImpl implements PaymentDAO {
     public Payment getPaymenDto(String session_Id) {
         Session session = FactoryConfig.getInstance().getSession();
         session.beginTransaction();
+
         NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE session_Id = :id", Payment.class);
         query.setParameter("id", session_Id);
-        Payment result = query.getSingleResult();
+
+        List<Payment> resultList = query.getResultList();
+
         session.getTransaction().commit();
         session.close();
-        return result;
+
+        // Return first item or null
+        return resultList.isEmpty() ? null : resultList.get(0);
+    }
+
+    @Override
+    public double getTodayIncome() {
+        Session session = FactoryConfig.getInstance().getSession();
+        session.beginTransaction();
+        String date = String.valueOf(LocalDate.now());
+        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE date = :date", Payment.class);
+        query.setParameter("date", date);
+        List<Payment> list = query.getResultList();
+        if(!list.isEmpty()){
+            double total = 0;
+            for(Payment payment : list){
+                total += payment.getAmount();
+            }
+
+            return total;
+        }
+        return 0;
     }
 }

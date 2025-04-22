@@ -7,6 +7,7 @@ import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
 import com.example.thementaltheraphyhelthfinal.entities.Payment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentBOImpl implements PaymentBO{
@@ -47,5 +48,28 @@ public class PaymentBOImpl implements PaymentBO{
     @Override
     public void delete(String paymentId) {
         paymentDAO.delete(paymentId);
+    }
+
+    @Override
+    public ArrayList<PaymentDto> getAll() {
+        ArrayList<Payment> all = paymentDAO.getAll();
+        ArrayList<PaymentDto> payments = new ArrayList<>();
+        for(Payment payment : all){
+            PaymentDto paymentDto = new PaymentDto(
+                    payment.getPayment_Id(),
+                    payment.getAmount(),
+                    payment.getDate(),
+                    payment.getPatient_id(),
+                    payment.getSession_Id()
+            );
+
+            payments.add(paymentDto);
+        }
+        return payments;
+    }
+
+    @Override
+    public double getTodayIncome() {
+        return paymentDAO.getTodayIncome();
     }
 }

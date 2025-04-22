@@ -390,7 +390,7 @@ public class ManageTherapySessionContro implements Initializable {
             pageReload();
 
             //SAVE PAYMENTS
-            paymentBO.save(paymentDto);
+            paymentBO.save(paymentDto1);
         }
     }
 

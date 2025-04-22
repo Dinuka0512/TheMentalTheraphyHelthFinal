@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
@@ -137,9 +138,9 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <AnchorPane layoutX="28.0" layoutY="303.0" prefHeight="212.0" prefWidth="865.0" style="-fx-background-radius: 20; -fx-background-color: white;">
+            <AnchorPane layoutX="29.0" layoutY="261.0" prefHeight="254.0" prefWidth="865.0" style="-fx-background-radius: 20; -fx-background-color: white; -fx-border-color: green; -fx-border-width: 3; -fx-border-radius: 10;">
                <children>
-                  <LineChart fx:id="barchart" layoutX="24.0" layoutY="20.0" prefHeight="178.0" prefWidth="818.0">
+                  <LineChart fx:id="barchart" layoutX="24.0" layoutY="20.0" prefHeight="213.0" prefWidth="391.0">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" />
                     </xAxis>
@@ -147,8 +148,110 @@
                       <NumberAxis side="LEFT" />
                     </yAxis>
                   </LineChart>
+                  <BarChart fx:id="barchart2" layoutX="421.0" layoutY="20.0" prefHeight="213.0" prefWidth="413.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="28.0" layoutY="111.0" prefHeight="135.0" prefWidth="339.0" style="-fx-background-color: white; -fx-border-color: Green; -fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;">
+               <children>
+                  <Label fx:id="lblTdyIncome" alignment="CENTER" layoutX="14.0" layoutY="32.0" prefHeight="58.0" prefWidth="304.0" text="Rs. 100000/=">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="43.0" layoutY="78.0" text="Current(Today)">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Label layoutX="29.0" layoutY="86.0" text="Total Income">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="377.0" layoutY="112.0" prefHeight="135.0" prefWidth="189.0" style="-fx-background-color: white; -fx-border-color: Green; -fx-border-width: 3; -fx-background-radius: 10; -fx-border-radius: 10;">
+               <children>
+                  <Label layoutX="95.0" layoutY="45.0" text="Booked ">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTodayBi" layoutX="35.0" layoutY="34.0" text="10">
+                     <font>
+                        <Font name="System Bold" size="46.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="95.0" layoutY="66.0" text="Sessions">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Label layoutX="28.0" layoutY="60.0" text="Today Details">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="377.0" layoutY="86.0" text="Sessions Booked">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="595.0" layoutY="86.0" text="Most Populer Therapists">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="135.0" layoutX="603.0" layoutY="115.0" opacity="0.21" stroke="BLACK" strokeType="INSIDE" width="6.0" />
+            <Label layoutX="621.0" layoutY="115.0" text="Therapist Name">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="766.0" layoutY="115.0" text="Sessions Count:">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="621.0" layoutY="145.0" prefHeight="25.0" prefWidth="134.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="770.0" layoutY="145.0" prefHeight="25.0" prefWidth="82.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="770.0" layoutY="177.0" prefHeight="25.0" prefWidth="82.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="621.0" layoutY="177.0" prefHeight="25.0" prefWidth="134.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="621.0" layoutY="208.0" prefHeight="25.0" prefWidth="134.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="770.0" layoutY="208.0" prefHeight="25.0" prefWidth="82.0" text="-">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
       <AnchorPane fx:id="navigationsList" layoutX="73.0" layoutY="104.0" prefHeight="546.0" prefWidth="134.0" style="-fx-background-color: #757575;" visible="false">
          <children>

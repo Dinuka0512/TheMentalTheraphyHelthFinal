@@ -1,9 +1,12 @@
 package com.example.thementaltheraphyhelthfinal.controller;
 
 import com.example.thementaltheraphyhelthfinal.bo.BOFactory;
+import com.example.thementaltheraphyhelthfinal.bo.custom.PaymentBO;
 import com.example.thementaltheraphyhelthfinal.bo.custom.SessionBO;
+import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
 import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
+import com.example.thementaltheraphyhelthfinal.entities.Payment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,10 +24,13 @@ import lombok.Setter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DashboardContro implements Initializable {
     //=========
+    private PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBo(BOFactory.getBoType.PAYMENT);
     private SessionBO sessionBO = (SessionBO) BOFactory.getInstance().getBo(BOFactory.getBoType.SESSION);
     //=========
     @Getter
@@ -58,32 +64,80 @@ public class DashboardContro implements Initializable {
     @FXML
     private Button btnUserManage;
 
+    @FXML
+    private Label lblTdyIncome;
+
 
     @FXML
     private LineChart<String, Number> barchart;
 
+    @FXML
+    private BarChart<String, Number> barchart2;
+    private ArrayList<PaymentDto> allPaymentDetails;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setpage();
         changeViewAsJobRole();
         loadBarchart();
+        loadBarchart1();
+
+        getTotalIncome();
     }
 
-    private void loadBarchart() {
+    private void getTotalIncome() {
+        double todayIncome = paymentBO.getTodayIncome();
+        lblTdyIncome.setText("Rs." + todayIncome + "/=");
+    }
+
+    private void loadBarchart1() {
         ArrayList<TheraphySessionDto> allSessions = sessionBO.getAllSessions();
 
-        //VALUES ADDING TO BAR CHART
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("INCOME BARCHART");
+        // Group by date and count sessions
+        Map<String, Integer> sessionCountByDate = new HashMap<>();
 
-        for(TheraphySessionDto theraphySessionDto : allSessions){
-            String date = String.valueOf(theraphySessionDto.getDate());
-            double amount = theraphySessionDto.getAmount();
+        for (TheraphySessionDto session : allSessions) {
+            String date = session.getDate().toString(); // Or format with SimpleDateFormat
 
-            series.getData().add(new XYChart.Data<>(date, amount));
+            sessionCountByDate.put(date, sessionCountByDate.getOrDefault(date, 0) + 1);
         }
 
+        // Add values to the BarChart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("SESSION COUNT");
+
+        for (Map.Entry<String, Integer> entry : sessionCountByDate.entrySet()) {
+            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+        }
+
+        barchart2.getData().add(series);
+    }
+
+
+    private void loadBarchart() {
+        allPaymentDetails = paymentBO.getAll();  // Get all payment data
+
+        // Initialize a map to store the total income for each date
+        Map<String, Double> incomeByDate = new HashMap<>();
+
+        // Iterate over all payment data
+        for (PaymentDto paymentDto : allPaymentDetails) {
+            String paymentDate = String.valueOf(paymentDto.getDate());  // Get payment date as String
+
+            // If the date already exists in the map, add the amount to it, otherwise initialize it
+            incomeByDate.put(paymentDate, incomeByDate.getOrDefault(paymentDate, 0.0) + paymentDto.getAmount());
+        }
+
+        // Create a series for the bar chart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("INCOME LINE CHART");
+
+        // Add data from the map to the series
+        for (Map.Entry<String, Double> entry : incomeByDate.entrySet()) {
+            series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+        }
+
+        // Add the series to the bar chart
         barchart.getData().add(series);
     }
 

@@ -7,4 +7,5 @@ import com.example.thementaltheraphyhelthfinal.entities.Payment;
 
 public interface PaymentDAO extends SuperDAO, CrudDAO<Payment> {
     Payment getPaymenDto(String session_Id);
+    double getTodayIncome();
 }
