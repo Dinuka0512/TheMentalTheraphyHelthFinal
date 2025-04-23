@@ -9,6 +9,7 @@ module com.example.thementaltheraphyhelthfinal {
     requires jakarta.persistence;
     requires java.naming;
 
+
     opens com.example.thementaltheraphyhelthfinal.entities to org.hibernate.orm.core;
 
     opens com.example.thementaltheraphyhelthfinal to javafx.fxml;

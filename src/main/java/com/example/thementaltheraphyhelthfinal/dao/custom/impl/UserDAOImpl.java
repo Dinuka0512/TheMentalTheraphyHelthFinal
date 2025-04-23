@@ -11,82 +11,112 @@ import java.util.List;
 
 
 public class UserDAOImpl implements UserDAO {
-    ///====
-    private final Session session = FactoryConfig.getInstance().getSession();
-    ///====
     @Override
     public User getUserDetails(String email) {
-        User user = null;
-        session.beginTransaction();
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            User user = null;
+            session.beginTransaction();
 
-        Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
-        query.setParameter("email" , email);
-        user = query.uniqueResult();
+            Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
+            query.setParameter("email" , email);
+            user = query.uniqueResult();
 
-        session.getTransaction().commit();
-        return user;
+            return user;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean isUniqueEmail(String email) {
-        session.beginTransaction();
-        Query<User> query = session.createQuery("FROM User where email = :email", User.class);
-        query.setParameter("email", email);
-        User user = query.uniqueResult();
-        session.getTransaction().commit();
-        return user == null;
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
+            Query<User> query = session.createQuery("FROM User where email = :email", User.class);
+            query.setParameter("email", email);
+            User user = query.uniqueResult();
+            return user == null;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public ArrayList<User> getAll() {
-        session.beginTransaction();
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
+            Query<User> queree = session.createQuery("FROM User", User.class);
+            List<User> results = queree.getResultList();
+            return (ArrayList<User>) results;
 
-        Query<User> queree = session.createQuery("FROM User", User.class);
-        List<User> results = queree.getResultList();
-
-        session.getTransaction().commit();
-        return (ArrayList<User>) results;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean save(User dto) {
-        session.beginTransaction();
-        session.persist(dto);
-        session.getTransaction().commit();
-        return true;
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
+            session.persist(dto);
+            return true;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public boolean delete(int id) {
-        session.beginTransaction();
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
 
-        Query query = session.createQuery("DELETE FROM User WHERE id = :id");
-        query.setParameter("id", id);
-        int result = query.executeUpdate();
-
-        session.getTransaction().commit();
-        return result == 1;
+            User user = session.get(User.class, id);
+            if(user!=null){
+                session.remove(user);
+            }
+            return true;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean isUniqueEmailForUpdate(String email, int id) {
-        session.beginTransaction();
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
 
-        Query<User> query = session.createQuery("FROM User WHERE email = :email AND user_Id != :id", User.class);
-        query.setParameter("email",email);
-        query.setParameter("id", id);
+            Query<User> query = session.createQuery("FROM User WHERE email = :email AND user_Id != :id", User.class);
+            query.setParameter("email",email);
+            query.setParameter("id", id);
 
-        User user = query.uniqueResult();
-        session.getTransaction().commit();
-
-        return user == null;
+            User user = query.uniqueResult();
+            return user == null;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean update(User dto) {
-        session.beginTransaction();
-        session.merge(dto);
-        session.getTransaction().commit();
-        return true;
+        Session session = FactoryConfig.getInstance().getSession();
+        try{
+            session.beginTransaction();
+            session.merge(dto);
+            return true;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override

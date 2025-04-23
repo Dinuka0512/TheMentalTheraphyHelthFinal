@@ -15,49 +15,64 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public String generateNewId() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
+        try{
+            session.beginTransaction();
 
-        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment ORDER BY Payment_Id DESC LIMIT 1", Payment.class);
-        List<Payment> resultList = query.getResultList();
+            NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment ORDER BY Payment_Id DESC LIMIT 1", Payment.class);
+            List<Payment> resultList = query.getResultList();
 
-        if(!resultList.isEmpty() ){
-            String lastId = resultList.getFirst().getPayment_Id(); //P001
-            String suubId = lastId.substring(1); //001
-            int i = Integer.parseInt(suubId); //1
-            i = i + 1;
-            return String.format("P%03d",i);
+            if(!resultList.isEmpty() ){
+                String lastId = resultList.getFirst().getPayment_Id(); //P001
+                String suubId = lastId.substring(1); //001
+                int i = Integer.parseInt(suubId); //1
+                i = i + 1;
+                return String.format("P%03d",i);
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
-
         return "P001";
     }
 
     @Override
     public boolean save(Payment dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.persist(dto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.persist(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override
     public ArrayList<Payment> getAll() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Query<Payment> query = session.createQuery("FROM Payment", Payment.class);
-        List<Payment> list = query.getResultList();
-        return (ArrayList<Payment>) list;
+        try {
+            session.beginTransaction();
+            Query<Payment> query = session.createQuery("FROM Payment", Payment.class);
+            List<Payment> list = query.getResultList();
+            return (ArrayList<Payment>) list;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean update(Payment dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.merge(dto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.merge(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override
@@ -68,12 +83,17 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public boolean delete(String id) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Payment payment = session.get(Payment.class, id);
-        session.remove(payment);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            Payment payment = session.get(Payment.class, id);
+            if(payment!=null){
+                session.remove(payment);
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override
@@ -84,35 +104,41 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public Payment getPaymenDto(String session_Id) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE session_Id = :id", Payment.class);
-        query.setParameter("id", session_Id);
+            NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE session_Id = :id", Payment.class);
+            query.setParameter("id", session_Id);
 
-        List<Payment> resultList = query.getResultList();
-
-        session.getTransaction().commit();
-        session.close();
-
-        // Return first item or null
-        return resultList.isEmpty() ? null : resultList.get(0);
+            List<Payment> resultList = query.getResultList();
+            // Return first item or null
+            return resultList.isEmpty() ? null : resultList.get(0);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public double getTodayIncome() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        String date = String.valueOf(LocalDate.now());
-        NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE date = :date", Payment.class);
-        query.setParameter("date", date);
-        List<Payment> list = query.getResultList();
-        if(!list.isEmpty()){
-            double total = 0;
-            for(Payment payment : list){
-                total += payment.getAmount();
-            }
+        try {
+            session.beginTransaction();
+            String date = String.valueOf(LocalDate.now());
+            NativeQuery<Payment> query = session.createNativeQuery("SELECT * FROM Payment WHERE date = :date", Payment.class);
+            query.setParameter("date", date);
+            List<Payment> list = query.getResultList();
+            if(!list.isEmpty()){
+                double total = 0;
+                for(Payment payment : list){
+                    total += payment.getAmount();
+                }
 
-            return total;
+                return total;
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
         return 0;
     }

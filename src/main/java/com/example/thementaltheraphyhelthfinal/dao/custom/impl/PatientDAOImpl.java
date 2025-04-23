@@ -17,20 +17,22 @@ public class PatientDAOImpl implements PatienDAO {
     @Override
     public String generateNewId() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
+        try{
+            session.beginTransaction();
 
-        NativeQuery<Patient> nativeQuery = session.createNativeQuery("SELECT * FROM Patient GROUP BY patient_Id desc LIMIT 1", Patient.class);
-        Patient patient = nativeQuery.uniqueResult();
+            NativeQuery<Patient> nativeQuery = session.createNativeQuery("SELECT * FROM Patient GROUP BY patient_Id desc LIMIT 1", Patient.class);
+            Patient patient = nativeQuery.uniqueResult();
 
-        session.getTransaction().commit();
-        session.close();
-
-        if(patient!=null){
-            String lastId = patient.getPatient_Id(); //P001
-            String subId = lastId.substring(2); //001
-            int i = Integer.parseInt(subId); //1
-            i = i + 1; //2
-            return String.format("P%03d",i); //P002
+            if(patient!=null){
+                String lastId = patient.getPatient_Id(); //P001
+                String subId = lastId.substring(2); //001
+                int i = Integer.parseInt(subId); //1
+                i = i + 1; //2
+                return String.format("P%03d",i); //P002
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
         return "P001";
     }
@@ -38,83 +40,101 @@ public class PatientDAOImpl implements PatienDAO {
     @Override
     public ArrayList<Patient> getAll() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        Query<Patient> query = session.createQuery("FROM Patient", Patient.class);
-        List<Patient> results = query.getResultList();
-
-        session.getTransaction().commit();
-        session.close();
-        return (ArrayList<Patient>) results;
+            Query<Patient> query = session.createQuery("FROM Patient", Patient.class);
+            List<Patient> results = query.getResultList();
+            return (ArrayList<Patient>) results;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean isValidToSave(String email) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        NativeQuery<Patient> query = session.createNativeQuery("SELECT * FROM Patient WHERE email = :email", Patient.class);
-        query.setParameter("email",email);
-        List<Patient> resultList = query.getResultList();
-
-        session.getTransaction().commit();
-        session.close();
-        return resultList.isEmpty();
+            NativeQuery<Patient> query = session.createNativeQuery("SELECT * FROM Patient WHERE email = :email", Patient.class);
+            query.setParameter("email",email);
+            List<Patient> resultList = query.getResultList();
+            return resultList.isEmpty();
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean isValidToUpdate(String email, String id) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Query<Patient> query = session.createQuery("FROM Patient WHERE email = :email AND patient_Id != :id", Patient.class);
-        query.setParameter("email",email);
-        query.setParameter("id",id);
+        try {
+            session.beginTransaction();
+            Query<Patient> query = session.createQuery("FROM Patient WHERE email = :email AND patient_Id != :id", Patient.class);
+            query.setParameter("email",email);
+            query.setParameter("id",id);
 
-        List<Patient> resultList = query.getResultList();
-
-        session.getTransaction().commit();
-        session.close();
-        return resultList.isEmpty();
+            List<Patient> resultList = query.getResultList();
+            return resultList.isEmpty();
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean delete(Patient dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.remove(dto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.remove(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override
     public Patient getDetails(String selectedItem) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Patient patient = session.get(Patient.class, selectedItem);
-        session.getTransaction().commit();
-        session.close();
-        return patient;
+        try {
+            session.beginTransaction();
+            Patient patient = session.get(Patient.class, selectedItem);
+            return patient;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public boolean save(Patient dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.persist(dto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.persist(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override
     public boolean update(Patient dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.merge(dto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.beginTransaction();
+            session.merge(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        }
     }
 
     @Override

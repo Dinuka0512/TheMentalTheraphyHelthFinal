@@ -18,107 +18,131 @@ public class SessionDAOImpl implements SessionDAO {
     @Override
     public ArrayList<TheraphySession> getAll() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Query<TheraphySession> query = session.createQuery("FROM TheraphySession", TheraphySession.class);
-        List<TheraphySession> resultList = query.getResultList();
-        session.getTransaction().commit();
-        session.close();
-        return (ArrayList<TheraphySession>) resultList;
+        try{
+            session.beginTransaction();
+            Query<TheraphySession> query = session.createQuery("FROM TheraphySession", TheraphySession.class);
+            List<TheraphySession> resultList = query.getResultList();
+            return (ArrayList<TheraphySession>) resultList;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public TheraphySession getProgram(String id) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        Query<TheraphySession> query = session.createQuery("FROM TheraphySession WHERE session_Id = :id", TheraphySession.class);
-        query.setParameter("id", id);
-        TheraphySession theraphySession = query.getSingleResult();
-        session.getTransaction().commit();
-        session.close();
-        return theraphySession;
+        try{
+            session.beginTransaction();
+            Query<TheraphySession> query = session.createQuery("FROM TheraphySession WHERE session_Id = :id", TheraphySession.class);
+            query.setParameter("id", id);
+            TheraphySession theraphySession = query.getSingleResult();
+            return theraphySession;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public ArrayList<String> sessionBookdedDates(String therapist) {
         Session session = FactoryConfig.factoryCongig.getSession();
-        session.beginTransaction();
-        NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE therapist_Id = :id", TheraphySession.class);
-        query.setParameter("id", therapist);
-        List<TheraphySession> list = query.getResultList();
-        if(list!=null){
-            ArrayList<String> ids = new ArrayList<>();
-            for(TheraphySession theraphySession : list){
-                ids.add(theraphySession.getDate().toString());
+        try{
+            session.beginTransaction();
+            NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE therapist_Id = :id", TheraphySession.class);
+            query.setParameter("id", therapist);
+            List<TheraphySession> list = query.getResultList();
+            if(list!=null){
+                ArrayList<String> ids = new ArrayList<>();
+                for(TheraphySession theraphySession : list){
+                    ids.add(theraphySession.getDate().toString());
+                }
+
+                return ids;
             }
-
-            return ids;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
-
         return null;
     }
 
     @Override
     public String getTodaySessionsBooked() {
         Session session = FactoryConfig.factoryCongig.getSession();
-        session.beginTransaction();
-        String date = String.valueOf(LocalDate.now());
-        NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE date = :date", TheraphySession.class);
-        query.setParameter("date", date);
-        List<TheraphySession> list = query.getResultList();
-        return list.isEmpty()? "0" : (list.size() < 10)? "0" + list.size() : Integer.toString(list.size());
+        try {
+            session.beginTransaction();
+            String date = String.valueOf(LocalDate.now());
+            NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE date = :date", TheraphySession.class);
+            query.setParameter("date", date);
+            List<TheraphySession> list = query.getResultList();
+            return list.isEmpty()? "0" : (list.size() < 10)? "0" + list.size() : Integer.toString(list.size());
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override
     public ArrayList<DashTherapistTm> selectTherapistAndSessionCount() {
         Session session = FactoryConfig.factoryCongig.getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        // Native SQL query
-        NativeQuery<Object[]> query = session.createNativeQuery(
-                "SELECT therapist_Id, COUNT(session_Id) AS session_count " +
-                        "FROM TheraphySession GROUP BY therapist_Id ORDER BY session_count DESC LIMIT 3"
-        );
-
-        List<Object[]> results = query.getResultList();
-        ArrayList<DashTherapistTm> therapistTms = new ArrayList<>();
-
-        for (Object[] row : results) {
-            String therapistId = (String) row[0];
-            Long sessionCount = ((Number) row[1]).longValue();
-
-            Therapist therapist = session.get(Therapist.class, therapistId);
-
-            DashTherapistTm tm = new DashTherapistTm(
-                    therapist.getName(),
-                    sessionCount.intValue()
+            // Native SQL query
+            NativeQuery<Object[]> query = session.createNativeQuery(
+                    "SELECT therapist_Id, COUNT(session_Id) AS session_count " +
+                            "FROM TheraphySession GROUP BY therapist_Id ORDER BY session_count DESC LIMIT 3"
             );
 
-            therapistTms.add(tm);
-        }
+            List<Object[]> results = query.getResultList();
+            ArrayList<DashTherapistTm> therapistTms = new ArrayList<>();
 
-        session.getTransaction().commit();
-        session.close();
-        return therapistTms;
+            for (Object[] row : results) {
+                String therapistId = (String) row[0];
+                Long sessionCount = ((Number) row[1]).longValue();
+
+                Therapist therapist = session.get(Therapist.class, therapistId);
+
+                DashTherapistTm tm = new DashTherapistTm(
+                        therapist.getName(),
+                        sessionCount.intValue()
+                );
+
+                therapistTms.add(tm);
+            }
+
+            return therapistTms;
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
 
     @Override
     public boolean save(TheraphySession dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.persist(dto);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            session.persist(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
         return true;
     }
 
     @Override
     public boolean update(TheraphySession dto) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        session.merge(dto);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            session.merge(dto);
+        }finally {
+            session.getTransaction().commit();
+            session.close();
+        }
         return true;
     }
 
@@ -130,30 +154,37 @@ public class SessionDAOImpl implements SessionDAO {
     @Override
     public boolean delete(String id) {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        TheraphySession theraphySession = session.get(TheraphySession.class, id);
+        try{
+            session.beginTransaction();
+            TheraphySession theraphySession = session.get(TheraphySession.class, id);
 
-        if(theraphySession != null){
-            session.remove(theraphySession);
+            if(theraphySession != null){
+                session.remove(theraphySession);
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
-
-        session.getTransaction().commit();
-        session.close();
         return true;
     }
 
     @Override
     public String generateNewId() {
         Session session = FactoryConfig.getInstance().getSession();
-        session.beginTransaction();
-        NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession ORDER BY session_Id DESC LIMIT 1", TheraphySession.class);
-        List<TheraphySession> list = query.getResultList();
-        if(!list.isEmpty()){
-            String last_Id = list.getFirst().getSession_Id(); //S001
-            String sub = last_Id.substring(1); //001
-            int i = Integer.parseInt(sub); //1
-            i = i + 1;
-            return String.format("S%03d", i);
+        try {
+            session.beginTransaction();
+            NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession ORDER BY session_Id DESC LIMIT 1", TheraphySession.class);
+            List<TheraphySession> list = query.getResultList();
+            if(!list.isEmpty()){
+                String last_Id = list.getFirst().getSession_Id(); //S001
+                String sub = last_Id.substring(1); //001
+                int i = Integer.parseInt(sub); //1
+                i = i + 1;
+                return String.format("S%03d", i);
+            }
+        }finally {
+            session.getTransaction().commit();
+            session.close();
         }
         return "S001";
     }
