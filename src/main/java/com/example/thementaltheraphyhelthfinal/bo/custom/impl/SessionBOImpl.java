@@ -9,6 +9,7 @@ import com.example.thementaltheraphyhelthfinal.dao.custom.TheraphyProgramDAO;
 import com.example.thementaltheraphyhelthfinal.dto.PatientDto;
 import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
+import com.example.thementaltheraphyhelthfinal.dto.tm.DashTherapistTm;
 import com.example.thementaltheraphyhelthfinal.entities.Patient;
 import com.example.thementaltheraphyhelthfinal.entities.TheraphySession;
 import com.example.thementaltheraphyhelthfinal.entities.TherapyProgram;
@@ -129,5 +130,15 @@ public class SessionBOImpl implements SessionBO {
                 theraphySessionDto.getTherapist_Id()
         );
         return sessionDAO.update(theraphySession);
+    }
+
+    @Override
+    public String getTodaySessionsBooked() {
+        return sessionDAO.getTodaySessionsBooked();
+    }
+
+    @Override
+    public ArrayList<DashTherapistTm> selectTherapistAndSessionCount() {
+        return sessionDAO.selectTherapistAndSessionCount();
     }
 }

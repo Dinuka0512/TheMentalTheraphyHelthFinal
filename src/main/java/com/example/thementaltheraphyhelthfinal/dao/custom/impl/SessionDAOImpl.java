@@ -3,11 +3,14 @@ package com.example.thementaltheraphyhelthfinal.dao.custom.impl;
 import com.example.thementaltheraphyhelthfinal.config.FactoryConfig;
 import com.example.thementaltheraphyhelthfinal.dao.custom.SessionDAO;
 import com.example.thementaltheraphyhelthfinal.dto.TherapyProgramDto;
+import com.example.thementaltheraphyhelthfinal.dto.tm.DashTherapistTm;
 import com.example.thementaltheraphyhelthfinal.entities.TheraphySession;
+import com.example.thementaltheraphyhelthfinal.entities.Therapist;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,51 @@ public class SessionDAOImpl implements SessionDAO {
 
         return null;
     }
+
+    @Override
+    public String getTodaySessionsBooked() {
+        Session session = FactoryConfig.factoryCongig.getSession();
+        session.beginTransaction();
+        String date = String.valueOf(LocalDate.now());
+        NativeQuery<TheraphySession> query = session.createNativeQuery("SELECT * FROM TheraphySession WHERE date = :date", TheraphySession.class);
+        query.setParameter("date", date);
+        List<TheraphySession> list = query.getResultList();
+        return list.isEmpty()? "0" : (list.size() < 10)? "0" + list.size() : Integer.toString(list.size());
+    }
+
+    @Override
+    public ArrayList<DashTherapistTm> selectTherapistAndSessionCount() {
+        Session session = FactoryConfig.factoryCongig.getSession();
+        session.beginTransaction();
+
+        // Native SQL query
+        NativeQuery<Object[]> query = session.createNativeQuery(
+                "SELECT therapist_Id, COUNT(session_Id) AS session_count " +
+                        "FROM TheraphySession GROUP BY therapist_Id ORDER BY session_count DESC LIMIT 3"
+        );
+
+        List<Object[]> results = query.getResultList();
+        ArrayList<DashTherapistTm> therapistTms = new ArrayList<>();
+
+        for (Object[] row : results) {
+            String therapistId = (String) row[0];
+            Long sessionCount = ((Number) row[1]).longValue();
+
+            Therapist therapist = session.get(Therapist.class, therapistId);
+
+            DashTherapistTm tm = new DashTherapistTm(
+                    therapist.getName(),
+                    sessionCount.intValue()
+            );
+
+            therapistTms.add(tm);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+        return therapistTms;
+    }
+
 
     @Override
     public boolean save(TheraphySession dto) {

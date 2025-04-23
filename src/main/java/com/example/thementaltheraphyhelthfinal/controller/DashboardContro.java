@@ -6,6 +6,7 @@ import com.example.thementaltheraphyhelthfinal.bo.custom.SessionBO;
 import com.example.thementaltheraphyhelthfinal.dto.PaymentDto;
 import com.example.thementaltheraphyhelthfinal.dto.TheraphySessionDto;
 import com.example.thementaltheraphyhelthfinal.dto.UserDto;
+import com.example.thementaltheraphyhelthfinal.dto.tm.DashTherapistTm;
 import com.example.thementaltheraphyhelthfinal.entities.Payment;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +68,25 @@ public class DashboardContro implements Initializable {
     @FXML
     private Label lblTdyIncome;
 
+    @FXML
+    private Label lblTdyBookedSession;
+    @FXML
+    private Label lblTCount1;
+
+    @FXML
+    private Label lblTCount2;
+
+    @FXML
+    private Label lblTCount3;
+
+    @FXML
+    private Label lblTName3;
+
+    @FXML
+    private Label lblTName1;
+
+    @FXML
+    private Label lblTName2;
 
     @FXML
     private LineChart<String, Number> barchart;
@@ -83,6 +103,23 @@ public class DashboardContro implements Initializable {
         loadBarchart1();
 
         getTotalIncome();
+        getTotalSessionsToday();
+        therapistRanking();
+    }
+
+    private void therapistRanking() {
+        ArrayList<DashTherapistTm> therapistTms = sessionBO.selectTherapistAndSessionCount();
+        lblTName1.setText(therapistTms.get(0).getTherapistName());
+        lblTName2.setText(therapistTms.get(1).getTherapistName());
+        lblTName3.setText(therapistTms.get(2).getTherapistName());
+
+        lblTCount1.setText(Integer.toString(therapistTms.get(0).getSessionCount()));
+        lblTCount2.setText(Integer.toString(therapistTms.get(1).getSessionCount()));
+        lblTCount3.setText(Integer.toString(therapistTms.get(2).getSessionCount()));
+    }
+
+    private void getTotalSessionsToday() {
+        lblTdyBookedSession.setText(sessionBO.getTodaySessionsBooked());
     }
 
     private void getTotalIncome() {
